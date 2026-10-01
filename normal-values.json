@@ -1,0 +1,44 @@
+{
+  "name": "Reasoning Lab Peds normal values",
+  "version": "0.1",
+  "created": "2026-10-01",
+  "provenance": "Built after 30 April 2026. No text from the disclosed 30 April 2026 cases or templates.",
+  "age_band": { "label": "10 months", "range_months": [9, 12], "note": "One band for now, matched to Megan Morris. Add bands as cases need them." },
+  "how_to_use": "Entries with status 'authored' are descriptive normal findings written for this platform and shown to learners. Entries with status 'needs-source' hold no numbers and are not shown. Numeric reference ranges are added only after they are checked against a retrieved source, then status becomes 'verified' and source fields are filled. A case's own abnormal values always override anything here.",
+  "status_key": {
+    "authored": "Descriptive normal written for the platform. Not a numeric claim. Tag AUTHORED.",
+    "needs-source": "Numbers wanted, none verified yet. Not displayed.",
+    "verified": "Value checked against a retrieved source and cited in 'source'."
+  },
+  "candidate_sources": [
+    { "use": "Pediatric chemistry reference intervals by age (CALIPER)", "doi": "https://doi.org/10.2478/jomb-2014-0063", "pmid": "28356820", "note": "Overview of the CALIPER program. Confirms age-partitioned intervals exist and that they are platform dependent. It does not itself list the 9 to 12 month values. Age-band tables are in the primary CALIPER papers." },
+    { "use": "Heart rate and respiratory rate centiles by age", "doi": "https://doi.org/10.1016/S0140-6736(10)62226-X", "pmid": "", "note": "Fleming et al., Lancet 2011. Retrieved text gave overall medians only. Age-band centiles sit in tables and figures not yet read." }
+  ],
+  "exam_normals": [
+    { "id": "msk", "title": "Musculoskeletal and joints", "keys": ["musculoskeletal","msk","joints","joint","range of motion","rom","limb","limbs","swelling of joints"], "lines": ["Moves all four limbs equally. No joint swelling, warmth, or tenderness. Full passive range of motion."], "status": "authored", "tag": "AUTHORED" },
+    { "id": "hips", "title": "Hips", "keys": ["hips","hip","hip exam","barlow","ortolani"], "lines": ["Hips stable with symmetric abduction. No click or clunk."], "status": "authored", "tag": "AUTHORED" },
+    { "id": "spine", "title": "Back and spine", "keys": ["back","spine","sacral","sacrum","spinal"], "lines": ["Spine straight. No sacral dimple, tuft, or midline tenderness."], "status": "authored", "tag": "AUTHORED" },
+    { "id": "head", "title": "Head", "keys": ["head","scalp","skull","head shape","head circumference"], "lines": ["Normocephalic, atraumatic. No scalp swelling."], "status": "authored", "tag": "AUTHORED" },
+    { "id": "rectal", "title": "Anus and perianal area", "keys": ["anus","anal","perianal","rectal exam"], "lines": ["Anus patent and normally positioned. No fissure, no perianal rash."], "status": "authored", "tag": "AUTHORED" },
+    { "id": "development", "title": "Development", "keys": ["development","developmental","milestones","sits","crawls","babbles","social smile"], "lines": ["Sits without support, babbles, reaches for objects. Appropriate for age."], "status": "authored", "tag": "AUTHORED" },
+    { "id": "reflexes", "title": "Reflexes", "keys": ["reflexes","reflex","dtr","deep tendon reflexes"], "lines": ["Symmetric and age appropriate."], "status": "authored", "tag": "AUTHORED" },
+    { "id": "umbilicus", "title": "Umbilicus", "keys": ["umbilicus","umbilical","navel","hernia"], "lines": ["Healed. No erythema, discharge, or hernia."], "status": "authored", "tag": "AUTHORED" }
+  ],
+  "test_reference_ranges": [
+    { "id": "vitals_hr", "name": "Heart rate", "unit": "beats/min", "low": null, "high": null, "status": "needs-source", "wanted_from": "Fleming 2011 age-band table" },
+    { "id": "vitals_rr", "name": "Respiratory rate", "unit": "breaths/min", "low": null, "high": null, "status": "needs-source", "wanted_from": "Fleming 2011 age-band table" },
+    { "id": "bp", "name": "Blood pressure", "unit": "mmHg", "low": null, "high": null, "status": "needs-source", "wanted_from": "pediatric BP guideline" },
+    { "id": "wbc", "name": "WBC", "unit": "K/uL", "low": null, "high": null, "status": "needs-source", "wanted_from": "CALIPER hematology" },
+    { "id": "hgb", "name": "Hemoglobin", "unit": "g/dL", "low": null, "high": null, "status": "needs-source", "wanted_from": "CALIPER hematology" },
+    { "id": "plt", "name": "Platelets", "unit": "K/uL", "low": null, "high": null, "status": "needs-source", "wanted_from": "CALIPER hematology" },
+    { "id": "na", "name": "Sodium", "unit": "mmol/L", "low": null, "high": null, "status": "needs-source", "wanted_from": "CALIPER biochemistry" },
+    { "id": "k", "name": "Potassium", "unit": "mmol/L", "low": null, "high": null, "status": "needs-source", "wanted_from": "CALIPER biochemistry" },
+    { "id": "hco3", "name": "Bicarbonate", "unit": "mmol/L", "low": null, "high": null, "status": "needs-source", "wanted_from": "CALIPER biochemistry" },
+    { "id": "creat", "name": "Creatinine", "unit": "mg/dL", "low": null, "high": null, "status": "needs-source", "wanted_from": "CALIPER biochemistry" },
+    { "id": "csf", "name": "CSF cell count, protein, glucose", "unit": "various", "low": null, "high": null, "status": "needs-source", "wanted_from": "infant CSF reference paper" },
+    { "id": "crp", "name": "CRP", "unit": "mg/dL", "low": null, "high": null, "status": "needs-source", "wanted_from": "CALIPER biochemistry" },
+    { "id": "pct", "name": "Procalcitonin", "unit": "ng/mL", "low": null, "high": null, "status": "needs-source", "wanted_from": "none retrieved" },
+    { "id": "lactate", "name": "Lactate", "unit": "mmol/L", "low": null, "high": null, "status": "needs-source", "wanted_from": "none retrieved" },
+    { "id": "esr", "name": "ESR", "unit": "mm/hr", "low": null, "high": null, "status": "needs-source", "wanted_from": "none retrieved" }
+  ]
+}

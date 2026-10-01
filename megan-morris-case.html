@@ -61,6 +61,11 @@ input::placeholder{color:var(--muted)}
 .btn.small{height:44px;padding:0 16px;font-size:14px;background:transparent;color:var(--red-deep);border:1px solid var(--red)}
 .btn.next{align-self:flex-start}
 .linkbtn{display:inline-block;align-self:flex-start;padding:14px 26px;border-radius:10px;background:var(--btn);color:var(--on-btn);font-weight:600;text-decoration:none}
+.ac{position:relative;flex:1 1 16rem;min-width:0}
+.ac input{width:100%}
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:5;list-style:none;margin:0;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,.14);max-height:264px;overflow-y:auto}
+.sugg li{padding:9px 12px;border-radius:8px;cursor:pointer;font-size:15px}
+.sugg li[aria-selected=true],.sugg li:hover{background:var(--tint)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .chat{display:flex;flex-direction:column;gap:10px;max-height:420px;overflow-y:auto;padding:4px}
 .msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -110,7 +115,7 @@ input::placeholder{color:var(--muted)}
     <div class="body">
       <form id="form1">
         <label for="q1" style="position:absolute;left:-9999px">Examination</label>
-        <input id="q1" type="text" autocomplete="off" placeholder="Type a part of the exam or a finding you want to check">
+        <div class="ac"><input id="q1" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sug1" placeholder="Type a part of the exam or a finding you want to check"><ul class="sugg" id="sug1" role="listbox" hidden></ul></div>
         <button class="btn" type="submit">Go</button>
       </form>
       <div class="empty" id="empty1">Exam findings will appear here.</div>
@@ -124,7 +129,7 @@ input::placeholder{color:var(--muted)}
     <div class="body" id="body2" hidden>
       <form id="form2">
         <label for="q2" style="position:absolute;left:-9999px">Diagnostic test</label>
-        <input id="q2" type="text" autocomplete="off" placeholder="Type a diagnostic test you want, or write none">
+        <div class="ac"><input id="q2" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sug2" placeholder="Type a diagnostic test you want, or write none"><ul class="sugg" id="sug2" role="listbox" hidden></ul></div>
         <button class="btn" type="submit">Go</button>
       </form>
       <div class="empty" id="empty2">Results will appear here.</div>
@@ -198,6 +203,21 @@ input::placeholder{color:var(--muted)}
     { id: 'suscept', tag: 'Test', title: 'Susceptibilities', keys: ['susceptibility','susceptibilities','sensitivity','sensitivities'], lines: ['Pending.'] }
   ];
   var feeds = { 1: [], 2: [] };
+  // Normal findings for exam systems the case does not author. Case entries always win.
+  var NORMAL_FALLBACK = [{"id": "msk", "title": "Musculoskeletal and joints", "keys": ["musculoskeletal", "msk", "joints", "joint", "range of motion", "rom", "limb", "limbs", "swelling of joints"], "lines": ["Moves all four limbs equally. No joint swelling, warmth, or tenderness. Full passive range of motion."]}, {"id": "hips", "title": "Hips", "keys": ["hips", "hip", "hip exam", "barlow", "ortolani"], "lines": ["Hips stable with symmetric abduction. No click or clunk."]}, {"id": "spine", "title": "Back and spine", "keys": ["back", "spine", "sacral", "sacrum", "spinal"], "lines": ["Spine straight. No sacral dimple, tuft, or midline tenderness."]}, {"id": "head", "title": "Head", "keys": ["head", "scalp", "skull", "head shape", "head circumference"], "lines": ["Normocephalic, atraumatic. No scalp swelling."]}, {"id": "rectal", "title": "Anus and perianal area", "keys": ["anus", "anal", "perianal", "rectal exam"], "lines": ["Anus patent and normally positioned. No fissure, no perianal rash."]}, {"id": "development", "title": "Development", "keys": ["development", "developmental", "milestones", "sits", "crawls", "babbles", "social smile"], "lines": ["Sits without support, babbles, reaches for objects. Appropriate for age."]}, {"id": "reflexes", "title": "Reflexes", "keys": ["reflexes", "reflex", "dtr", "deep tendon reflexes"], "lines": ["Symmetric and age appropriate."]}, {"id": "umbilicus", "title": "Umbilicus", "keys": ["umbilicus", "umbilical", "navel", "hernia"], "lines": ["Healed. No erythema, discharge, or hernia."]}];
+  function mergeNormals(list) {
+    (list || []).forEach(function (n) {
+      if (!n || !n.id || !n.lines || !n.lines.length) return;
+      if (n.status && n.status !== 'authored' && n.status !== 'verified') return;
+      if (ENTRIES.some(function (x) { return x.id === n.id; })) return;
+      var taken = {};
+      ENTRIES.forEach(function (x) { x.keys.forEach(function (k) { taken[k] = 1; }); });
+      var keys = (n.keys || []).filter(function (k) { return !taken[k]; });
+      ENTRIES.push({ id: n.id, tag: 'Exam', title: n.title, keys: keys, lines: n.lines });
+      if (addTerm) { addTerm(1, n.title); keys.forEach(function (k) { if (k.length >= 4) addTerm(1, k); }); }
+    });
+  }
+
 
   // scope 1 = exam, scope 2 = tests
   function buildItems(q, scope) {
@@ -208,7 +228,7 @@ input::placeholder{color:var(--muted)}
     w = w.replace(/blood cultures?/g, ' ').replace(/ bcx /g, ' ');
     var hasUA = has('urinalysis') || has('ua') || has('dipstick');
     var hasGram = has('gram stain') || has('gram');
-    var hasCx = has('culture');
+    var hasCx = has('culture') && !(hasUA && /reflex/.test(w));
     var hasUrine = has('urine');
     if (hasUA || hasGram || hasCx || hasUrine) {
       var comps = [];
@@ -216,13 +236,14 @@ input::placeholder{color:var(--muted)}
       if (hasGram) comps.push('gram');
       if (hasCx) comps.push('cx');
       if (!comps.length) { comps.push('ua'); }
-      var cath = /\bcath/.test(w), bag = /\bbag/.test(w), spa = /aspirat/.test(w);
-      if (!cath && !bag && !spa) items.push({ type: 'needmethod' });
+      var cath = /\bcath/.test(w), bag = /\bbag/.test(w), spa = /aspirat/.test(w), clean = /clean ?catch|midstream|mid-stream/.test(w);
+      if (!cath && !bag && !spa && !clean) items.push({ type: 'needmethod' });
       else {
         var methods = [];
         if (cath) methods.push('cath');
         if (bag) methods.push('bag');
         if (spa) methods.push('spa');
+        if (clean) methods.push('clean');
         methods.forEach(function (m) { comps.forEach(function (c) { items.push({ type: 'urine', method: m, comp: c, stage: 0 }); }); });
       }
     }
@@ -253,6 +274,11 @@ input::placeholder{color:var(--muted)}
     if (item.type === 'needmethod') { out.title = 'Urine specimen method needed'; out.lines = ['Name how the urine was collected, then order again.']; return out; }
     if (item.type === 'which') { out.title = 'Which part of the exam?'; out.kind = 'exam'; out.tag = 'Exam'; out.lines = ['Name the part of the exam you want to do.']; return out; }
     if (item.type === 'none') { out.title = 'No result'; out.kind = 'none'; out.tag = 'Not found'; out.lines = ['That request is not part of this case, or was not recognized. Try different wording.']; return out; }
+    if (item.method === 'clean') {
+      out.title = { ua: 'Urinalysis', gram: 'Urine Gram stain', cx: 'Urine culture' }[item.comp] + ' · clean catch';
+      out.lines = ['Attempted. Unable to obtain a clean-catch specimen.'];
+      return out;
+    }
     var mName = { cath: 'catheter specimen', bag: 'bag specimen', spa: 'suprapubic aspiration' }[item.method];
     var cName = { ua: 'Urinalysis with reflex culture', gram: 'Urine Gram stain', cx: 'Urine culture' }[item.comp];
     out.title = cName + ' · ' + mName;
@@ -311,6 +337,64 @@ input::placeholder{color:var(--muted)}
   $('next1').addEventListener('click', function () { unlock(2); });
   $('next2').addEventListener('click', function () { unlock(3); });
   renderFeed(1); renderFeed(2);
+
+
+  // Autocomplete for the exam and test fields
+  var TERMS = { 1: [], 2: [] };
+  var addTerm;
+  (function () {
+    var seen = { 1: {}, 2: {} };
+    function add(sc, t) { var k = t.toLowerCase(); if (seen[sc][k]) return; seen[sc][k] = 1; TERMS[sc].push(t.charAt(0).toUpperCase() + t.slice(1)); }
+    addTerm = add;
+    ENTRIES.forEach(function (e) {
+      var sc = e.tag === 'Exam' ? 1 : 2;
+      add(sc, e.title);
+      e.keys.forEach(function (k) { if (k.length >= 4) add(sc, k); });
+    });
+    ['Urinalysis with reflex culture', 'Urine culture', 'Urine Gram stain', 'None'].forEach(function (t) { add(2, t); });
+  })();
+  mergeNormals(NORMAL_FALLBACK);
+  try {
+    fetch('normal-values.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { if (d) mergeNormals(d.exam_normals); }).catch(function () {});
+  } catch (e) {}
+  function attachAC(scope) {
+    var inp = $('q' + scope), list = $('sug' + scope), active = -1, shown = [];
+    function close() { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); active = -1; }
+    function pick(t) { inp.value = t; close(); inp.focus(); }
+    function paint() {
+      list.textContent = '';
+      shown.forEach(function (t, i) {
+        var li = el('li', null, t); li.setAttribute('role', 'option'); li.setAttribute('aria-selected', i === active ? 'true' : 'false');
+        li.addEventListener('mousedown', function (e) { e.preventDefault(); pick(t); });
+        list.appendChild(li);
+      });
+    }
+    function update() {
+      var q = inp.value.trim().toLowerCase();
+      if (!q) { close(); return; }
+      var starts = [], inside = [];
+      TERMS[scope].forEach(function (t) {
+        var l = t.toLowerCase();
+        if (l.indexOf(q) === 0) starts.push(t);
+        else if (l.indexOf(' ' + q) >= 0 || l.indexOf(',' + q) >= 0 || l.indexOf('-' + q) >= 0) inside.push(t);
+      });
+      shown = starts.concat(inside).slice(0, 7); active = -1;
+      if (!shown.length) { close(); return; }
+      paint(); list.hidden = false; inp.setAttribute('aria-expanded', 'true');
+    }
+    inp.addEventListener('input', update);
+    inp.addEventListener('blur', function () { setTimeout(close, 120); });
+    inp.addEventListener('keydown', function (e) {
+      if (list.hidden) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); active = (active + 1) % shown.length; paint(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); active = (active - 1 + shown.length) % shown.length; paint(); }
+      else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); pick(shown[active]); }
+      else if (e.key === 'Escape') { close(); }
+    });
+    inp.closest('form').addEventListener('submit', close);
+  }
+  attachAC(1); attachAC(2);
 
   // Conversation with Dr. Calloway
   var AGENT = 'agent_7901m3st7y67e1cthnm9awgycgfh';
