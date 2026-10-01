@@ -32,10 +32,10 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16p
 .bar{display:flex;height:4px}.bar i{display:block}
 .bar i:nth-child(1){flex:4;background:#B31B1B}.bar i:nth-child(2){flex:1;background:#CF4520}.bar i:nth-child(3){flex:1;background:#E7751D}.bar i:nth-child(4){flex:1;background:#FFC72C}
 .wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:28px 120px;display:flex;flex-direction:column;gap:24px}
-.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{font-family:var(--display);font-size:22px;font-weight:600}
 .brand span{color:var(--red);font-weight:500}
-.pill{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:var(--on-gold);padding:4px 10px;border-radius:999px}
+.pill{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:#FFF3C4;color:#1A1717;padding:4px 10px;border-radius:999px}
 .kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
 h1{margin:6px 0 10px;font-family:var(--display);font-size:clamp(2rem,5vw,2.75rem);font-weight:500;line-height:1.1}
 .lede{margin:0;color:var(--muted);font-size:1.0625rem;max-width:42rem}
@@ -61,6 +61,12 @@ input::placeholder{color:var(--muted)}
 .btn.small{height:44px;padding:0 16px;font-size:14px;background:transparent;color:var(--red-deep);border:1px solid var(--red)}
 .btn.next{align-self:flex-start}
 .linkbtn{display:inline-block;align-self:flex-start;padding:14px 26px;border-radius:10px;background:var(--btn);color:var(--on-btn);font-weight:600;text-decoration:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chat{display:flex;flex-direction:column;gap:10px;max-height:420px;overflow-y:auto;padding:4px}
+.msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.ai{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.msg.me{align-self:flex-end;background:var(--tint);color:var(--ink)}
+.msg small{display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
 .empty{border:1px dashed var(--line);border-radius:12px;padding:18px;color:var(--muted);font-size:15px}
 .feed{display:flex;flex-direction:column;gap:18px}
 .ask{font-size:13px;color:var(--muted);margin-bottom:8px}
@@ -81,7 +87,7 @@ input::placeholder{color:var(--muted)}
 <div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
   <header>
-    <div class="top"><div class="brand">Reasoning Lab <span>· Peds</span></div><div class="pill">Working prototype</div></div>
+    <div class="top"><div class="brand">Reasoning Lab <span>· Peds</span></div><div class="pill">Prototype</div></div>
     <div class="kicker" style="margin-top:22px">Office visit · 10 months · MS3</div>
     <h1>Megan Morris</h1>
     <p class="lede">You spoke with Corey Morris by phone about Megan, who has had four days of fever. Corey has now brought her into the office, and Megan is the same as when you spoke. Work through the three steps in order.</p>
@@ -131,14 +137,23 @@ input::placeholder{color:var(--muted)}
     <div class="shead"><div class="num">3</div><div><h2 id="h3s">Talk it through with Dr. Calloway</h2><p class="sub" id="sub3">Opens after the tests.</p></div></div>
     <div class="body" id="body3" hidden>
       <p class="muted">Dr. Calloway did not see Megan. Bring what you found. This is a conversation only; there is no score or feedback.</p>
-      <a class="linkbtn" href="https://elevenlabs.io/app/talk-to?agent_id=agent_7901m3st7y67e1cthnm9awgycgfh" target="_blank" rel="noopener">Start the conversation</a>
-      <p class="muted" style="font-size:14px">The conversation opens in a new tab. If a conversation button also appears at the lower right of this page, you can use that instead.</p>
+      <div class="row" id="startrow">
+        <button class="btn" id="startVoice" type="button">Start talking</button>
+        <button class="btn small" id="startText" type="button">Type instead</button>
+      </div>
+      <p class="muted" id="status" role="status" hidden></p>
+      <div class="chat" id="chat" aria-live="polite" hidden></div>
+      <form id="chatform" hidden>
+        <label for="q3" style="position:absolute;left:-9999px">Message to Dr. Calloway</label>
+        <input id="q3" type="text" autocomplete="off" placeholder="Type a message to Dr. Calloway">
+        <button class="btn" type="submit">Send</button>
+      </form>
+      <div class="row"><button class="btn small" id="endBtn" type="button" hidden>End conversation</button></div>
+      <p class="muted" id="convErr" hidden></p>
     </div>
   </section>
 </div>
 
-<elevenlabs-convai agent-id="agent_7901m3st7y67e1cthnm9awgycgfh"></elevenlabs-convai>
-<script src="https://unpkg.com/@elevenlabs/convai-widget-embed@0.18.3" async type="text/javascript"></script>
 
 
 <script>
@@ -296,6 +311,54 @@ input::placeholder{color:var(--muted)}
   $('next1').addEventListener('click', function () { unlock(2); });
   $('next2').addEventListener('click', function () { unlock(3); });
   renderFeed(1); renderFeed(2);
+
+  // Conversation with Dr. Calloway
+  var AGENT = 'agent_7901m3st7y67e1cthnm9awgycgfh';
+  var LIB = 'https://cdn.jsdelivr.net/npm/@elevenlabs/client@1.26.0/+esm';
+  var conv = null, ending = false, lastTyped = null;
+  function setStatus(t) { var n = $('status'); n.textContent = t || ''; n.hidden = !t; }
+  function addMsg(who, text) {
+    var chat = $('chat'); chat.hidden = false;
+    var m = el('div', 'msg ' + (who === 'me' ? 'me' : 'ai'));
+    m.appendChild(el('small', null, who === 'me' ? 'You' : 'Dr. Calloway'));
+    m.appendChild(document.createTextNode(text));
+    chat.appendChild(m); chat.scrollTop = chat.scrollHeight;
+  }
+  function showErr(t) { var n = $('convErr'); n.textContent = ''; n.appendChild(document.createTextNode(t + ' ')); var a = el('a', null, 'Open the conversation in a new tab.'); a.href = 'https://elevenlabs.io/app/talk-to?agent_id=' + AGENT; a.target = '_blank'; a.rel = 'noopener'; n.appendChild(a); n.hidden = false; }
+  function reset() { conv = null; $('chatform').hidden = true; $('endBtn').hidden = true; $('startrow').hidden = false; $('startVoice').textContent = 'Start again'; }
+  async function startConv(mode) {
+    $('convErr').hidden = true; $('startrow').hidden = true; setStatus('Connecting to Dr. Calloway.'); ending = false;
+    try {
+      var mod = await import(LIB);
+      conv = await mod.Conversation.startSession({
+        agentId: AGENT,
+        connectionType: mode === 'text' ? 'websocket' : 'webrtc',
+        textOnly: mode === 'text',
+        onConnect: function () { setStatus(mode === 'text' ? 'Connected. Type your reply.' : 'Connected. Speak when Dr. Calloway finishes.'); $('chatform').hidden = false; $('endBtn').hidden = false; },
+        onMessage: function (p) {
+          if (!p || !p.message) return;
+          if (p.source === 'user' && lastTyped && p.message.trim() === lastTyped) { lastTyped = null; return; }
+          addMsg(p.source === 'user' ? 'me' : 'ai', p.message);
+        },
+        onModeChange: function (p) { if (mode === 'voice') setStatus(p.mode === 'speaking' ? 'Dr. Calloway is speaking.' : 'Listening.'); },
+        onError: function () { if (!ending) showErr('Something went wrong with the conversation.'); },
+        onDisconnect: function () { setStatus(ending ? 'Conversation ended.' : 'The conversation ended.'); reset(); }
+      });
+    } catch (e) {
+      setStatus('');
+      showErr(mode === 'text' ? 'The conversation could not start. Check your connection.' : 'The conversation could not start. Check your microphone permission and connection, or type instead.');
+      reset();
+    }
+  }
+  $('startVoice').addEventListener('click', function () { startConv('voice'); });
+  $('startText').addEventListener('click', function () { startConv('text'); });
+  $('endBtn').addEventListener('click', function () { ending = true; if (conv) { conv.endSession(); } });
+  $('chatform').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var inp = $('q3'), t = inp.value.trim();
+    if (!t || !conv) return;
+    lastTyped = t; conv.sendUserMessage(t); addMsg('me', t); inp.value = '';
+  });
 })();
 </script>
 </body>
