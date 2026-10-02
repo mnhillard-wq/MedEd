@@ -1,0 +1,122 @@
+KAYLA NOVAK, FIND WHAT'S MISSING: STEP 4 FINAL NOTE RUBRIC (v0.1 draft)
+Activity type: Patient Note (written assessment and plan)
+Scale: three levels (Demonstrated / Partially demonstrated / Not demonstrated)
+Evidence source: the written note only. Credit what the learner wrote. Do not credit reasoning shown elsewhere and do not credit a finding because it appears in the case materials.
+Configuration: no released diagnostic data, so eight registry criteria are extended to nine here. History 15, Physical Exam 15, Assessment 50, Plan 20.
+Status: draft, not faculty-reviewed. Change 30 Sep 2026: weight gain removed from the module; Criterion 2 now has three new items. Criterion 8 Partial trigger now covers a correct sequence without formal visual fields. Case facts are from Case Design Notes v1 (22 Sep 2026).
+
+Learner instruction this rubric is built on: "Write your assessment and plan. Name your leading diagnosis and the one you cannot afford to miss, say what changed from your checkpoint, and list your next steps. You may copy and paste or summarize the history obtained from the resident in the appropriate sections directly from the chart."
+
+GENERAL CREDITING RULES
+- Copying or summarizing the resident's chart history into the note is allowed and counts as documentation. Do not reward or penalize it beyond Criterion 1.
+- Credit semantic equivalents and clinically appropriate variants. Do not require exact keywords.
+- The lowest level means absent or present but inaccurate.
+- The checkpoint text is not available to the grader. Score "what changed" only from what the note itself states.
+- Do not penalize the learner for results they never saw (imaging, lumbar puncture, final diagnosis).
+
+======================================================================
+SECTION: History
+======================================================================
+
+CRITERION 1 (weight 5): History: Cardinal features and timeline
+Demonstrated set: Records the raised-pressure headache pattern (worse in the morning and lying down, waking her from sleep, worse with Valsalva), the pulsatile whooshing, the left-gaze double vision, and the timeline, with the ibuprofen use (5 to 6 days a week for 5 weeks). Copied or summarized chart text meets this.
+Partial trigger: Records the headache but omits the whooshing or the double vision.
+Not demonstrated: Headache described without the raised-pressure features, or the features are recorded inaccurately.
+Stretch behavior: Notes the ibuprofen use as a possible contributor to the headache without treating it as the explanation.
+Examples that count:
+  - "Daily headache, worse on waking and when lying flat, worse with coughing."
+  - "Pulsatile whooshing in the ears and horizontal double vision on looking left."
+
+CRITERION 2 (weight 10): History: Newly obtained pertinent positives and risk context
+Demonstrated set: Records what the learner earned beyond the resident's chart: doxycycline taken twice daily since July for acne, brief episodes of vision greying out, and bumping into things.
+Partial trigger: Records at least one but not all three of the new items.
+Not demonstrated: Records none of the new items, or records them inaccurately (for example writing the greying out as dizziness).
+Stretch behavior: Records the combined oral contraceptive and the normal BMI alongside the new items as the risk context for both the leading diagnosis and the can't-miss.
+Examples that count:
+  - "On doxycycline 100 mg BID since July for acne."
+  - "Reports brief episodes of her vision greying out."
+  - "Reports bumping into objects, including a mirror and hallway walls."
+Note: the base case treats the dose as an open question. Accept "twice daily" without a strength.
+
+======================================================================
+SECTION: Physical Exam
+======================================================================
+
+CRITERION 3 (weight 15): Physical exam: Pertinent findings supporting the reasoning
+Demonstrated set: Documents bilateral papilledema, the left abduction deficit with diplopia on left gaze, and constricted visual fields worse on the left. Documenting acuity (20/20 right, 20/25 left) and pupils (no afferent defect) is expected but not required.
+Partial trigger: Documents the eye movement and field findings but omits the papilledema.
+Not demonstrated: No eye findings recorded, or the exam is recorded as normal.
+Stretch behavior: Records the absence of neck stiffness and the normal focal neuro exam as pertinent negatives, or notes that the abduction deficit is a false localizing sign.
+Examples that count:
+  - "Fundoscopy: bilateral papilledema, blurred disc margins, no spontaneous venous pulsations."
+  - "Mild left abduction deficit with diplopia on left gaze."
+  - "Confrontation fields constricted bilaterally, worse on the left."
+If the learner did not perform the eye exam in Step 3, this criterion is scored as written. The failure to examine is charged in Step 3, and the summary should say so and not repeat it.
+
+======================================================================
+SECTION: Assessment
+======================================================================
+
+CRITERION 4 (weight 10): Assessment: Problem representation
+Demonstrated set: A one- to two-sentence summary that integrates a 19-year-old woman with a subacute raised-pressure headache pattern, objective visual involvement (papilledema, abduction deficit, or field loss), and a triggering exposure or risk (doxycycline or the combined oral contraceptive).
+Partial trigger: Summarizes a headache syndrome with symptoms but omits the objective visual involvement.
+Not demonstrated: Restates the chief complaint or the resident's label ("tension headache") without synthesis.
+Stretch behavior: States the vision threat explicitly in the summary.
+Examples that count:
+  - "19-year-old woman on doxycycline with weeks of positional daily headache, transient visual obscurations, and bilateral papilledema with field constriction."
+
+CRITERION 5 (weight 10): Assessment: Leading diagnosis and its cause
+Demonstrated set: Names raised intracranial pressure most consistent with idiopathic intracranial hypertension or drug-induced intracranial hypertension, names doxycycline as the likely precipitant, and supports it with at least two findings from the record (for example papilledema, positional headache, whooshing, sixth nerve palsy, transient visual obscurations).
+Partial trigger: Names IIH or raised intracranial pressure but does not name doxycycline as a likely precipitant.
+Not demonstrated: Leading diagnosis is a primary headache disorder or medication-overuse headache, or no leading diagnosis is named.
+Stretch behavior: Notes that a normal BMI does not exclude the diagnosis, and that the drug association is an association, with cause not proven.
+Examples that count:
+  - "Most likely intracranial hypertension precipitated by doxycycline, given papilledema, positional headache, and pulsatile tinnitus."
+Accept "secondary intracranial hypertension" or "pseudotumor cerebri syndrome" as equivalents.
+
+CRITERION 6 (weight 10): Assessment: The diagnosis that cannot be missed
+Demonstrated set: Names cerebral venous sinus thrombosis as the diagnosis that cannot be missed and gives a reason drawn from the record (the combined oral contraceptive, the raised-pressure picture).
+Partial trigger: Names a different dangerous diagnosis as the can't-miss (for example a mass lesion) with a reason, or names cerebral venous sinus thrombosis without a reason from the record.
+Not demonstrated: Names no can't-miss diagnosis, or names one that the record does not support.
+Stretch behavior: Names both a mass lesion and cerebral venous sinus thrombosis and states that one imaging plan addresses both.
+Examples that count:
+  - "Cannot miss venous sinus thrombosis: she is on a combined oral contraceptive and has a raised-pressure picture."
+
+CRITERION 7 (weight 20): Assessment: What changed from the checkpoint
+Demonstrated set: States explicitly what changed since the checkpoint (the leading diagnosis, its ranking, the confidence, or the urgency) and ties the change to at least two specific new findings, saying what each did to the differential. Findings that count: doxycycline, transient visual obscurations, bumping into things, papilledema, abduction deficit, field constriction.
+Partial trigger: Lists new findings but does not say how they changed the diagnosis, ranking, confidence, or urgency; or ties the change to only one new finding.
+Not demonstrated: No statement of change, or a restatement of the checkpoint reasoning with no reference to new information. A statement that nothing changed is Demonstrated only if it says what the new findings confirmed and how they altered confidence or urgency.
+Stretch behavior: Names what remains uncertain and which result would change the diagnosis again.
+Examples that count:
+  - "At my checkpoint I favored a headache disorder. The doxycycline and the papilledema move raised pressure to first and raise urgency because of the field loss."
+  - "Unchanged leading diagnosis, but the field constriction changes the timeline from routine to same day."
+
+======================================================================
+SECTION: Plan
+======================================================================
+
+CRITERION 8 (weight 14): Plan: Prompt diagnostic evaluation
+Demonstrated set: Orders brain imaging with venous imaging (MR or CT venography) before lumbar puncture, plans lumbar puncture with opening pressure and cerebrospinal fluid studies after imaging, and requests formal visual field testing.
+Partial trigger: Plans brain imaging or lumbar puncture without venous imaging, or does not state that imaging comes first, or has the correct sequence but does not request formal visual field testing.
+Not demonstrated: No imaging or lumbar puncture planned, or lumbar puncture planned first without imaging.
+Stretch behavior: Adds optical coherence tomography or serial fundus photography for monitoring.
+Examples that count:
+  - "MRI brain with MR venogram today, then LP with opening pressure if imaging shows no thrombosis or mass."
+  - "Formal visual fields and same-day neuro-ophthalmology."
+
+CRITERION 9 (weight 6): Plan: Protecting vision and addressing the precipitant
+Demonstrated set: Addresses the doxycycline (stop or hold it, coordinated with the prescriber), and states that the problem is vision-threatening and needs urgent specialist eye evaluation.
+Partial trigger: Addresses the doxycycline but does not state urgency for the eyes, or the reverse.
+Not demonstrated: Continues the doxycycline unaddressed, or manages as a headache disorder with outpatient follow-up only.
+Stretch behavior: Reviews the ibuprofen use, and names the combined oral contraceptive as an item to revisit after the workup.
+Examples that count:
+  - "Hold doxycycline and discuss an alternative with dermatology. Urgent neuro-ophthalmology given field loss."
+
+======================================================================
+WEIGHTS
+======================================================================
+History 15 (Criteria 1 and 2)
+Physical Exam 15 (Criterion 3)
+Assessment 50 (Criteria 4 to 7)
+Plan 20 (Criteria 8 and 9)
+Total 100. History is the lowest-weighted section because history-taking is scored in Step 3. Within the Assessment section, Criterion 7 carries the most weight because the learner instruction asks for it and it is the novel-information criterion.

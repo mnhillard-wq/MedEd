@@ -1,0 +1,126 @@
+KAYLA NOVAK, FIND WHAT'S MISSING: STEP 3 REPEAT INTERVIEW RUBRIC (v0.1 draft)
+Activity type: History and Physical (history-taking with platform exam)
+Scale: three levels (Demonstrated / Partially demonstrated / Not demonstrated)
+Evidence source: the encounter transcript, including exam maneuvers the learner performs, orders, or states must be done
+Status: draft, not faculty-reviewed. Case facts are from Case Design Notes v1 (22 Sep 2026). Items marked [CHECK KB] need the base Knowledge Bank text before release.
+Change 30 Sep 2026: the weight gain (gap FWM3) was removed from the module, so the weight criterion is deleted, later criteria are renumbered, and the points are redistributed. Gap codes are not renumbered.
+
+GENERAL CREDITING RULES FOR EVERY CRITERION
+- Credit an item when the information emerged because of something the learner did: a direct question, an open question with a narrowing follow-up, noticing and pursuing something Kayla said, or creating safety that led Kayla to offer it.
+- If Kayla volunteers a listed finding without being asked, score that item Demonstrated unless the learner ignored or obstructed it.
+- If a learner asks several questions in one turn, credit only the parts Kayla answered.
+- Credit semantic equivalents and clinically appropriate variants. Do not require exact keywords.
+- Credit evident intent through speech recognition artifacts.
+- The lowest level means the element is absent or present but inaccurate.
+- Do not score the learner for re-asking, or for not re-asking, anything the inherited note already documents.
+
+======================================================================
+SECTION: History: Medication and Drug Exposure
+======================================================================
+
+CRITERION 1 (Tier 1, weight 24): Follows up on medications past the first answer and elicits the doxycycline
+Case gap: FWM1
+Demonstrated set: The learner asks a follow-up that reaches the doxycycline (a second medication question after the first answer, or a skin, acne, antibiotic, dermatologist, supplement, or daily-pill question) and Kayla's answer establishes that she takes doxycycline twice a day and started it in July.
+Partial trigger: Obtains that she takes an antibiotic or doxycycline but does not establish when she started it.
+Not demonstrated: Stops after the first general medication answer (the birth control, ibuprofen) or accepts the note's two-item medication list without a follow-up; or records the medication inaccurately.
+Stretch behavior (narrative feedback only): Asks when she started the doxycycline relative to when the headaches began, or asks about other acne treatments she has used.
+Examples that count (illustrations, not required phrasings):
+  - "Is there anything else you take, even things for your skin?"
+  - "Are you on any antibiotics or anything from a dermatologist?"
+  - "You mentioned the birth control. Anything else, like a pill you take every day?"
+  - "When did you start the doxycycline?"
+Note: the exact strength is a deliberate unknown in the base case. Do not require the dose.
+
+======================================================================
+SECTION: History: Visual Symptoms
+======================================================================
+
+CRITERION 2 (Tier 1, weight 16): Elicits the transient visual obscurations and what happened at practice, and does not accept "no dizziness" as the answer
+Case gap: FWM2 (KB-5, KB-12)
+Demonstrated set: The learner asks a vision-specific question or asks what happened at soccer practice, and Kayla's answer establishes brief episodes of her vision greying out. The learner's questioning treats it as a change in vision rather than as dizziness or lightheadedness.
+Partial trigger: Obtains that something happened at practice but does not establish that it was her vision, or establishes the vision change but not that it is brief and repeated. [CHECK KB-5 and KB-12 for the exact details Kayla gives]
+Not demonstrated: Asks only about dizziness or lightheadedness and accepts the note's "denies dizziness"; or never asks a vision question or about the practice event; or records the episode as fainting or presyncope.
+Stretch behavior: Asks how long an episode lasts, how often, or what brings it on (for example standing or bending).
+Examples that count:
+  - "What happened at practice?"
+  - "Has your vision changed at all? Any dimming or greying out?"
+  - "When it happens, is it your vision or do you feel faint?"
+  - "How long does it last?"
+Firewall note: confirming the double vision the note documents is not a general vision question. A learner who only confirms diplopia has not earned this criterion.
+
+CRITERION 3 (Tier 1, weight 16): Elicits bumping into things
+Case gap: FWM4 (KB-8)
+Demonstrated set: The learner asks about side vision, running into things, or clumsiness, and Kayla's answer establishes that she has been bumping into things (mirror, hallway, ball, cup).
+Partial trigger: Obtains that she bumps into things but does not establish that this is new or when it began. [CHECK KB-8 for what Kayla says about onset]
+Not demonstrated: Asks only general vision questions (which return the visual obscurations only), or never asks about side vision or bumping into things.
+Stretch behavior: Links the bumping to one side or to her recent vision, or asks whether she has told anyone or had trouble driving.
+Examples that count:
+  - "Do you notice any trouble with your side vision?"
+  - "Have you been running into things or bumping into doorways?"
+  - "Have you been clumsier lately?"
+  - "Any trouble catching or hitting a ball?"
+
+======================================================================
+SECTION: Physical Exam: Eye Examination
+======================================================================
+Credit a maneuver when the learner performs it, orders it, or states that it must be done, using any name in the maneuver library below. Interpreting the finding is scored in the Step 4 note, not here.
+
+CRITERION 4 (Tier 1, weight 20): Examines the optic discs (fundoscopy)
+Case gap: FWM5
+Demonstrated set: Performs, orders, or states that fundoscopy is needed (any library variant, including "look in the back of the eye," "check the optic discs," "look for papilledema").
+Partial trigger: Asks for an "eye exam" or "check her eyes" without specifying the fundus or discs.
+Not demonstrated: No eye examination requested, or requests a maneuver that does not reach the fundus (acuity alone).
+Stretch behavior: States aloud that the purpose is to look for papilledema or raised pressure.
+Examples that count:
+  - "I would like to do a fundoscopic exam."
+  - "Let me look at the optic discs."
+  - "Dilated eye exam to look for papilledema."
+
+CRITERION 5 (Tier 2, weight 10): Examines eye movements
+Case gap: FWM5
+Demonstrated set: Performs, orders, or states that eye movements need testing (EOM, H test, follow my finger, check abduction, cranial nerves 3, 4, and 6).
+Partial trigger: Requests a general "cranial nerve exam" without eye movements.
+Not demonstrated: No eye movement or cranial nerve testing requested.
+Stretch behavior: Asks Kayla about double vision during the test, or names the sixth nerve.
+Examples that count:
+  - "Follow my finger with your eyes without moving your head."
+  - "Testing extraocular movements."
+  - "I want to check cranial nerve six."
+
+CRITERION 6 (Tier 2, weight 10): Tests visual fields
+Case gap: FWM5
+Demonstrated set: Performs, orders, or states that visual fields need testing (confrontation fields, peripheral vision, count fingers in each quadrant).
+Partial trigger: Asks for a general "vision test" without fields.
+Not demonstrated: No field testing requested.
+Stretch behavior: Tests each eye separately or compares left with right.
+Examples that count:
+  - "Let me test your peripheral vision."
+  - "Cover one eye and tell me how many fingers I hold up in each corner."
+  - "Confrontation visual fields."
+
+CRITERION 7 (Tier 3, weight 4): Tests visual acuity and pupils
+Case gap: FWM5 (supporting maneuvers; grouped so they count once)
+Demonstrated set: Tests both visual acuity (Snellen, eye chart, near card) and pupils (PERRL, swinging flashlight, afferent pupillary defect).
+Partial trigger: Tests one of the two.
+Not demonstrated: Neither requested.
+Stretch behavior: Tests acuity in each eye separately.
+
+======================================================================
+PHYSICAL EXAM MANEUVER LIST (grader reference)
+======================================================================
+Scored (Criteria 4 to 7):
+  Fundoscopy: fundoscopic exam, ophthalmoscopy, funduscopic, look in the back of the eye, check the optic discs, dilated eye exam, look for papilledema
+  Extraocular movements: EOM, eye movements, H test, follow my finger, cranial nerves 3, 4 and 6, check abduction
+  Confrontation visual fields: visual fields, peripheral vision test, count fingers in each quadrant, fields to confrontation
+  Visual acuity: Snellen, eye chart, near card
+  Pupils: PERRL, swinging flashlight, afferent pupillary defect
+Not scored in this rubric (available on the platform, no credit or penalty): neck (supple, no meningismus), cardiovascular, respiratory, abdomen, skin, general HEENT, and the neuro elements the resident already documented (strength, sensation, reflexes, gait).
+Expected returns for the scored maneuvers (grader reference only): bilateral papilledema (Frisen grade 3); mild left abduction deficit with horizontal diplopia on left gaze; constricted fields bilaterally, worse on the left; acuity 20/20 right and 20/25 left; pupils equal and reactive with no afferent defect.
+
+======================================================================
+WEIGHTS
+======================================================================
+Tier 1 (76): Criterion 1 (24), 2 (16), 3 (16), 4 (20)
+Tier 2 (20): Criterion 5 (10), 6 (10)
+Tier 3 (4): Criterion 7 (4)
+Total 100. Tier 1 sits above the usual 50 percent because every item in this rubric is a novel-information item and the documented history is deliberately not scored.

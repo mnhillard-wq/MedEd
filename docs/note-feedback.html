@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>Kayla Novak Note Feedback</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><style>
+:root{
+  --bg:#F7F5F5; --surface:#FFFFFF; --ink:#1A1717; --muted:#5C5555; --line:#DDD8D8;
+  --red:#B31B1B; --red-deep:#8A1414; --tint:#F8E8E8; --gold:#FFC72C; --on-gold:#1A1717;
+  --btn:#B31B1B; --on-btn:#FFFFFF; --field:#FFFFFF; --orange:#CF4520;
+  --display:"Newsreader",Georgia,"Times New Roman",serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161212; --surface:#201B1B; --ink:#F2EEEE; --muted:#B0A6A6; --line:#3B3333;
+    --red:#EA8A80; --red-deep:#F3B1AA; --tint:#3A2222; --gold:#FFC72C; --on-gold:#1A1717;
+    --btn:#B31B1B; --on-btn:#FFFFFF; --field:#1B1717; --orange:#E7751D; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161212; --surface:#201B1B; --ink:#F2EEEE; --muted:#B0A6A6; --line:#3B3333;
+  --red:#EA8A80; --red-deep:#F3B1AA; --tint:#3A2222; --gold:#FFC72C; --on-gold:#1A1717;
+  --btn:#B31B1B; --on-btn:#FFFFFF; --field:#1B1717; --orange:#E7751D; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.bar{display:flex;height:4px}.bar i{display:block}
+.bar i:nth-child(1){flex:4;background:#B31B1B}.bar i:nth-child(2){flex:1;background:#CF4520}.bar i:nth-child(3){flex:1;background:#E7751D}.bar i:nth-child(4){flex:1;background:#FFC72C}
+.wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:28px 120px;display:flex;flex-direction:column;gap:24px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-size:19px;font-weight:600}
+.brand span{color:var(--red);font-weight:500}
+.pill{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:#FFF3C4;color:#1A1717;padding:4px 10px;border-radius:999px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+h1{margin:6px 0 10px;font-family:var(--display);font-size:clamp(1.6rem,3.5vw,2rem);font-weight:500;line-height:1.1;text-wrap:balance}
+.lede{margin:0;color:var(--muted);font-size:1rem;max-width:42rem}
+a{color:var(--red-deep);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.btn{display:inline-flex;align-items:center;height:52px;padding:0 26px;border:0;border-radius:10px;background:var(--btn);color:var(--on-btn);font:600 16px var(--body);cursor:pointer;text-decoration:none}
+.btn.small{height:44px;padding:0 16px;font-size:14px;background:transparent;color:var(--red-deep);border:1px solid var(--red)}
+.muted{color:var(--muted);font-size:15px;margin:0}
+
+:root{--good:#1F6B3A;--good-bg:#E3F1E7;--part:#7A5200;--part-bg:#FFF0C2;--none-bg:#E9E4E4}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#8FD6A6;--good-bg:#1F3A2A;--part:#FFD36B;--part-bg:#3F3217;--none-bg:#2E2828}}
+:root[data-theme="dark"]{--good:#8FD6A6;--good-bg:#1F3A2A;--part:#FFD36B;--part-bg:#3F3217;--none-bg:#2E2828}
+.sum{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--display);font-size:2.4rem;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.score small{font-size:1rem;color:var(--muted);font-family:var(--body)}
+.meter{height:10px;border-radius:999px;background:var(--line);overflow:hidden}.meter i{display:block;height:100%;background:var(--red)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.card h2{margin:0;font-family:var(--display);font-size:1.2rem;font-weight:600}
+.note{display:flex;flex-direction:column;gap:12px;font-size:15px}.note h3{margin:0 0 2px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}.note p{margin:0;white-space:pre-line;overflow-wrap:anywhere}
+.sec{display:flex;flex-direction:column;gap:12px}
+.shd{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:6px}.shd h2{margin:0;font-family:var(--display);font-size:1.3rem;font-weight:600}
+.crit{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.chead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.chead h3{margin:0;font-family:var(--display);font-size:1.05rem;font-weight:600}
+.lvl{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.lvl.good{background:var(--good-bg);color:var(--good)}.lvl.part{background:var(--part-bg);color:var(--part)}.lvl.none{background:var(--none-bg);color:var(--ink)}
+blockquote{margin:0;border-left:3px solid var(--orange);padding-left:12px;font-size:15px;color:var(--muted);overflow-wrap:anywhere}
+.crit p{margin:0;font-size:15px}.next{background:var(--bg);border-radius:8px;padding:10px 12px}.next .lbl{display:block;margin-bottom:2px}
+.pts{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pillfix{background:var(--tint);color:var(--red-deep)}
+</style></head><body><div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<header>
+ <div class="top"><div class="brand">Reasoning Lab <span>&middot; Peds</span></div><div class="row"><a href="index.html">All cases</a><div class="pill">Worked example</div></div></div>
+ <div class="kicker" style="margin-top:22px">Kayla Novak &middot; Step 4 feedback</div>
+ <h1>Feedback on a sample note</h1>
+ <p class="lede">This is what a learner could see after submitting a note. The note below is invented for this preview. It was scored by hand against the note rubric, not by an automated grader, and a partial level is counted as 75 percent of the points, which is an assumption.</p>
+</header>
+<section class="sum" aria-label="Overall">
+ <div class="score">82.5<small> of 100</small></div>
+ <div class="meter" role="img" aria-label="82.5 of 100 points"><i style="width:82%"></i></div>
+ <p class="muted">You documented the history, the examination, and the problem representation well. The next gains are in naming the precipitant and the can't-miss diagnosis, explaining how each new finding changed your thinking, and completing the plan.</p>
+</section>
+<section class="card"><h2>The sample note</h2><div class="note"><div><h3>History</h3><p>Chief concern: Headaches for about 10 weeks.
+HPI: 19-year-old college freshman with 10 weeks of daily headache, worse in the morning and lying flat, worse with coughing and bending. Whooshing in both ears in time with her heartbeat for a month. Horizontal double vision on far left gaze. Ibuprofen 400 mg 5 to 6 days a week with no lasting relief.
+Medications: Combined oral contraceptive. Ibuprofen. Doxycycline twice daily since July for acne.
+Added after speaking with Kayla: She has been bumping into things, including a mirror and the hallway.</p></div><div><h3>Physical exam</h3><p>Vitals: BP 118/72, HR 78, RR 14, T 37.0 C, SpO2 99% RA. BMI 24.9. Well appearing. Neck supple. Neuro normal.
+Added from my examination: Fundoscopy shows bilateral papilledema. Mild left abduction deficit with diplopia on left gaze. Fields constricted bilaterally, worse on the left.</p></div><div><h3>Assessment</h3><p>19-year-old woman on doxycycline with weeks of positional daily headache, whooshing, and bilateral papilledema with field constriction. Most likely intracranial hypertension. Cannot miss a mass lesion, given a daily headache that wakes her and her aunt&#x27;s brain tumor. When I first read the note I favored migraine. The papilledema and the abduction deficit changed my leading diagnosis.</p></div><div><h3>Plan</h3><p>MRI brain, then lumbar puncture with opening pressure. Hold doxycycline. Refer to ophthalmology.</p></div></div></section>
+<section class="sec"><div class="shd"><h2>History</h2><span class="muted">12.5 of 15</span></div><article class="crit"><div class="chead"><h3>Cardinal features and timeline</h3><span class="lvl good">Demonstrated</span></div>
+<blockquote>Daily headache worse on waking and lying flat, whooshing in both ears, double vision on left gaze, ibuprofen 5 to 6 days a week.</blockquote><p>The raised-pressure pattern, the pulsatile sound, the diplopia, and the ibuprofen use are all recorded accurately.</p><div class="pts">5 of 5 points</div></article><article class="crit"><div class="chead"><h3>Newly obtained findings</h3><span class="lvl part">Partially demonstrated</span></div>
+<blockquote>Takes doxycycline twice daily since July for acne. Bumps into things, including a mirror and the hallway.</blockquote><p>You recorded two of the three findings you earned beyond the resident&#x27;s note, and you recorded them accurately.</p><p class="next"><span class="lbl">To strengthen it</span>The brief greying out of her vision at practice is missing. It is the finding that separates a vision symptom from dizziness, so it belongs in the history.</p><div class="pts">7.5 of 10 points</div></article></section><section class="sec"><div class="shd"><h2>Physical exam</h2><span class="muted">15 of 15</span></div><article class="crit"><div class="chead"><h3>Findings that support the reasoning</h3><span class="lvl good">Demonstrated</span></div>
+<blockquote>Fundoscopy: bilateral papilledema. Mild left abduction deficit with diplopia on left gaze. Fields constricted bilaterally, worse on the left.</blockquote><p>All three pertinent eye findings are recorded and match what you examined.</p><div class="pts">15 of 15 points</div></article></section><section class="sec"><div class="shd"><h2>Assessment</h2><span class="muted">40 of 50</span></div><article class="crit"><div class="chead"><h3>Problem representation</h3><span class="lvl good">Demonstrated</span></div>
+<blockquote>19-year-old woman on doxycycline with weeks of positional daily headache, whooshing, and bilateral papilledema with field constriction.</blockquote><p>One sentence that joins her age, the headache pattern, the objective visual involvement, and the exposure.</p><div class="pts">10 of 10 points</div></article><article class="crit"><div class="chead"><h3>Leading diagnosis and its cause</h3><span class="lvl part">Partially demonstrated</span></div>
+<blockquote>Most likely intracranial hypertension.</blockquote><p>You named raised intracranial pressure and supported it with findings from the record.</p><p class="next"><span class="lbl">To strengthen it</span>Say that doxycycline is the likely precipitant. Naming the drug is what makes the diagnosis actionable.</p><div class="pts">7.5 of 10 points</div></article><article class="crit"><div class="chead"><h3>The diagnosis that cannot be missed</h3><span class="lvl part">Partially demonstrated</span></div>
+<blockquote>Cannot miss a mass lesion, given a daily headache that wakes her and her aunt&#x27;s brain tumor.</blockquote><p>You named a dangerous diagnosis and gave a reason from the record.</p><p class="next"><span class="lbl">To strengthen it</span>Cerebral venous sinus thrombosis is the one the record points to most strongly, because she takes a combined oral contraceptive and has a raised-pressure picture.</p><div class="pts">7.5 of 10 points</div></article><article class="crit"><div class="chead"><h3>What changed since you first read the note</h3><span class="lvl part">Partially demonstrated</span></div>
+<blockquote>When I first read the note I favored migraine. The papilledema and the abduction deficit changed my leading diagnosis.</blockquote><p>You stated that your thinking changed and named two new findings.</p><p class="next"><span class="lbl">To strengthen it</span>For each finding, say what it did to the differential. For example: papilledema moves raised pressure to first, and the field constriction raises the urgency.</p><div class="pts">15 of 20 points</div></article></section><section class="sec"><div class="shd"><h2>Plan</h2><span class="muted">15 of 20</span></div><article class="crit"><div class="chead"><h3>Prompt diagnostic evaluation</h3><span class="lvl part">Partially demonstrated</span></div>
+<blockquote>MRI brain, then lumbar puncture with opening pressure.</blockquote><p>Imaging comes before lumbar puncture, and you planned the opening pressure.</p><p class="next"><span class="lbl">To strengthen it</span>Order venous imaging with the MRI, and request formal visual field testing.</p><div class="pts">10.5 of 14 points</div></article><article class="crit"><div class="chead"><h3>Protecting vision and the precipitant</h3><span class="lvl part">Partially demonstrated</span></div>
+<blockquote>Hold doxycycline. Refer to ophthalmology.</blockquote><p>You addressed the doxycycline.</p><p class="next"><span class="lbl">To strengthen it</span>State that this is vision threatening and needs urgent eye evaluation, not a routine referral.</p><div class="pts">4.5 of 6 points</div></article></section>
+</div></body></html>
