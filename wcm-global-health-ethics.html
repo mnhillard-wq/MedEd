@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Global Health Ethics: AI-SP Case Series</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#ffffff;--ink:#1c1917;--body:#3b3532;--muted:#6f6560;--red:#A3241C;--tint:#F4D8D4;--peach:#FBE9E0;--soft:#F8F4F1;--soft2:#EFE9E5;--hair:#E4DCD7;--orange:#D46A1F;--yellow:#F0BE45;--onred:#ffffff;
+--o-dk:#8F3E0C;--o-1:#FDF3EA;--o-2:#FADFC8;--o-3:#F5C79F;--o-4:#EBA46A;
+--b:#8A3B30;--b-dk:#5E1F18;--b-1:#F5EAE6;--b-2:#EBD3CC;--b-3:#DDBFB8;
+--g:#B8860B;--g-dk:#6B4E00;--g-1:#FBF5E1;--g-2:#F6E8B8;--g-3:#EBD28A;color-scheme:light}
+@media (prefers-color-scheme: dark){:root{--bg:#1b1816;--ink:#f1ece9;--body:#e8e2de;--muted:#a89f99;--red:#d9776d;--tint:rgba(217,119,109,.18);--peach:rgba(217,119,109,.12);--soft:#231f1c;--soft2:#2b2623;--hair:#3a3430;--orange:#e58a4a;--onred:#1b1816;
+--o-dk:#f0a56f;--o-1:rgba(229,138,74,.10);--o-2:rgba(229,138,74,.18);--o-3:rgba(229,138,74,.28);--o-4:rgba(229,138,74,.40);
+--b:#d58a80;--b-dk:#efb3a9;--b-1:rgba(213,138,128,.10);--b-2:rgba(213,138,128,.18);--b-3:rgba(213,138,128,.28);
+--g:#e0b64a;--g-dk:#f0cf7a;--g-1:rgba(240,190,69,.10);--g-2:rgba(240,190,69,.18);--g-3:rgba(240,190,69,.28);color-scheme:dark}}
+
+:root{--blue:var(--red);--blue-lt:var(--peach);--blue-md:var(--tint);--green:var(--o-dk);--green-lt:var(--o-1);--green-md:var(--o-2);
+--gray-50:var(--soft);--gray-100:var(--soft2);--gray-200:var(--hair);--gray-400:var(--muted);--gray-600:var(--body);--gray-800:var(--ink);
+--lavender:var(--b-2);--teal:var(--o-dk);--teal-lt:var(--o-2);--nav-w:240px}
+
+*,*::before,*::after{border-radius:0!important}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--body)}
+a{color:var(--red)}
+h1,h2,h3,h4{font-family:inherit;color:var(--ink)}
+nav{background:var(--soft)!important;border-right:1px solid var(--hair)!important}
+nav a:hover{color:var(--red)!important;background:var(--peach)!important;border-left-color:var(--red)!important}
+.backlink{display:block;padding:0 20px 16px;font-size:.9rem;font-weight:700;color:var(--red);text-decoration:none;border:0;border-bottom:1px solid var(--hair);margin-bottom:14px}
+.mback{display:none;font-size:.9rem;font-weight:700;margin:0 0 16px}
+details{border-color:var(--hair)}
+summary{color:var(--ink)}
+@media (max-width:860px){body{display:block!important}main{max-width:100%!important;min-width:0}main [style*="grid-template-columns"],main .spec-grid,main .two-col{grid-template-columns:minmax(0,1fr)!important}.rubric-table{display:block;overflow-x:auto}nav{display:none!important}main{margin-left:0!important;padding:28px 18px 60px!important}.mback{display:block}}
+</style>
+</head>
+<body>
+
+<div id="dc-root"><div class="sc-host"><div data-dc-tpl="4" style="display: flex; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.65;">
+
+  
+  <nav data-dc-tpl="5" style="position: fixed; top: 0px; left: 0px; width: 240px; height: 100vh; overflow-y: auto; background: var(--soft); border-right: 1px solid var(--hair); padding: 28px 0px 40px; display: flex; flex-direction: column;"><a class="backlink" href="index.html">&larr; Reasoning Lab Peds</a><div data-dc-tpl="6" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding: 0px 20px 20px; border-bottom: 1px solid var(--hair); margin-bottom: 16px;">Global Health Ethics</div>
+
+    <a data-dc-tpl="7" href="#overview" class="scp0" style="display: block; padding: 5px 20px; font-size: 13px; color: var(--ink); text-decoration: none; border-left: 3px solid transparent; font-weight: 600; margin-top: 4px;">Module Overview</a>
+    <a data-dc-tpl="8" href="#purpose" class="scp1" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">Why this module</a>
+    <a data-dc-tpl="9" href="#howitworks" class="scp1" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">How the cases work</a>
+    <a data-dc-tpl="10" href="#themes" class="scp1" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">Ethical themes</a>
+
+    <a data-dc-tpl="11" href="#index" class="scp0" style="display: block; padding: 5px 20px; font-size: 13px; color: var(--ink); text-decoration: none; border-left: 3px solid transparent; font-weight: 600; margin-top: 12px;">Case Index</a>
+    <a data-dc-tpl="12" href="#case1" class="scp1" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">1 — Respiratory Distress</a>
+    <a data-dc-tpl="13" href="#case2" class="scp2" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">2 — Low Blood Pressure</a>
+    <a data-dc-tpl="14" href="#case3" class="scp3" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">3 — Hemoptysis</a>
+    <a data-dc-tpl="15" href="#case4" class="scp4" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">4 — Community Research</a>
+    <a data-dc-tpl="16" href="#case5" class="scp5" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">5 — Cancer Treatment</a>
+    <a data-dc-tpl="17" href="#case6" class="scp6" style="display: block; padding: 5px 20px 5px 32px; font-size: 13px; color: var(--muted); text-decoration: none; border-left: 3px solid transparent;">6 — Meningitis</a>
+
+    <a data-dc-tpl="18" href="#guides" class="scp0" style="display: block; padding: 5px 20px; font-size: 13px; color: var(--ink); text-decoration: none; border-left: 3px solid transparent; font-weight: 600; margin-top: 12px;">Case Guides (PDF)</a>
+  </nav>
+
+  
+  <main data-dc-tpl="19" style="margin-left: 240px; max-width: 860px; padding: 48px 64px 96px;"><p class="mback"><a href="index.html">&larr; Reasoning Lab Peds</a></p>
+
+    <div data-dc-tpl="20" style="padding-bottom: 28px;">
+      <div data-dc-tpl="21" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); background: var(--tint); border-radius: 3px; padding: 3px 9px; margin-bottom: 14px;">AI-SP Case Series</div>
+      <h1 data-dc-tpl="22" style="font-size: 32px; font-weight: 800; color: var(--ink); margin: 0px 0px 6px; line-height: 1.2;">Global Health Ethics on Electives</h1>
+      <p data-dc-tpl="23" style="font-size: 19px; font-weight: 500; color: var(--red); margin: 0px;">Six AI-standardized-patient cases for students preparing to go abroad</p>
+    </div>
+
+    
+    <section data-dc-tpl="24" id="overview" style="border-top: 2px solid var(--red); padding-top: 44px; padding-bottom: 48px;">
+      <div data-dc-tpl="25" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); background: var(--tint); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Module Overview</div>
+      <h2 data-dc-tpl="26" id="purpose" style="font-size: 22px; font-weight: 700; color: var(--ink); margin: 10px 0px 14px; line-height: 1.3;">Why this module</h2>
+
+      <p data-dc-tpl="27" style="margin-bottom: 12px;">Global health electives put students in situations their training back home rarely prepares them for: a single ventilator and two children who need it, a nurse convinced you can safely do a procedure you've never done, a family asking you to withhold a diagnosis. These aren't hypotheticals — they're the kinds of ethical pressure students on international rotations consistently report facing.</p>
+      <p data-dc-tpl="28" style="margin-bottom: 0px;">This module uses six AI-standardized-patient (AI-SP) encounters to let you practice sitting inside that pressure before you're abroad and it's real. Each case drops you into a specific scenario, has you interact with an AI patient, family member, or colleague, and pairs the encounter with a short guide that names the underlying ethical concept and gives you language and frameworks to carry with you.</p>
+
+      <h3 data-dc-tpl="29" id="howitworks" style="font-size: 16px; font-weight: 600; color: var(--ink); border-left: 3px solid var(--o-3); padding-left: 10px; margin: 28px 0px 10px;">How each case works</h3>
+      <ul data-dc-tpl="30" style="list-style: none; margin: 16px 0px; padding: 0px;">
+        <li data-dc-tpl="31" style="display: flex; gap: 14px; margin-bottom: 12px; font-size: 13.5px; align-items: flex-start;">
+          <span data-dc-tpl="32" style="display: flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; border-radius: 50%; background: var(--tint); color: var(--red); font-weight: 700; font-size: 12px; flex-shrink: 0;">1</span>
+          <div data-dc-tpl="33"><strong data-dc-tpl="34">Read the case overview</strong> — setting, who you'll interact with, and your task, from the index below.</div>
+        </li>
+        <li data-dc-tpl="35" style="display: flex; gap: 14px; margin-bottom: 12px; font-size: 13.5px; align-items: flex-start;">
+          <span data-dc-tpl="36" style="display: flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; border-radius: 50%; background: var(--tint); color: var(--red); font-weight: 700; font-size: 12px; flex-shrink: 0;">2</span>
+          <div data-dc-tpl="37"><strong data-dc-tpl="38">Complete the AI-SP encounter</strong> — gather information and respond as you would on the ward.</div>
+        </li>
+        <li data-dc-tpl="39" style="display: flex; gap: 14px; margin-bottom: 12px; font-size: 13.5px; align-items: flex-start;">
+          <span data-dc-tpl="40" style="display: flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; border-radius: 50%; background: var(--tint); color: var(--red); font-weight: 700; font-size: 12px; flex-shrink: 0;">3</span>
+          <div data-dc-tpl="41"><strong data-dc-tpl="42">Watch for the issue named in the index</strong> — each case is built around one core ethical tension.</div>
+        </li>
+        <li data-dc-tpl="43" style="display: flex; gap: 14px; margin-bottom: 0px; font-size: 13.5px; align-items: flex-start;">
+          <span data-dc-tpl="44" style="display: flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; border-radius: 50%; background: var(--tint); color: var(--red); font-weight: 700; font-size: 12px; flex-shrink: 0;">4</span>
+          <div data-dc-tpl="45"><strong data-dc-tpl="46">Review the debrief</strong> below or in the full case guide (PDF) — the framework, reflection question, and further reading.</div>
+        </li>
+      </ul>
+
+      <h3 data-dc-tpl="47" id="themes" style="font-size: 16px; font-weight: 600; color: var(--ink); border-left: 3px solid var(--o-3); padding-left: 10px; margin: 28px 0px 10px;">Ethical themes across the six cases</h3>
+      <p data-dc-tpl="48" style="margin-bottom: 12px;">Each case centers on a distinct global-health ethics issue. Together they span the tensions most likely to arise on an elective abroad.</p>
+      <div data-dc-tpl="49" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0px;">
+        <div data-dc-tpl="50" style="border-radius: 8px; padding: 14px 16px; font-size: 13px; line-height: 1.55; background: var(--peach); border: 1px solid var(--tint);">
+          <strong data-dc-tpl="51" style="display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; color: var(--red);">Distributive Justice</strong>
+          Allocating scarce resources — ventilators, medications — fairly when demand outstrips supply. <em data-dc-tpl="52" style="color: var(--body);">Case 1</em>
+        </div>
+        <div data-dc-tpl="53" style="border-radius: 8px; padding: 14px 16px; font-size: 13px; line-height: 1.55; background: var(--o-1); border: 1px solid var(--o-2);">
+          <strong data-dc-tpl="54" style="display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; color: var(--o-dk);">Scope of Training</strong>
+          Recognizing and holding the boundary of what you are — and aren't — trained to do. <em data-dc-tpl="55" style="color: var(--body);">Cases 2 &amp; 6</em>
+        </div>
+        <div data-dc-tpl="56" style="border-radius: 8px; padding: 14px 16px; font-size: 13px; line-height: 1.55; background: var(--b-1); border: 1px solid var(--b-3);">
+          <strong data-dc-tpl="57" style="display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; color: var(--b-dk);">Sustainability of Donations</strong>
+          Weighing whether a donated resource is genuinely an appropriate, sustainable benefit. <em data-dc-tpl="58" style="color: var(--body);">Case 3</em>
+        </div>
+        <div data-dc-tpl="59" style="border-radius: 8px; padding: 14px 16px; font-size: 13px; line-height: 1.55; background: var(--g-1); border: 1px solid var(--g-3);">
+          <strong data-dc-tpl="60" style="display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; color: var(--g-dk);">Ancillary Care</strong>
+          Responding to unplanned care needs that surface during community research. <em data-dc-tpl="61" style="color: var(--body);">Case 4</em>
+        </div>
+        <div data-dc-tpl="62" style="border-radius: 8px; padding: 14px 16px; font-size: 13px; line-height: 1.55; background: var(--o-1); border: 1px solid var(--o-3);">
+          <strong data-dc-tpl="63" style="display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; color: var(--o-dk);">Truth-Telling</strong>
+          Navigating cultural differences in disclosure, autonomy, and what counts as "the truth." <em data-dc-tpl="64" style="color: var(--body);">Case 5</em>
+        </div>
+        <div data-dc-tpl="65" style="border-radius: 8px; padding: 14px 16px; font-size: 13px; line-height: 1.55; background: var(--b-1); border: 1px solid var(--b-3);">
+          <strong data-dc-tpl="66" style="display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; color: var(--b);">Consent Under Pressure</strong>
+          Saying no to a supervisor when a request crosses an ethical or competence line. <em data-dc-tpl="67" style="color: var(--body);">Case 6</em>
+        </div>
+      </div>
+    </section>
+
+    
+    <section data-dc-tpl="68" id="index" style="border-top: 2px solid var(--hair); padding-top: 44px; padding-bottom: 20px;">
+      <div data-dc-tpl="69" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--body); background: var(--soft2); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Case Index</div>
+      <h2 data-dc-tpl="70" style="font-size: 22px; font-weight: 700; color: var(--ink); margin: 10px 0px 6px; line-height: 1.3;">The six cases</h2>
+      <p data-dc-tpl="71" style="margin-bottom: 0px;">Work through them in order or jump to any case. Each entry lists the setting, the scenario, and what to watch for — expand "Debrief" for the fuller ethical framework and a reflection question.</p>
+    </section>
+
+    
+    <section data-dc-tpl="72" id="case1" style="border-top: 2px solid var(--red); padding-top: 36px; padding-bottom: 20px;">
+      <div data-dc-tpl="73" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); background: var(--tint); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Case 1 · Distributive Justice</div>
+      <h2 data-dc-tpl="74" style="font-size: 20px; font-weight: 700; color: var(--ink); margin: 8px 0px 4px;">Respiratory Distress</h2>
+      <p data-dc-tpl="75" style="font-size: 13px; color: var(--body); margin-bottom: 12px;">Moshi, Tanzania — Pediatric ward · you interact with Asha, a nurse</p>
+      <p data-dc-tpl="76" style="margin-bottom: 14px;">Juma, a 3-year-old with worsening pneumonia, is heading into respiratory failure and needs the hospital's only working ventilator — currently keeping a 12-month-old with heart failure alive. The nurse presses you to decide, quickly, which child's life you will try to save.</p>
+
+      <div data-dc-tpl="77" style="border-radius: 8px; padding: 14px 18px; margin: 16px 0px; font-size: 13.5px; line-height: 1.6; background: var(--peach); border-left: 3px solid var(--red);">
+        <strong data-dc-tpl="78" style="display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--red);">Watch for</strong>
+        <ul data-dc-tpl="79" style="margin: 4px 0px 0px 18px; padding: 0px;">
+          <li data-dc-tpl="80" style="margin-bottom: 4px;">Recognize scarce-resource allocation as its own ethical category, not just a clinical call</li>
+          <li data-dc-tpl="81" style="margin-bottom: 4px;">Distinguish utilitarian, prioritarian, and egalitarian allocation frameworks — and which fits here</li>
+          <li data-dc-tpl="82">Communicate with humility when there is no clean answer</li>
+        </ul>
+      </div>
+
+      
+
+      <details data-dc-tpl="86" style="border: 1px solid var(--tint); border-radius: 8px; margin: 16px 0px 0px; overflow: hidden;">
+        <summary data-dc-tpl="87" style="padding: 12px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; background: var(--peach); color: var(--red); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none;">Debrief — Distributive justice &amp; scarce resources</summary>
+        <div data-dc-tpl="88" style="padding: 14px 18px; font-size: 13.5px; line-height: 1.75; background: var(--bg); border-top: 1px solid var(--tint);">
+          <p data-dc-tpl="89" style="margin-bottom: 10px;">Allocating scarce medical resources is a bioethical issue because it forces life-and-death decisions about fairness when demand exceeds supply. Three frameworks are commonly used: <strong data-dc-tpl="90">utilitarianism</strong> (do the most good — save the most lives), <strong data-dc-tpl="91">prioritarianism</strong> (prioritize those in greatest need or at greatest risk), and <strong data-dc-tpl="92">egalitarianism</strong> (treat similar cases equally, including by lottery or first-come-first-served). In a resource-limited setting, look to your local advisor or colleagues for a decision-making framework before you're in the moment.</p>
+          <p data-dc-tpl="93" style="margin: 0px; font-style: italic; color: var(--body);">Reflection: How did the lack of a second ventilator affect your sense of your professional duty? If this case were in a high-resource setting, how would the ethical "problem" disappear or change?</p>
+        </div>
+      </details>
+    </section>
+
+    
+    <section data-dc-tpl="94" id="case2" style="border-top: 2px solid var(--o-dk); padding-top: 36px; padding-bottom: 20px;">
+      <div data-dc-tpl="95" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--o-dk); background: var(--o-2); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Case 2 · Scope of Training</div>
+      <h2 data-dc-tpl="96" style="font-size: 20px; font-weight: 700; color: var(--ink); margin: 8px 0px 4px;">Low Blood Pressure</h2>
+      <p data-dc-tpl="97" style="font-size: 13px; color: var(--body); margin-bottom: 12px;">San José, Costa Rica — District hospital · you interact with Isabella, a nurse</p>
+      <p data-dc-tpl="98" style="margin-bottom: 14px;">A critically ill patient turns out to have pericardial tamponade, and the only supervising doctor is stuck in an emergency surgery. Isabella has seen students perform pericardiocentesis before and urges you to do it — she'll even hold the ultrasound probe.</p>
+
+      <div data-dc-tpl="99" style="border-radius: 8px; padding: 14px 18px; margin: 16px 0px; font-size: 13.5px; line-height: 1.6; background: var(--o-1); border-left: 3px solid var(--o-dk);">
+        <strong data-dc-tpl="100" style="display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--o-dk);">Watch for</strong>
+        <ul data-dc-tpl="101" style="margin: 4px 0px 0px 18px; padding: 0px;">
+          <li data-dc-tpl="102" style="margin-bottom: 4px;">Hold the boundary of your training even when local staff insist you're capable</li>
+          <li data-dc-tpl="103" style="margin-bottom: 4px;">Notice how urgency and good intentions can pressure you into practicing outside scope</li>
+          <li data-dc-tpl="104">Ask explicitly for supervision — don't let silence read as consent</li>
+        </ul>
+      </div>
+
+      
+
+      <details data-dc-tpl="108" style="border: 1px solid var(--o-4); border-radius: 8px; margin: 16px 0px 0px; overflow: hidden;">
+        <summary data-dc-tpl="109" style="padding: 12px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; background: var(--o-1); color: var(--o-dk); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none;">Debrief — Scope of training &amp; professionalism</summary>
+        <div data-dc-tpl="110" style="padding: 14px 18px; font-size: 13.5px; line-height: 1.75; background: var(--bg); border-top: 1px solid var(--o-4);">
+          <p data-dc-tpl="111" style="margin-bottom: 10px;">Electives should never become a chance to practice unsupervised tasks you lack training for, at the expense of local patients — and even subtle misrepresentation of your training level is not ethically appropriate. A survey of 223 global-health trainees found 49% had been asked to perform outside their scope of training; 61% of those asked went on to actually do it, and many carried lasting moral distress. If you feel uncomfortable, you have the responsibility to ask for supervision and state your training level plainly.</p>
+          <p data-dc-tpl="112" style="margin: 0px; font-style: italic; color: var(--body);">Reflection: As a visiting student, do you have a different ethical responsibility than a local student would?</p>
+        </div>
+      </details>
+    </section>
+
+    
+    <section data-dc-tpl="113" id="case3" style="border-top: 2px solid var(--b-dk); padding-top: 36px; padding-bottom: 20px;">
+      <div data-dc-tpl="114" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--b-dk); background: var(--b-3); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Case 3 · Sustainability of Donations</div>
+      <h2 data-dc-tpl="115" style="font-size: 20px; font-weight: 700; color: var(--ink); margin: 8px 0px 4px;">Hemoptysis</h2>
+      <p data-dc-tpl="116" style="font-size: 13px; color: var(--body); margin-bottom: 12px;">Vellore, India — Medical ward · you interact with Rohan, the patient</p>
+      <p data-dc-tpl="117" style="margin-bottom: 14px;">Rohan has active pulmonary TB, and a batch of donated anti-TB drugs has just arrived — but they expire before a full 6-month course is possible, and there's no plan or lab support for what happens when they run out or for monitoring toxicity.</p>
+
+      <div data-dc-tpl="118" style="border-radius: 8px; padding: 14px 18px; margin: 16px 0px; font-size: 13.5px; line-height: 1.6; background: var(--b-1); border-left: 3px solid var(--b-dk);">
+        <strong data-dc-tpl="119" style="display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--b-dk);">Watch for</strong>
+        <ul data-dc-tpl="120" style="margin: 4px 0px 0px 18px; padding: 0px;">
+          <li data-dc-tpl="121" style="margin-bottom: 4px;">Question whether a donation is genuinely "appropriate" — not just available</li>
+          <li data-dc-tpl="122" style="margin-bottom: 4px;">Weigh the risk of incomplete treatment against Rohan's autonomy and hope</li>
+          <li data-dc-tpl="123">Notice how donation practices can create double standards between rich and poor settings</li>
+        </ul>
+      </div>
+
+      
+
+      <details data-dc-tpl="127" style="border: 1px solid var(--b-3); border-radius: 8px; margin: 16px 0px 0px; overflow: hidden;">
+        <summary data-dc-tpl="128" style="padding: 12px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; background: var(--b-1); color: var(--b-dk); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none;">Debrief — Sustainability of donated resources</summary>
+        <div data-dc-tpl="129" style="padding: 14px 18px; font-size: 13.5px; line-height: 1.75; background: var(--bg); border-top: 1px solid var(--b-3);">
+          <p data-dc-tpl="130" style="margin-bottom: 10px;">Donations of medicine and equipment are common but not automatically "appropriate." Useful questions: Was the local community involved in deciding these were needed? Why was this locale chosen? How are the benefits distributed? Are they sustainable — built around locally oriented solutions? WHO guidance holds that donations should meet real end-user needs, respect recipient authority and law, and — for medicine — carry no double standard in quality, generally with at least a year of shelf life remaining.</p>
+          <p data-dc-tpl="131" style="margin: 0px; font-style: italic; color: var(--body);">Reflection: If Rohan doesn't take these drugs, they're wasted. If he does, and can't complete the course, the risk is drug-resistant TB. Which "waste" is more ethically acceptable?</p>
+        </div>
+      </details>
+    </section>
+
+    
+    <section data-dc-tpl="132" id="case4" style="border-top: 2px solid var(--g-dk); padding-top: 36px; padding-bottom: 20px;">
+      <div data-dc-tpl="133" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g-dk); background: var(--g-3); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Case 4 · Ancillary Care</div>
+      <h2 data-dc-tpl="134" style="font-size: 20px; font-weight: 700; color: var(--ink); margin: 8px 0px 4px;">Community Research Project</h2>
+      <p data-dc-tpl="135" style="font-size: 13px; color: var(--body); margin-bottom: 12px;">Mwanza, Tanzania — Home-visit hypertension study · you interact with Binti, a household member</p>
+      <p data-dc-tpl="136" style="margin-bottom: 14px;">A routine consent visit for a hypertension study turns urgent when Binti reveals her daughter-in-law is in obstructed labor with no way to reach a hospital — and, by custom, no ability to travel without her absent husband's permission. Binti asks you for money for transport.</p>
+
+      <div data-dc-tpl="137" style="border-radius: 8px; padding: 14px 18px; margin: 16px 0px; font-size: 13.5px; line-height: 1.6; background: var(--g-1); border-left: 3px solid var(--g-dk);">
+        <strong data-dc-tpl="138" style="display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--g-dk);">Watch for</strong>
+        <ul data-dc-tpl="139" style="margin: 4px 0px 0px 18px; padding: 0px;">
+          <li data-dc-tpl="140" style="margin-bottom: 4px;">Distinguish your research obligations from an ancillary-care need that emerges unexpectedly</li>
+          <li data-dc-tpl="141" style="margin-bottom: 4px;">Notice cultural constraints on a woman's autonomy without dismissing or overriding them</li>
+          <li data-dc-tpl="142">Weigh a one-off act of help against what it does — or doesn't — change systemically</li>
+        </ul>
+      </div>
+
+      
+
+      <details data-dc-tpl="146" style="border: 1px solid var(--g-3); border-radius: 8px; margin: 16px 0px 0px; overflow: hidden;">
+        <summary data-dc-tpl="147" style="padding: 12px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; background: var(--g-1); color: var(--g-dk); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none;">Debrief — Ancillary care &amp; cultural context</summary>
+        <div data-dc-tpl="148" style="padding: 14px 18px; font-size: 13.5px; line-height: 1.75; background: var(--bg); border-top: 1px solid var(--g-3);">
+          <p data-dc-tpl="149" style="margin-bottom: 10px;"><strong data-dc-tpl="150">Ancillary care</strong> is care participants need but that isn't required to answer the research question or to mitigate harm from the research itself. Researchers working in low- and middle-income countries have some positive obligation to plan for it — in partnership with the host community — even though it's often unclear exactly what that obligation requires in the moment. This case also involves female genital cutting and constrained autonomy: while the patient's spouse and family matter, her own decision about her care should remain central.</p>
+          <p data-dc-tpl="151" style="margin: 0px; font-style: italic; color: var(--body);">Reflection: If you pay for this transport, what happens to the next woman who faces the same crisis after your research team leaves? How does one-off financial help affect local expectations and health systems?</p>
+        </div>
+      </details>
+    </section>
+
+    
+    <section data-dc-tpl="152" id="case5" style="border-top: 2px solid var(--o-dk); padding-top: 36px; padding-bottom: 20px;">
+      <div data-dc-tpl="153" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--o-dk); background: var(--o-3); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Case 5 · Truth-Telling</div>
+      <h2 data-dc-tpl="154" style="font-size: 20px; font-weight: 700; color: var(--ink); margin: 8px 0px 4px;">Cancer Treatment</h2>
+      <p data-dc-tpl="155" style="font-size: 13px; color: var(--body); margin-bottom: 12px;">Bangkok, Thailand — Medical ward · you interact with the patient's daughter</p>
+      <p data-dc-tpl="156" style="margin-bottom: 14px;">Work-up on a 70-year-old man reveals lymphoma — treatable, with good local outcomes. His daughter approaches you first, asking that the team not use the word "cancer" with her father, whose traditional views treat that diagnosis as a death sentence.</p>
+
+      <div data-dc-tpl="157" style="border-radius: 8px; padding: 14px 18px; margin: 16px 0px; font-size: 13.5px; line-height: 1.6; background: var(--o-1); border-left: 3px solid var(--o-dk);">
+        <strong data-dc-tpl="158" style="display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--o-dk);">Watch for</strong>
+        <ul data-dc-tpl="159" style="margin: 4px 0px 0px 18px; padding: 0px;">
+          <li data-dc-tpl="160" style="margin-bottom: 4px;">Separate "the truth" from one specific word or framing of it</li>
+          <li data-dc-tpl="161" style="margin-bottom: 4px;">Recognize family-centered vs. individual-centered models of disclosure and autonomy</li>
+          <li data-dc-tpl="162">Find language that is honest without being needlessly harmful</li>
+        </ul>
+      </div>
+
+      
+
+      <details data-dc-tpl="166" style="border: 1px solid var(--o-3); border-radius: 8px; margin: 16px 0px 0px; overflow: hidden;">
+        <summary data-dc-tpl="167" style="padding: 12px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; background: var(--o-1); color: var(--o-dk); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none;">Debrief — Truth-telling across cultures</summary>
+        <div data-dc-tpl="168" style="padding: 14px 18px; font-size: 13.5px; line-height: 1.75; background: var(--bg); border-top: 1px solid var(--o-3);">
+          <p data-dc-tpl="169" style="margin-bottom: 10px;">Western medicine often prioritizes the individual's right to know; many other cultures emphasize the family's role and shared experience of illness, where truth is less a fact delivered than a relationship built between physician, patient, and family. Trainees are not obligated to lie, but should find a way to tell the truth that minimizes harm — asking the patient directly how much they want to know and who they want involved is a good starting point. When in real conflict, defer to your local supervisor's guidance.</p>
+          <p data-dc-tpl="170" style="margin: 0px; font-style: italic; color: var(--body);">Reflection: The case notes that chemotherapy has markedly improved outcomes here. Does that medical "hope" make it easier or harder to insist on telling the truth?</p>
+        </div>
+      </details>
+    </section>
+
+    
+    <section data-dc-tpl="171" id="case6" style="border-top: 2px solid var(--b); padding-top: 36px; padding-bottom: 20px;">
+      <div data-dc-tpl="172" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--b); background: var(--b-3); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Case 6 · Consent Under Pressure / Scope of Training</div>
+      <h2 data-dc-tpl="173" style="font-size: 20px; font-weight: 700; color: var(--ink); margin: 8px 0px 4px;">Meningitis</h2>
+      <p data-dc-tpl="174" style="font-size: 13px; color: var(--body); margin-bottom: 12px;">Paris, France — Medical ward · you interact with the attending physician</p>
+      <p data-dc-tpl="175" style="margin-bottom: 14px;">A rushed attending needs a French-speaking patient to sign consent for a lumbar puncture before rushing to the ICU — and tells you to just use a translation app. When you hesitate, he insists patients here trust doctors, and that a white coat is all it takes.</p>
+
+      <div data-dc-tpl="176" style="border-radius: 8px; padding: 14px 18px; margin: 16px 0px; font-size: 13.5px; line-height: 1.6; background: var(--b-1); border-left: 3px solid var(--b);">
+        <strong data-dc-tpl="177" style="display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--b);">Watch for</strong>
+        <ul data-dc-tpl="178" style="margin: 4px 0px 0px 18px; padding: 0px;">
+          <li data-dc-tpl="179" style="margin-bottom: 4px;">Recognize informed consent as a process, not a signature — one a translation app can't safely carry</li>
+          <li data-dc-tpl="180" style="margin-bottom: 4px;">Notice the power dynamic pulling you past your scope and language competence</li>
+          <li data-dc-tpl="181">Practice concrete language for saying no to a supervisor</li>
+        </ul>
+      </div>
+
+      
+
+      <details data-dc-tpl="185" style="border: 1px solid var(--b-3); border-radius: 8px; margin: 16px 0px 0px; overflow: hidden;">
+        <summary data-dc-tpl="186" style="padding: 12px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; background: var(--b-1); color: var(--b); list-style: none; display: flex; align-items: center; gap: 8px; user-select: none;">Debrief — Power dynamics &amp; the four principles</summary>
+        <div data-dc-tpl="187" style="padding: 14px 18px; font-size: 13.5px; line-height: 1.75; background: var(--bg); border-top: 1px solid var(--b-3);">
+          <p data-dc-tpl="188" style="margin-bottom: 10px;">Obtaining consent is a communication process — verifying understanding, answering questions, judging capacity — that a language app cannot safely handle for anything beyond low-stakes interactions. The urge to help an overwhelmed team (beneficence) is honorable but is superseded by the duty to avoid harming a patient through untrained intervention (non-maleficence). Three concrete moves: frame the limit around your own training or institution's rules rather than accusing the attending ("I-statements"); cite your home institution's policy as a shield; and pair any "no" with a helpful alternative, like staying with the patient or prepping the tray.</p>
+          <p data-dc-tpl="189" style="margin: 0px; font-style: italic; color: var(--body);">Reflection: How does performing a task outside your language competence affect the trust relationship between the patient, you, and the local health system?</p>
+        </div>
+      </details>
+    </section>
+
+    
+    <section data-dc-tpl="190" id="guides" style="border-top: 2px solid var(--hair); padding-top: 44px; padding-bottom: 20px;">
+      <div data-dc-tpl="191" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--body); background: var(--soft2); border-radius: 3px; padding: 2px 8px; margin-bottom: 6px;">Case Guides</div>
+      <h2 data-dc-tpl="192" style="font-size: 22px; font-weight: 700; color: var(--ink); margin: 10px 0px 6px;">Download the full case guides</h2>
+      <p data-dc-tpl="193" style="margin-bottom: 20px;">Each PDF has the full case script, debrief, and further reading — useful to revisit before you travel, or as a refresher mid-elective.</p>
+
+      <div data-dc-tpl="194" style="display: flex; flex-direction: column; gap: 10px;">
+        <a data-dc-tpl="195" href="assets/guides/Case1_RespiratoryDistress_DistributiveJustice.pdf" download="" class="scp7" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--hair); text-decoration: none; color: var(--ink);">
+          <div data-dc-tpl="196"><strong data-dc-tpl="197" style="display: block; font-size: 14px;">Case 1 — Respiratory Distress</strong><span data-dc-tpl="198" style="font-size: 12.5px; color: var(--body);">Distributive justice · Moshi, Tanzania</span></div>
+          <span data-dc-tpl="199" style="font-size: 12.5px; font-weight: 600; color: var(--red); white-space: nowrap;">Download PDF ↓</span>
+        </a>
+        <a data-dc-tpl="200" href="assets/guides/Case2_LowBloodPressure_ScopeOfTraining.pdf" download="" class="scp8" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--hair); text-decoration: none; color: var(--ink);">
+          <div data-dc-tpl="201"><strong data-dc-tpl="202" style="display: block; font-size: 14px;">Case 2 — Low Blood Pressure</strong><span data-dc-tpl="203" style="font-size: 12.5px; color: var(--body);">Scope of training · San José, Costa Rica</span></div>
+          <span data-dc-tpl="204" style="font-size: 12.5px; font-weight: 600; color: var(--o-dk); white-space: nowrap;">Download PDF ↓</span>
+        </a>
+        <a data-dc-tpl="205" href="assets/guides/Case3_Hemoptysis_SustainabilityOfDonations.pdf" download="" class="scp9" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--hair); text-decoration: none; color: var(--ink);">
+          <div data-dc-tpl="206"><strong data-dc-tpl="207" style="display: block; font-size: 14px;">Case 3 — Hemoptysis</strong><span data-dc-tpl="208" style="font-size: 12.5px; color: var(--body);">Sustainability of donations · Vellore, India</span></div>
+          <span data-dc-tpl="209" style="font-size: 12.5px; font-weight: 600; color: var(--b-dk); white-space: nowrap;">Download PDF ↓</span>
+        </a>
+        <a data-dc-tpl="210" href="assets/guides/Case4_CommunityResearch_AncillaryCare.pdf" download="" class="scpa" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--hair); text-decoration: none; color: var(--ink);">
+          <div data-dc-tpl="211"><strong data-dc-tpl="212" style="display: block; font-size: 14px;">Case 4 — Community Research Project</strong><span data-dc-tpl="213" style="font-size: 12.5px; color: var(--body);">Ancillary care · Mwanza, Tanzania</span></div>
+          <span data-dc-tpl="214" style="font-size: 12.5px; font-weight: 600; color: var(--g-dk); white-space: nowrap;">Download PDF ↓</span>
+        </a>
+        <a data-dc-tpl="215" href="assets/guides/Case5_CancerTreatment_TruthTelling.pdf" download="" class="scpb" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--hair); text-decoration: none; color: var(--ink);">
+          <div data-dc-tpl="216"><strong data-dc-tpl="217" style="display: block; font-size: 14px;">Case 5 — Cancer Treatment</strong><span data-dc-tpl="218" style="font-size: 12.5px; color: var(--body);">Truth-telling · Bangkok, Thailand</span></div>
+          <span data-dc-tpl="219" style="font-size: 12.5px; font-weight: 600; color: var(--o-dk); white-space: nowrap;">Download PDF ↓</span>
+        </a>
+        <a data-dc-tpl="220" href="assets/guides/Case6_Meningitis_ConsentUnderPressure_ScopeOfTraining.pdf" download="" class="scpc" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--hair); text-decoration: none; color: var(--ink);">
+          <div data-dc-tpl="221"><strong data-dc-tpl="222" style="display: block; font-size: 14px;">Case 6 — Meningitis</strong><span data-dc-tpl="223" style="font-size: 12.5px; color: var(--body);">Consent under pressure / scope of training · Paris, France</span></div>
+          <span data-dc-tpl="224" style="font-size: 12.5px; font-weight: 600; color: var(--b); white-space: nowrap;">Download PDF ↓</span>
+        </a>
+      </div>
+    </section>
+
+  </main></div></div></div>
+
+
+
+
+</body>
+</html>

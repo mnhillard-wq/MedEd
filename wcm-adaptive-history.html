@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Adaptive Complete-History Checklist</title>
+<style>
+:root{--bg:#ffffff;--ink:#1c1917;--body:#3b3532;--muted:#6f6560;--red:#A3241C;--tint:#F4D8D4;--peach:#FBE9E0;--soft:#F8F4F1;--hair:#E4DCD7;--orange:#D46A1F;--yellow:#F0BE45;--onred:#ffffff;color-scheme:light;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1816;--ink:#f1ece9;--body:#e8e2de;--muted:#a89f99;--red:#d9776d;--tint:rgba(217,119,109,.15);--peach:rgba(217,119,109,.15);--soft:#231f1c;--hair:#3a3430;--orange:#e58a4a;--yellow:#F0BE45;--onred:#1b1816;color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#1b1816;--ink:#f1ece9;--body:#e8e2de;--muted:#a89f99;--red:#d9776d;--tint:rgba(217,119,109,.15);--peach:rgba(217,119,109,.15);--soft:#231f1c;--hair:#3a3430;--orange:#e58a4a;--yellow:#F0BE45;--onred:#1b1816;color-scheme:dark;}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--body);font-family:Carlito,Calibri,'Segoe UI',system-ui,sans-serif;font-size:16px;line-height:1.5}
+.wrap{max-width:56rem;margin:0 auto;padding:36px 16px 80px}
+a{color:var(--red);text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+h1,h2,h3,p{margin:0}
+.kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:var(--tint);padding:3px 9px;margin-bottom:12px}
+h1{font-size:1.65rem;line-height:1.2;font-weight:700;color:var(--ink);margin-bottom:8px}
+.lede{max-width:44rem;color:var(--body);text-wrap:pretty}
+.lede strong{color:var(--ink)}
+header.top{border-bottom:1px solid var(--hair);padding-bottom:20px;margin-bottom:20px}
+.toprow{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+.links{display:flex;gap:18px;flex-wrap:wrap;font-size:.9rem;font-weight:700}
+.lbl{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.chip{font:inherit;font-size:.88rem;font-weight:700;padding:5px 12px;border:1px solid var(--hair);background:var(--bg);color:var(--body);cursor:pointer;border-radius:0}
+.chip:hover{border-color:var(--red)}
+.chip[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--onred)}
+.chip:focus-visible,.xtoggle:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.peach{background:var(--peach);padding:12px 16px;font-size:.95rem;text-wrap:pretty}
+.peach strong{color:var(--ink)}
+.note{background:var(--soft);border-left:2px solid var(--tint);padding:12px 16px;font-size:.9rem;color:var(--body);text-wrap:pretty}
+.note strong{color:var(--ink)}
+.fgroup{display:flex;align-items:flex-start;gap:6px 14px;flex-wrap:wrap}
+.fgroup>.lbl{width:7.5rem;flex-shrink:0;padding-top:8px}
+.fgroup .sub{display:block;font-size:.8rem;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);margin-top:3px}
+.filters{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--hair);padding:14px 0 12px;display:flex;flex-direction:column;gap:10px}
+.def{font-size:.9rem;color:var(--body)}
+.eg{display:flex;gap:6px 8px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.eg .lbl{color:var(--muted)}
+.eg span.x{font-size:.82rem;background:var(--soft);border:1px solid var(--hair);padding:1px 8px;color:var(--body)}
+.colhead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 28px;padding:16px 0 8px;border-bottom:2px solid var(--ink)}
+.colhead .sub{display:block;font-size:.85rem;color:var(--muted);margin-top:2px}
+.colhead .lbl.dark{color:var(--ink)}
+.sec{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.rng{font-size:.82rem;color:var(--muted)}
+.rows{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 28px;padding:9px 0;border-bottom:1px solid var(--hair);break-inside:avoid}
+.l{display:flex;gap:8px;font-size:.95rem;color:var(--ink)}
+.l .n{font-variant-numeric:tabular-nums;color:var(--muted);min-width:2rem;flex-shrink:0}
+.l.add{color:var(--muted)}
+.r{border-left:2px solid var(--hair);padding-left:12px;font-size:.95rem}
+.r.on{border-left:3px solid var(--tint)}
+.r .same{color:var(--muted);font-size:.9rem}
+.line{display:flex;gap:8px;align-items:baseline;margin-bottom:3px}
+.line:last-child{margin-bottom:0}
+.tag{font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:1px 6px;flex-shrink:0;white-space:nowrap;position:relative;top:-1px}
+.tag.adapted{color:var(--muted);background:var(--soft);box-shadow:inset 0 0 0 1px var(--hair)}
+.tag.emphasize{color:var(--red);background:var(--tint)}
+.tag.added{color:var(--onred);background:var(--red)}
+.tag.deemph{color:var(--muted);box-shadow:inset 0 0 0 1px var(--hair);font-style:italic}
+.xtoggle{display:block;width:100%;text-align:left;font:inherit;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:var(--soft);border:1px solid var(--hair);padding:9px 12px;cursor:pointer;margin-top:28px;border-radius:0}
+.case{margin-top:14px;border-left:3px solid var(--tint);padding:2px 0 2px 14px}
+.case h2{font-size:1.05rem;color:var(--ink);margin-bottom:2px}
+.case .who{margin-bottom:8px}
+.case .k{display:flex;gap:10px;margin-top:6px;font-size:.95rem}
+.case .k .lbl{width:4.4rem;flex-shrink:0;padding-top:3px}
+.case .k.q>span:last-child{font-style:italic;border-left:2px solid var(--orange);padding-left:10px}
+.casebar{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.casebar .hint{font-size:.9rem;color:var(--muted)}
+footer.f{margin-top:40px;border-top:1px solid var(--hair);padding-top:16px;font-size:.88rem;color:var(--muted);text-wrap:pretty}
+footer.f strong{color:var(--ink)}
+@media (max-width:640px){
+ .wrap{padding:26px 16px 64px}
+ .filters{position:static}
+ .fgroup>.lbl{width:100%;padding-top:0}
+ .colhead{grid-template-columns:1fr;gap:10px}
+ .row{grid-template-columns:1fr;gap:6px}
+}
+@media print{
+ body{font-size:9.5pt;background:#fff;color:#000}
+ .filters{position:static;border:none}.chip:not([aria-pressed="true"]),.xtoggle,.casebar{display:none}
+ .row,.sec-head{break-inside:avoid}.sec{break-inside:auto}
+}
+</style>
+</head>
+<body>
+<p style="max-width:56rem;margin:0 auto;padding:16px 16px 0;font-size:.9rem;font-weight:700"><a href="index.html" style="color:var(--red)">&larr; Reasoning Lab Peds</a></p>
+<div class="wrap">
+<header class="top">
+<div class="kicker">Clinical Skills</div>
+<div class="toprow"><h1>Adaptive Complete-History Checklist</h1>
+</div>
+<p class="lede">The left column is the <strong>WCM Complete History</strong>, the checklist you learn and are assessed on. It never changes. Everything on the right is that same history translated for a different patient and a different problem, so you can practice carrying one structure across ages and complaints.</p>
+</header>
+<div id="app"></div>
+</div>
+<script>
+const AGES = [
+  {k:'youngadult', label:'Adult'},
+  {k:'infant', label:'Infant (<1 yr)', ped:true},
+  {k:'child', label:'Young Child (1–5 yr)', ped:true},
+  {k:'adolescent', label:'Older Child / Adolescent (6+ yr)', ped:true},
+  {k:'older', label:'Older Adult'}
+];
+
+// Five types. Everything that walks in is one of these.
+// One colour per age band. The age pill and the case chip share it, so a
+// chip's colour says which band it will set before you click it.
+
+const CONCERNS = [
+  {k:'pain',     label:'Pain / Discomfort'},
+  {k:'finding',  label:'Visible Change'},
+  {k:'ongoing',  label:'Ongoing Symptom'},
+  {k:'event',    label:'Spell / Episode'},
+  {k:'function', label:'Change in Function'}
+];
+
+
+const CASES=[];
+
+const DEFS = {
+  pain:     'Something the patient feels that hurts or is uncomfortable.',
+  finding:  'Something abnormal you can see or feel on the body.',
+  ongoing:  'A non-pain symptom that is present, persists, or keeps happening.',
+  event:    'A discrete event that happened and then stopped.',
+  function: 'Something the patient normally does that has changed or is no longer happening normally.'
+};
+
+const EXAMPLES = {
+  pain:     ['Abdominal pain','Headache','Sore throat'],
+  finding:  ['Rash','Swelling','Lump'],
+  ongoing:  ['Cough','Vomiting','Diarrhea'],
+  event:    ['Fainting','Seizure-like episode','Choking'],
+  function: ['Not eating','Limping','Lost a skill']
+};
+
+
+const SECTIONS = [
+  {id:'intro', label:'Introduction & historian', range:'', fg:'var(--purple-dk)', bg:'var(--purple-lt)', items:[
+    ['i1','·','Perform hand hygiene on entering the room'],
+    ['i2','·','Introduce myself and confirm the patient’s name'],
+    ['i3','·','The patient gives the history directly'],
+    ['i4','·','Ask, in their own words, what brought them in and what worries them']
+  ]},
+  {id:'hpi', label:'History of present illness', range:'items 1–7', fg:'var(--blue-600)', bg:'var(--blue-md)', items:[
+    ['h1','1.','Location (if applicable)'],
+    ['h2','2.','Quality (description)'],
+    ['h3','3.','Quantification / severity (How bad is it; consider a pain scale of 1–10? Is it getting better? Worse? Unchanged?)'],
+    ['h4','4.','Chronology / timing (How long has this been going on? Is it constant?)'],
+    ['h5','5.','Setting (Where or when do you get these symptoms?)'],
+    ['h6','6.','Modifying factors (Anything make it better? Worse? Have you tried anything for it; medications, other?)'],
+    ['h7','7.','Associated symptoms / signs (what to ask about depends on the specific chief complaint)']
+  ]},
+  {id:'pmh', label:'Past medical history', range:'items 8–11', fg:'var(--steel-dk)', bg:'var(--steel-lt)', items:[
+    ['p8','8.','Any past medical or psychiatric problems, and for each diagnosis:'],
+    ['p9','9.','When and how the diagnosis was made'],
+    ['p10','10.','How it has been treated and is currently being treated'],
+    ['p11','11.','Any complications or other related problems']
+  ]},
+  {id:'psh', label:'Past surgical history', range:'items 12–15', fg:'var(--teal-900)', bg:'var(--teal-lt)', items:[
+    ['s12','12.','Any past surgery, and for each surgery:'],
+    ['s13','13.','When you had the surgery'],
+    ['s14','14.','Why you had the surgery'],
+    ['s15','15.','Any complications or problems related to the surgery']
+  ]},
+  {id:'obgyn', label:'OB/GYN history', range:'items 16–18', fg:'var(--purple-dk)', bg:'var(--purple-lt)', items:[
+    ['o16','16.','Age at menarche, then open-ended: tell me about your periods'],
+    ['o17','17.','Have you ever been pregnant'],
+    ['o18','18.','If so: number of deliveries, and any complications']
+  ]},
+  {id:'meds', label:'Medications', range:'items 19–23', fg:'var(--blue-600)', bg:'var(--blue-md)', items:[
+    ['m19','19.','Do you take any medications'],
+    ['m20','20.','The dose and frequency of each medication'],
+    ['m21','21.','Any problems taking or accessing the medications'],
+    ['m22','22.','Any over-the-counter medications'],
+    ['m23','23.','Any supplements or complementary medicine']
+  ]},
+  {id:'allergy', label:'Allergies', range:'items 24–25', fg:'var(--amber-dk)', bg:'var(--amber-lt)', items:[
+    ['a24','24.','Do you have any allergies, including food, and for each allergy:'],
+    ['a25','25.','What the specific allergic reaction was']
+  ]},
+  {id:'social', label:'Social, occupational, sexual history', range:'items 26–37', fg:'var(--steel-dk)', bg:'var(--steel-lt)', items:[
+    ['g26','26.','Where you were born and where you live now'],
+    ['g27','27.','Who you live with'],
+    ['g28','28.','Who your supports are, or who you can turn to in an emergency'],
+    ['g29','29.','Are you in a relationship, or do you have a partner'],
+    ['g30','30.','Screened for safety at home'],
+    ['g31','31.','Screened for sexual activity and safer sex; STI testing and protection'],
+    ['g32','32.','What your current occupation is'],
+    ['g33','33.','Education, and screened health literacy'],
+    ['g34','34.','Tobacco; ever, how much, how long'],
+    ['g35','35.','Alcohol; how much, how often'],
+    ['g36','36.','Recreational drugs; which, and how they are used'],
+    ['g37','37.','Diet and exercise habits']
+  ]},
+  {id:'family', label:'Family history', range:'item 38', fg:'var(--teal-900)', bg:'var(--teal-lt)', items:[
+    ['f38','38.','Do your parents, siblings, or children have any medical problems']
+  ]},
+  {id:'ros', label:'Review of systems', range:'items 39–51', fg:'var(--blue-600)', bg:'var(--blue-md)', items:[
+    ['r39','39.','Explained what I mean by the review of systems'],
+    ['r40','40.','Asked in an organized sequence'],
+    ['r41','41–51.','Two items in each category: general, skin, neuro/psych, HEENT, endocrine, cardiovascular, pulmonary, GI, GU, musculoskeletal, hematologic']
+  ]}
+];
+
+// ── concern layer ──────────────────────────────────────────────
+const C = {
+  pain: {
+    h1:['ADAPTED','Site and radiation; where it starts, where it goes.'],
+    h3:['EMPHASIZE','0–10 now, at its worst, at its best; and what it stops you doing.']
+  },
+  finding: {
+    h1:['EMPHASIZE','Site and distribution; one area, spreading, symmetric, flexural, sun-exposed. For contact dermatitis it must match what touched the skin.'],
+    h2:['ADAPTED','Appearance and feel: colour, size, texture, configuration (linear, annular, dermatomal), tender, mobile, fluctuant, draining.'],
+    h3:['DE-EMPHASIZE','Severity means little here. Ask about pain, itch, and bleeding instead; cellulitis hurts, contact dermatitis itches.'],
+    h4:['ADAPTED','When first noticed, and the progression since; direction of spread, size, colour, number. Some rashes have a predictable march and a defined duration.'],
+    h5:['ADAPTED','Exposures: new products, detergent, jewellery, plants, animals, occupation, travel, bites.'],
+    h7:['ADAPTED','Mucous-membrane and joint involvement, and fever; and where the fever sat relative to the finding.'],
+    m19:['EMPHASIZE','Any medication started in the weeks before the finding appeared.']
+  },
+  ongoing: {
+    h2:['ADAPTED','Describe the symptom itself in concrete terms; for a cough, wet or dry, and what comes up.'],
+    h3:['ADAPTED','How often and how much; episodes per day, volume, number of stools; and what it stops the patient doing.'],
+    h4:['ADAPTED','Onset, then the trajectory: constant or coming and going, better, worse, unchanged. Duration sets the differential; acute and chronic are different problems.'],
+    h5:['ADAPTED','When in the day and around which activities; after meals, at night, on exertion, only at school.'],
+    h7:['ADAPTED','By the system that could explain it, plus fever, weight loss, and anything the patient has not linked to it.'],
+    m19:['EMPHASIZE','New medications and dose changes; many ongoing symptoms are drug effects.']
+  },
+  function: {
+    _add:{hpi:[['ADDED','Baseline first; what is normal for this patient, and when was it last normal? Ask someone who knows them well.']]},
+    h2:['ADAPTED','Define what changed in one concrete sentence, with an example; not “weaker” or “confused.”'],
+    h3:['ADAPTED','Magnitude of the change from baseline and what the patient can no longer do; not absolute severity.'],
+    h4:['ADAPTED','Sudden or gradual, then the trajectory: progressing, plateaued, fluctuating through the day, improving. Duration sets the differential; acute and chronic are different problems.'],
+    h5:['ADAPTED','When in the day and around which activities; after meals, at night, on exertion, only at school.'],
+    h7:['ADAPTED','By the system that could explain it, plus the reversible triggers: infection, pain, medications, sleep, substances.'],
+    p8:['EMPHASIZE','Conditions that already limited function or cognition before this.'],
+    m19:['EMPHASIZE','New medications and dose changes; sedatives and anticholinergics specifically.'],
+    g26:['ADAPTED','Home layout; stairs, bathroom, whether the patient can get in and out.'],
+    g27:['ADAPTED','Who is at home, and who helps with what now.'],
+    g35:['EMPHASIZE','Alcohol and withdrawal, plus sleep; both common and missed.']
+  },
+  event: {
+    _add:{hpi:[['ADDED','Witness account; what did someone else see, in their own words?']]},
+    h2:['ADAPTED','What happened in sequence; any loss of awareness, injury, or incontinence.'],
+    h3:['ADAPTED','How often it happens and how long recovery takes, not how intense it felt.'],
+    h4:['ADAPTED','Reconstruct before → during → after: warning, duration, recovery, recurrence.'],
+    h5:['ADAPTED','Exact circumstances: position, activity, last meal, medications taken that day.'],
+    m19:['EMPHASIZE','New medications and dose changes; anything with cardiac or CNS effect.'],
+    f38:['ADAPTED','Sudden death under 50, arrhythmia, seizures, fainting.']
+  },
+};
+
+// ── age layer ──────────────────────────────────────────────────
+const A = {
+  infant: {
+    i2:['ADAPTED','Confirm the baby’s name and exact age in days, weeks, or months.'],
+    i3:['ADAPTED','Identify the caregiver historian, their relationship to the baby, and whether they know the baby’s usual baseline.'],
+    i4:['ADAPTED','Ask what the caregiver noticed first and what worries them most. Start open-ended, then clarify.'],
+    h1:['ADAPTED','If location applies, ask what behavior suggests where the problem is; for example ear pulling, guarding, or not using a limb.'],
+    h2:['ADAPTED','Ask what is different from usual: cry, behavior, feeding, movement, or sleep.'],
+    h3:['ADAPTED','Judge severity by function: feeding, wet diapers, activity, tone, sleep, and consolability compared with usual.'],
+    h4:['ADAPTED','Ask when it started, whether it is constant or intermittent, and how it has changed.'],
+    h5:['ADAPTED','Ask about relevant exposures: sick contacts, childcare, travel, new formula, or new foods.'],
+    h6:['ADAPTED','Ask what helps and exactly what was given: medication, amount, concentration, and frequency.'],
+    h7:['ADAPTED','Ask complaint-specific associated symptoms. For an ill infant, include fever and how measured, feeding, urine output, breathing, vomiting/stool, and activity.'],
+    p8:['ADAPTED','Ask about medical problems diagnosed since birth.'],
+    p11:['ADDED','Ask about ED visits or hospitalizations since discharge and the most recent well-child visit.'],
+    _add:{pmh:[
+      ['ADDED','Birth history; ask about newborn and hearing screen results.'],
+      ['ADDED','Birth history; ask about the neonatal course: NICU or oxygen, jaundice, feeding problems, or a prolonged stay.'],
+      ['ADDED','Birth history; ask gestational age, delivery route, and major delivery complications.'],
+      ['ADDED','Birth history; ask about major maternal illness, medications, tobacco, alcohol, or drug exposure during pregnancy.']
+    ]},
+    s12:['ADAPTED','Include any procedure or surgery, including circumcision or hernia repair.'],
+    s15:['ADAPTED','Ask about complications, including any anesthesia problem.'],
+    o16:['DE-EMPHASIZE','Not applicable. The pregnancy and birth history sits in Past medical history above.'],
+    m20:['ADAPTED','For each medication, ask the amount, concentration, and frequency; check dosing against a recent weight.'],
+    m23:['ADAPTED','Include vitamins, supplements, and home or herbal remedies.'],
+    a24:['ADAPTED','Ask about medication, food, and formula allergies or reactions.'],
+    g27:['ADAPTED','Ask who lives with the baby and who provides care during the day.'],
+    g28:['ADAPTED','Ask who the caregiver can turn to for help or in an emergency.'],
+    g29:['DE-EMPHASIZE','Do not ask the adult relationship question of the infant.'],
+    g30:['ADAPTED','Covered below under Environment & safety; ask it once there.'],
+    g31:['DE-EMPHASIZE','Not applicable to the infant.'],
+    g32:['ADAPTED','Ask about caregiver occupations only when relevant to exposures or caregiving availability.'],
+    g33:['ADAPTED','Check the caregiver’s preferred language and understanding of written or dosing instructions.'],
+    g34:['ADAPTED','Ask about smoke or vape exposure in the home or car.'],
+    g35:['ADAPTED','Ask whether alcohol use could affect caregiving or child safety.'],
+    g36:['ADAPTED','Ask whether other substance use could affect caregiving or child safety.'],
+    g37:['ADAPTED','Covered below under Feeding; ask it once there.'],
+    f38:['ADAPTED','Ask about congenital or inherited disease, metabolic disease, hearing loss, bleeding disorders, and infant or childhood deaths in the family.'],
+    r41:['ADAPTED','Complete the remaining age-appropriate ROS without repeating symptoms already covered in the HPI.'],
+    _sections:[
+      {id:'dev', label:'Development & growth', range:'ask once here', items:[
+        'Asked what developmental skills the baby is doing now and whether milestones have been reached as expected',
+        'Asked whether the caregiver has any developmental concern or whether any skill has been lost',
+        'Reviewed growth trajectory: weight, length, and head circumference'
+      ]},
+      {id:'feed', label:'Feeding', range:'ask once here', items:[
+        'Asked breast or formula feeding; if formula, which type and how it is mixed',
+        'Asked frequency and amount per feed and whether intake has changed from usual',
+        'Asked whether solids have started and whether any food caused a reaction',
+        'Asked about vitamin D or other routine supplements when appropriate'
+      ]},
+      {id:'imm', label:'Immunizations', range:'ask once here', items:[
+        'Asked which vaccines have been received and what is currently due',
+        'Asked about vaccine reactions and any delayed or declined vaccines'
+      ]},
+      {id:'safe', label:'Environment & safety', range:'ask once here', items:[
+        'Asked about safe sleep: back to sleep, separate sleep surface, and no soft bedding',
+        'Asked about rear-facing car-seat use',
+        'Asked about childcare and supervision',
+        'Asked about smoke exposure and safe storage of medications, poisons, and firearms'
+      ]}
+    ]
+  },
+  child: {
+    i2:['ADAPTED','Introduce yourself to the caregiver, then confirm the child’s name, what the child is called at home, and exact age in years and months.'],
+    i3:['ADAPTED','The caregiver is the historian. Identify who they are, their relationship to the child, and whether they know the child’s usual baseline.'],
+    i4:['ADAPTED','Ask what the caregiver noticed first and what worries them most.'],
+    h1:['ADAPTED','If location applies, ask the caregiver where the problem seems to be and what behavior points to it; guarding, pulling at a body part, or not using a limb.'],
+    h2:['ADAPTED','Ask what is different from usual and record the caregiver’s own concrete description rather than a clinical term.'],
+    h3:['ADAPTED','Judge severity by function: what the child has stopped doing compared with usual; playing, eating, sleeping, or walking.'],
+    h4:['ADAPTED','Ask when it started, whether it is constant or intermittent, and how it has changed.'],
+    h5:['ADAPTED','Ask about relevant exposures: daycare/preschool illness, sick contacts, travel, pets, or possible ingestion.'],
+    h6:['ADAPTED','Ask what helps and exactly what medications or remedies were given, including dose and frequency.'],
+    h7:['ADAPTED','Ask complaint-specific associated symptoms and changes in intake, urine/stool, activity, sleep, or gait when relevant.'],
+    p8:['ADAPTED','Ask about past medical problems and significant injuries.'],
+    p11:['ADAPTED','Ask about hospitalizations, recurrent childhood problems, and related complications.'],
+    _add:{pmh:[
+      ['ADDED','Birth history; take a fuller birth history when there is a developmental, growth, neurologic, or respiratory concern.'],
+      ['ADDED','Birth history; ask gestational age, delivery complications, and whether the child needed NICU care.']
+    ]},
+    s15:['ADAPTED','Ask about surgical complications and any anesthesia problem.'],
+    o16:['DE-EMPHASIZE','Not applicable. The targeted birth history sits in Past medical history above.'],
+    m20:['ADAPTED','For each medication, ask the dose and frequency and check it against a recent weight.'],
+    m22:['ADAPTED','Include over-the-counter cough, cold, fever, and pain medicines.'],
+    a25:['ADAPTED','Ask what the reaction was; for serious food allergy, ask about epinephrine availability.'],
+    g26:['ADAPTED','Ask where the child lives and about relevant housing exposures such as lead, mold, or crowding.'],
+    g27:['ADAPTED','Ask who lives with the child and who else regularly provides care.'],
+    g29:['DE-EMPHASIZE','Do not ask the adult partner question of a young child.'],
+    g30:['ADAPTED','Covered below under Environment & safety; ask it once there.'],
+    g31:['DE-EMPHASIZE','Not applicable to a young child.'],
+    g32:['ADAPTED','Ask about caregiver occupations only when relevant to exposures or caregiving availability.'],
+    g33:['ADAPTED','Covered below under Development, behavior & growth; ask it once there.'],
+    g34:['ADAPTED','Ask about secondhand smoke or vape exposure.'],
+    g35:['ADAPTED','Covered below under Environment & safety; ask it once there.'],
+    g36:['ADAPTED','Covered below under Environment & safety; ask it once there.'],
+    g37:['ADAPTED','Covered below under Feeding & nutrition; ask it once there.'],
+    f38:['ADAPTED','Ask about asthma/eczema/allergy, seizures, developmental or learning problems, inherited disease, and childhood deaths in the family.'],
+    r41:['ADAPTED','Complete the remaining age-appropriate ROS without repeating symptoms already covered in the HPI.'],
+    _sections:[
+      {id:'dev', label:'Development, behavior & growth', range:'ask once here', items:[
+        'Asked about current language, motor, self-care, and toileting abilities appropriate for age',
+        'Asked about behavior, sleep, and function at daycare or preschool',
+        'Asked whether the caregiver has any developmental concern or whether any skill has been lost',
+        'Reviewed growth trajectory: weight and height, with head circumference when age-appropriate'
+      ]},
+      {id:'feed', label:'Feeding & nutrition', range:'ask once here', items:[
+        'Asked what the child eats and drinks on a typical day',
+        'Asked about milk/juice amount, picky eating, and whether meals are structured or grazing',
+        'Asked about food security when relevant'
+      ]},
+      {id:'imm', label:'Immunizations', range:'ask once here', items:[
+        'Asked which vaccines have been received and what is currently due',
+        'Asked about vaccine reactions and any delayed or declined vaccines'
+      ]},
+      {id:'safe', label:'Environment & safety', range:'ask once here', items:[
+        'Asked about age-appropriate car-seat or booster use',
+        'Asked about supervision and common hazards: water, falls, choking, and windows/stairs',
+        'Asked about safe storage of medications, poisons, alcohol/cannabis, and firearms',
+        'Asked who supervises the child when the primary caregiver is away'
+      ]}
+    ]
+  },
+  adolescent: {
+    i2:['ADAPTED','Introduce yourself to the patient first, then the accompanying adult; confirm name and age.'],
+    i3:['ADAPTED','Use the young person as the primary historian when developmentally able; use the caregiver to verify timing, doses, and background.'],
+    i4:['ADAPTED','Ask what the patient is worried about and what the caregiver is worried about. For adolescents, explain confidentiality and arrange private time.'],
+    h3:['ADAPTED','Anchor severity to function: school, sports/activities, sleep, and usual daily activities.'],
+    h4:['ADAPTED','Ask the patient’s timeline and verify key dates with the caregiver when needed.'],
+    h5:['ADAPTED','Ask where and when symptoms occur: school, sports, activities, work, home, or sleep.'],
+    h6:['ADAPTED','Ask what the patient has tried and confirm medication dose and adherence when relevant.'],
+    h7:['ADAPTED','Ask complaint-specific associated symptoms and any change in school, activity, sleep, appetite, or mood when relevant.'],
+    p8:['ADAPTED','Include significant injuries, fractures, and concussions.'],
+    p11:['ADAPTED','Ask about condition-related complications, action plans, and school accommodations when relevant.'],
+    o16:['ADAPTED','For patients who menstruate, ask menarche, cycle pattern, last menstrual period, and menstrual problems privately when appropriate.'],
+    m19:['ADAPTED','Ask what the patient takes, who manages it, and whether doses are missed.'],
+    m23:['ADAPTED','Include vitamins, supplements, energy drinks, and performance products.'],
+    a25:['ADAPTED','Ask what the reaction was and whether the patient carries and knows how to use epinephrine if prescribed.'],
+    g26:['ADAPTED','Ask where the patient lives and whether they move between households.'],
+    g27:['ADAPTED','Ask who lives at home and how things are going there.'],
+    g28:['ADAPTED','Ask who the patient trusts or would go to for help.'],
+    g29:['ADAPTED','Ask about close relationships or dating when developmentally appropriate.'],
+    g30:['ADAPTED','Ask about safety: bullying or violence, firearms, seat belts/helmets, and driving or riding with an impaired driver when age-appropriate.'],
+    g31:['ADAPTED','Ask privately about sexual activity, contraception, STI prevention/testing, and consent when developmentally appropriate.'],
+    g32:['ADAPTED','Ask about activities, sports, responsibilities, and jobs rather than adult occupation alone.'],
+    g33:['ADAPTED','Ask grade, school performance, attendance, and any learning support or accommodations.'],
+    g34:['ADAPTED','Ask privately about tobacco, vaping, and nicotine.'],
+    g35:['ADAPTED','Ask privately about alcohol use.'],
+    g36:['ADAPTED','Ask privately about cannabis and other drug use.'],
+    g37:[
+      ['ADAPTED','Ask about typical meals, physical activity, sleep, and screen time.'],
+      ['ADDED','Ask about body image and whether any weight change is intentional.']
+    ],
+    f38:['ADAPTED','Ask about early cardiac disease or sudden death, inherited disease, diabetes/lipid disorders, and major mental health or substance-use problems in the family.'],
+    r41:['ADAPTED','Complete the remaining age-appropriate ROS without repeating symptoms already covered in the HPI.'],
+    _add:{social:[['ADDED','Asked privately about mood, self-harm or suicidal thoughts, and whether the patient feels safe.']]},
+    _sections:[
+      {id:'birth', label:'Birth history (brief)', range:'ask once here', items:[
+        'Asked gestational age and major neonatal problems; take a fuller birth history only for a developmental, neurologic, or growth concern'
+      ]},
+      {id:'dev', label:'Growth & development', range:'ask once here', items:[
+        'Reviewed growth trajectory and pubertal development as appropriate for age',
+        'Asked about any longstanding developmental concern or loss of a previously acquired skill'
+      ]},
+      {id:'imm', label:'Immunizations', range:'ask once here', items:[
+        'Asked which vaccines have been received and what is currently due',
+        'Specifically reviewed age-appropriate vaccines such as Tdap, HPV, meningococcal, and annual influenza'
+      ]}
+    ]
+  },
+  youngadult: {},
+  older: {
+    i3:['ADDED','Consider a collateral historian, and name them; but ask the patient first.'],
+    i4:['ADAPTED','Check hearing and vision before you begin, and sit where you can be seen.'],
+    h3:['ADAPTED','Anchor severity to function: what you have stopped doing since this started.'],
+    h4:['ADAPTED','Timelines may be vague; corroborate with family and records rather than pressing.'],
+    h7:['ADAPTED','Expect atypical presentation: falls, confusion, functional decline, poor appetite instead of the classic symptom.'],
+    p8:['EMPHASIZE','Prior functional level and recent hospitalizations, alongside the diagnosis list.'],
+    m19:['EMPHASIZE','Full reconciliation; bring the bottles. How many prescribers, and who manages the doses.'],
+    m22:['EMPHASIZE','Anticholinergic and sedative burden, including sleep aids bought over the counter.'],
+    o16:['DE-EMPHASIZE','Menopause and any postmenopausal bleeding; the rest is brief.'],
+    g27:['ADAPTED','Living situation, and who helps with bathing, dressing, cooking, finances, transport.'],
+    g30:['EMPHASIZE','Screen for neglect and financial exploitation as well as violence.'],
+    g32:['ADAPTED','Occupation or retirement, driving, and what fills the day.'],
+    g37:['ADDED','Weight loss, who shops and cooks, isolation; and mobility or fear of falling.'],
+    f38:['DE-EMPHASIZE','Less informative at this age. Keep it brief.'],
+    r41:['ADDED','Falls, continence, memory, mood, sleep, hearing, vision, and weight loss; the geriatric review.'],
+    _sections:[
+      {id:'fx', label:'Function & goals', range:'geriatric addition', items:[
+        'Baseline ADLs and IADLs, and what has changed in the last six months',
+        'Falls in the past year, gait aids, and fear of falling',
+        'Cognition and mood, with a collateral account',
+        'Caregiver support, advance directives, and what matters most to the patient'
+      ]}
+    ]
+  }
+};
+function asLines(v) {
+  if (!v) return [];
+  return Array.isArray(v[0]) ? v : [v];
+}
+
+
+(function(){
+function h(tag,attrs){var e=document.createElement(tag);attrs=attrs||{};
+ for(var k in attrs){var v=attrs[k];if(v==null||v===false)continue;
+  if(k==='class')e.className=v;else if(k.indexOf('on')===0)e.addEventListener(k.slice(2),v);else e.setAttribute(k,v===true?'':v);}
+ for(var i=2;i<arguments.length;i++){var c=arguments[i];(Array.isArray(c)?c:[c]).forEach(function(x){if(x==null||x===false)return;e.append(x&&x.nodeType?x:document.createTextNode(x));});}
+ return e;}
+var TAGCLS={'ADAPTED':'adapted','EMPHASIZE':'emphasize','ADDED':'added','DE-EMPHASIZE':'deemph'};
+var state={age:'youngadult',concern:'pain',caseKey:null,showExtra:null};
+var root=document.getElementById('app');
+
+function chip(key,label,on,fn){return h('button',{type:'button',class:'chip','data-k':key,'aria-pressed':on?'true':'false',onclick:fn},label);}
+
+function lineEls(lines){return lines.map(function(l){return h('div',{class:'line'},h('span',{class:'tag '+TAGCLS[l[0]]},l[0]),h('span',null,l[1]));});}
+
+function row(num,def,lines,added){
+ return h('div',{class:'row'},
+  h('div',{class:'l'+(added?' add':'')},h('span',{class:'n'},num),h('span',null,def)),
+  h('div',{class:'r'+(lines.length?' on':'')},lines.length?lineEls(lines):h('span',{class:'same'},'Unchanged. Ask it as written.')));
+}
+function section(label,range,rows){
+ return h('section',{class:'sec'},h('div',{class:'sec-head'},h('span',{class:'lbl'},label),range?h('span',{class:'rng'},range):null),h('div',{class:'rows'},rows));
+}
+
+function render(){
+ var f=document.activeElement&&document.activeElement.getAttribute&&document.activeElement.getAttribute('data-k');
+ var age=state.age,concern=state.concern,cMap=C[concern]||{},aMap=A[age]||{};
+ var ageObj=AGES.find(function(a){return a.k===age;})||{},isPed=!!ageObj.ped;
+ var conObj=CONCERNS.find(function(c){return c.k===concern;})||{};
+ var baseline=(age==='youngadult'&&concern==='pain');
+ var out=[];
+
+ if(typeof CASES!=='undefined'){
+  var active=CASES.find(function(c){return c.k===state.caseKey;})||null;
+  var bar=h('div',{class:'casebar'},
+   h('div',null,h('span',{class:'lbl'},'Course cases'),h('div',{class:'hint'},'Pick the patient you are about to see and the checklist sets itself.')),
+   h('div',{class:'chips'},
+    CASES.map(function(c){return chip('case:'+c.k,c.name,c.k===state.caseKey,function(){state.caseKey=c.k;state.age=c.age;state.concern=c.concern;render();});}),
+    chip('manual','Set the age and concern myself',!active,function(){state.caseKey=null;render();})),
+   h('div',{class:'hint'},'More to be added soon. If there is a patient or a chief concern you want to practice that is not here yet, ',h('a',{href:'request-a-case.html'},'request a case'),'.'));
+  if(CASES.length)out.push(bar);
+  out.push(h('div',{class:'peach'},h('strong',null,'A well visit is a different checklist. '),'Preventive care does not translate out of the complete history, so it has one of its own: ',h('a',{href:'WellChildVisitHandout.pdf',target:'_blank',rel:'noopener'},'The Well-Child Visit'),'. Use it for any well-child or preventive visit.'));
+  if(active){
+   out.push(h('div',{class:'case'},
+    h('h2',null,active.name),
+    h('div',{class:'who'},active.who),
+    h('div',{class:'k q'},h('span',{class:'lbl'},'Stretch'),h('span',null,active.stretch)),
+    active.also?h('div',{class:'k'},h('span',{class:'lbl'},'Also'),h('span',null,active.also)):null,
+    active.aid?h('div',{class:'k'},h('span',{class:'lbl'},'Take in'),h('span',null,h('a',{href:active.aid.url,target:'_blank',rel:'noopener'},active.aid.label),' · open it before you start and keep it beside you')):null));
+  }
+ }
+
+ out.push(h('div',{class:'filters'},
+  h('div',{class:'fgroup'},h('div',{class:'lbl'},'Patient age'),
+   h('div',{class:'chips'},AGES.map(function(a){return chip('age:'+a.k,a.label,a.k===age,function(){state.age=a.k;state.caseKey=null;render();});}))),
+  h('div',{class:'fgroup'},h('div',{class:'lbl'},'Chief concern',h('span',{class:'sub'},'Five types cover almost everything that walks in.')),
+   h('div',{style:'flex:1;min-width:0'},
+    h('div',{class:'chips'},CONCERNS.map(function(c){return chip('con:'+c.k,c.label,c.k===concern,function(){state.concern=c.k;state.caseKey=null;render();});})),
+    h('div',{class:'def',style:'margin-top:8px'},DEFS[concern]||''),
+    h('div',{class:'eg'},h('span',{class:'lbl'},'Examples'),(EXAMPLES[concern]||[]).map(function(e){return h('span',{class:'x'},e);}))))));
+
+ out.push(h('div',{class:'colhead'},
+  h('div',null,h('span',{class:'lbl dark'},'WCM Complete History'),'What you learn and are assessed on'?h('span',{class:'sub'},'What you learn and are assessed on'):null),
+  h('div',null,h('span',{class:'lbl'},'For this patient: '+ageObj.label+' · '+conObj.label),
+   h('span',{class:'sub'},baseline?'The checklist as written':(typeof CASES!=='undefined'?'Practice: the same history, translated':'The same history, translated')))));
+
+ SECTIONS.forEach(function(sec){
+  var rows=sec.items.map(function(it){
+   var lines=asLines(cMap[it[0]]).concat(asLines(aMap[it[0]]));
+   return row(it[1],it[2],lines,false);
+  });
+  var extra=((cMap._add&&cMap._add[sec.id])||[]).concat((aMap._add&&aMap._add[sec.id])||[]);
+  extra.slice().reverse().forEach(function(x){rows.unshift(row('+','Added for this patient',[x],true));});
+  out.push(section(sec.label,sec.range,rows));
+ });
+
+ var extraSecs=aMap._sections||[];
+ if(extraSecs.length){
+  var show=state.showExtra===null?isPed:state.showExtra;
+  var name=age==='older'?'Geriatric domains':'Pediatric additions';
+  out.push(h('button',{type:'button',class:'xtoggle','data-k':'extra','aria-expanded':show?'true':'false',onclick:function(){state.showExtra=!show;render();}},(show?'Hide ':'Show ')+name+' ('+extraSecs.length+'), ask each topic once'));
+  if(show)extraSecs.forEach(function(s){
+   out.push(section(s.label,s.range,s.items.map(function(t){return row('+','Added for this patient',[['ADDED',t]],true);})));
+  });
+ }
+
+ root.replaceChildren.apply(root,out);
+ if(f){var n=root.querySelector('[data-k="'+f+'"]');if(n)n.focus({preventScroll:true});}
+}
+render();
+})();
+
+</script>
+</body>
+</html>

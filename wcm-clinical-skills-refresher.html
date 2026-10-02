@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Clinical Skills Refresher: MD-PhD Program</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#ffffff;--ink:#1c1917;--body:#3b3532;--muted:#6f6560;--red:#A3241C;--tint:#F4D8D4;--peach:#FBE9E0;--soft:#F8F4F1;--soft2:#EFE9E5;--hair:#E4DCD7;--orange:#D46A1F;--yellow:#F0BE45;--onred:#ffffff;
+--o-dk:#8F3E0C;--o-1:#FDF3EA;--o-2:#FADFC8;--o-3:#F5C79F;--o-4:#EBA46A;
+--b:#8A3B30;--b-dk:#5E1F18;--b-1:#F5EAE6;--b-2:#EBD3CC;--b-3:#DDBFB8;
+--g:#B8860B;--g-dk:#6B4E00;--g-1:#FBF5E1;--g-2:#F6E8B8;--g-3:#EBD28A;color-scheme:light}
+@media (prefers-color-scheme: dark){:root{--bg:#1b1816;--ink:#f1ece9;--body:#e8e2de;--muted:#a89f99;--red:#d9776d;--tint:rgba(217,119,109,.18);--peach:rgba(217,119,109,.12);--soft:#231f1c;--soft2:#2b2623;--hair:#3a3430;--orange:#e58a4a;--onred:#1b1816;
+--o-dk:#f0a56f;--o-1:rgba(229,138,74,.10);--o-2:rgba(229,138,74,.18);--o-3:rgba(229,138,74,.28);--o-4:rgba(229,138,74,.40);
+--b:#d58a80;--b-dk:#efb3a9;--b-1:rgba(213,138,128,.10);--b-2:rgba(213,138,128,.18);--b-3:rgba(213,138,128,.28);
+--g:#e0b64a;--g-dk:#f0cf7a;--g-1:rgba(240,190,69,.10);--g-2:rgba(240,190,69,.18);--g-3:rgba(240,190,69,.28);color-scheme:dark}}
+
+:root{--blue:var(--red);--blue-lt:var(--peach);--blue-md:var(--tint);--green:var(--o-dk);--green-lt:var(--o-1);--green-md:var(--o-2);
+--gray-50:var(--soft);--gray-100:var(--soft2);--gray-200:var(--hair);--gray-400:var(--muted);--gray-600:var(--body);--gray-800:var(--ink);
+--lavender:var(--b-2);--teal:var(--o-dk);--teal-lt:var(--o-2);--nav-w:240px}
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html { scroll-behavior: smooth; }
+  body { font-family:var(--font); font-size:15px; line-height:1.65; color:var(--gray-800); background:var(--bg); display:flex; }
+  nav { position:fixed; top:0; left:0; width:var(--nav-w); height:100vh; overflow-y:auto; background:var(--gray-50); border-right:1px solid var(--gray-200); padding:28px 0 40px; display:flex; flex-direction:column; }
+  .nav-logo { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-400); padding:0 20px 20px; border-bottom:1px solid var(--gray-200); margin-bottom:16px; }
+  nav a { display:block; padding:5px 20px; font-size:13.5px; color:var(--gray-600); text-decoration:none; border-left:3px solid transparent; line-height:1.4; transition:color .15s,border-color .15s,background .15s; }
+  nav a:hover { color:var(--blue); background:var(--blue-lt); border-left-color:var(--blue); }
+  nav a.section-head { font-weight:600; color:var(--gray-800); margin-top:12px; font-size:13px; }
+  nav a.sub { padding-left:32px; font-size:13px; color:var(--gray-400); }
+  nav a.sub:hover { color:var(--blue); }
+  main { margin-left:var(--nav-w); max-width:820px; padding:48px 56px 80px; }
+  section { padding-bottom:48px; margin-bottom:12px; }
+  hr { border:none; border-top:1px solid var(--gray-200); margin:32px 0; }
+  .section-label { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:6px; border-radius:3px; padding:2px 8px; background:var(--gray-100); }
+  /* Per-section accent stripes and label chips */
+  #interview, #presentations, #prob-rep, #plan, #notes, #cases, #management, #start { border-top:2px solid var(--gray-200); padding-top:44px; }
+  #platform     .section-label { background:var(--blue-md);  color:var(--blue); }
+  #interview                  { border-top-color:var(--green); }
+  #interview  .section-label  { background:var(--green-md); color:var(--green); }
+  #presentations              { border-top-color:var(--blue); }
+  #presentations .section-label { background:var(--blue-md); color:var(--blue); }
+  #prob-rep                   { border-top-color:var(--g); }
+  #prob-rep  .section-label   { background:var(--g-1); color:var(--g-dk); }
+  #prob-rep  h3               { border-left:3px solid var(--g-3); padding-left:10px; }
+  #plan                       { border-top-color:#B06070; }
+  #plan      .section-label   { background:var(--b-1); color:var(--b-dk); }
+  #plan      h3               { border-left:3px solid #E4A8B4; padding-left:10px; }
+  #notes                      { border-top-color:var(--b); }
+  #notes      .section-label  { background:var(--b-2); color:var(--b-dk); }
+  #cases                      { border-top-color:var(--blue); }
+  #cases      .section-label  { background:var(--blue-md); color:var(--blue); }
+  #management                 { border-top-color:#C97B00; }
+  #management .section-label  { background:var(--o-2); color:var(--o-dk); }
+  #start                      { border-top-color:var(--green); }
+  #start      .section-label  { background:var(--green-md); color:var(--green); }
+  h2 { font-size:22px; font-weight:700; color:var(--gray-800); margin-bottom:14px; line-height:1.3; }
+  h3 { font-size:16px; font-weight:600; color:var(--gray-800); margin:24px 0 8px; }
+  #presentations h3 { border-left:3px solid var(--o-3); padding-left:10px; }
+  .spec-items p { border-left:3px solid var(--o-3); padding-left:12px; margin-bottom:10px; }
+  p { margin-bottom:12px; }
+  em { font-style:italic; color:var(--gray-600); }
+  .callout { border-radius:8px; padding:14px 18px; margin:20px 0; font-size:13.5px; line-height:1.6; }
+  .callout strong { display:block; margin-bottom:4px; font-size:13px; text-transform:uppercase; letter-spacing:.05em; }
+  .callout.blue  { background:var(--blue-lt);  border-left:3px solid var(--blue); }
+  .callout.green { background:var(--green-lt); border-left:3px solid var(--green); }
+  .callout.gray  { background:var(--gray-50);  border-left:3px solid var(--gray-400); }
+  .callout.blue  strong { color:var(--blue); }
+  .callout.green strong { color:var(--green); }
+  .callout.gray  strong { color:var(--gray-600); }
+  .def-list dt { font-weight:600; color:var(--blue); margin-top:16px; font-size:14px; }
+  .def-list dd { margin-left:0; padding-left:14px; border-left:2px solid var(--gray-200); font-size:13.5px; color:var(--gray-600); margin-top:2px; }
+  .step-list { list-style:none; counter-reset:steps; margin:16px 0; }
+  .step-list li { counter-increment:steps; display:flex; gap:14px; margin-bottom:12px; font-size:13.5px; align-items:flex-start; }
+  .step-list li::before { content:counter(steps); display:flex; align-items:center; justify-content:center; min-width:24px; height:24px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-weight:700; font-size:12px; margin-top:1px; flex-shrink:0; }
+  .case-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+  .case-card { border:1px solid var(--gray-200); border-radius:8px; padding:16px 18px; background:var(--bg); }
+  .case-card .tag { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; border-radius:3px; padding:2px 7px; margin-bottom:8px; }
+  .tag.medicine  { background:var(--blue-md);  color:var(--red); }
+  .tag.ob        { background:var(--green-md); color:var(--o-dk); }
+  .tag.psych     { background:var(--lavender); color:var(--b-dk); }
+  .tag.peds      { background:var(--peach);    color:var(--o-dk); }
+  .tag.inpatient { background:var(--b-2);         color:var(--b-dk); }
+  .tag.ed        { background:var(--o-2);         color:var(--o-dk); }
+  .case-card h4 { font-size:14px; font-weight:600; color:var(--gray-800); margin-bottom:6px; }
+  .case-card .case-meta { font-size:12.5px; color:var(--gray-600); margin-bottom:8px; margin-top:-2px; }
+  .case-card .activities { font-size:12px; color:var(--gray-400); display:flex; flex-wrap:wrap; gap:6px; }
+  .activity-pill { background:var(--gray-100); border-radius:100px; padding:2px 8px; color:var(--gray-600); font-size:11.5px; }
+  .progression-group { margin-bottom:24px; }
+  .progression-group h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--gray-400); margin-bottom:10px; }
+  .progression-step { display:flex; align-items:baseline; gap:8px; font-size:13px; margin-bottom:6px; }
+  .step-num { display:flex; align-items:center; justify-content:center; min-width:22px; height:22px; border-radius:50%; background:var(--blue-md); color:var(--blue); font-size:11px; font-weight:700; flex-shrink:0; }
+  .step-label { font-weight:600; color:var(--gray-800); }
+  .step-patients { color:var(--gray-600); }
+  details { border:1px solid var(--gray-200); border-radius:8px; margin:16px 0; overflow:hidden; }
+  summary { padding:12px 16px; font-size:13.5px; font-weight:600; cursor:pointer; background:var(--gray-50); list-style:none; display:flex; align-items:center; gap:8px; user-select:none; }
+  summary::before { content:'▶'; font-size:10px; color:var(--gray-400); transition:transform .2s; flex-shrink:0; }
+  details[open] summary::before { transform:rotate(90deg); }
+  .note { font-size:12px; font-weight:400; color:var(--gray-400); margin-left:4px; }
+  .rubric-table { width:100%; border-collapse:collapse; font-size:13px; margin:0; }
+  .rubric-table th { background:var(--gray-100); padding:8px 12px; text-align:left; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--gray-600); border-bottom:1px solid var(--gray-200); }
+  .rubric-table td { padding:10px 12px; border-bottom:1px solid var(--gray-200); vertical-align:top; line-height:1.55; }
+  .rubric-table td:first-child { font-weight:600; color:var(--gray-800); }
+  .rubric-table ul { margin:4px 0 0 16px; padding:0; }
+  .rubric-table li { margin-bottom:2px; }
+  .spec-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:16px 0; }
+  .spec-box { border-radius:8px; padding:14px 16px; font-size:13px; line-height:1.6; }
+  .spec-box strong { display:block; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+  @media (max-width:860px) { nav{display:none;} main{margin-left:0;padding:32px 24px 60px;} .case-grid{grid-template-columns:1fr;} .spec-grid{grid-template-columns:1fr;} }
+
+*,*::before,*::after{border-radius:0!important}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--body)}
+a{color:var(--red)}
+h1,h2,h3,h4{font-family:inherit;color:var(--ink)}
+nav{background:var(--soft)!important;border-right:1px solid var(--hair)!important}
+nav a:hover{color:var(--red)!important;background:var(--peach)!important;border-left-color:var(--red)!important}
+.backlink{display:block;padding:0 20px 16px;font-size:.9rem;font-weight:700;color:var(--red);text-decoration:none;border:0;border-bottom:1px solid var(--hair);margin-bottom:14px}
+.mback{display:none;font-size:.9rem;font-weight:700;margin:0 0 16px}
+details{border-color:var(--hair)}
+summary{color:var(--ink)}
+@media (max-width:860px){body{display:block!important}main{max-width:100%!important;min-width:0}main [style*="grid-template-columns"],main .spec-grid,main .two-col{grid-template-columns:minmax(0,1fr)!important}.rubric-table{display:block;overflow-x:auto}nav{display:none!important}main{margin-left:0!important;padding:28px 18px 60px!important}.mback{display:block}}
+</style>
+</head>
+<body>
+
+
+<nav>
+  <a class="backlink" href="index.html">&larr; Reasoning Lab Peds</a>
+  <div class="nav-logo">MD-PhD Clinical Refresher</div>
+  <a href="#platform" class="section-head">The Platform</a>
+  <a href="#platform-what" class="sub">What it is</a>
+  <a href="#platform-how" class="sub">How cases work</a>
+
+  <a href="#interview" class="section-head">The Medical Interview</a>
+  <a href="#complete-hx" class="sub">Complete history</a>
+  <a href="#focused-hx" class="sub">Focused history</a>
+  <a href="#interval-hx" class="sub">Interval inpatient history</a>
+  <a href="#presentations" class="section-head">Oral Presentations</a>
+  <a href="#pres-anatomy" class="sub">Structure</a>
+  <a href="#pres-attending" class="sub">Attending encounters</a>
+  <a href="#prob-rep" class="section-head">Assessment &amp; Problem Representation</a>
+  <a href="#plan" class="section-head">The Plan</a>
+  <a href="#notes" class="section-head">Note Writing</a>
+  <a href="#notes-assessment" class="sub">Assessment in notes</a>
+  <a href="#management" class="section-head">Clinical Management</a>
+</nav>
+
+<main>
+<p class="mback"><a href="index.html">&larr; Reasoning Lab Peds</a></p>
+
+<div style="padding-bottom:28px;border-bottom:2px solid var(--gray-200);margin-bottom:40px;">
+  <h1 style="font-size:30px;font-weight:800;color:var(--gray-800);margin-bottom:4px;line-height:1.2;">MD-PhD Refresher</h1>
+  <p style="font-size:20px;font-weight:500;color:var(--blue);margin:0;">Clinical skills review</p>
+</div>
+
+<!-- ── Section 1: Platform ── -->
+<section id="platform">
+  <div class="section-label">Section 1</div>
+  <h2 id="platform-what">What is Reasoning Lab?</h2>
+  <p>Reasoning Lab is an AI-powered clinical simulation platform that hosts cases across clinical settings, specialty areas, and levels of training. For this course, faculty and students have selected and developed 10 cases specifically designed to target the skills you will need entering clerkships.</p>
+
+  <div class="callout blue">
+    <strong>About this guide</strong>
+    This guide is intended to orient you to the series and provide quick access to review resources — interview frameworks, presentation structure, and note-writing tips. We suggest completing the course cases before attending your CSC clerkship refresher and before starting your first clerkship rotations.
+  </div>
+
+  <div style="border-left:3px solid var(--blue);padding-left:18px;margin:20px 0;">
+    <h3 style="margin-top:0;margin-bottom:8px;">Skills to feel comfortable with before clerkship <span style="font-weight:400;font-size:13px;color:var(--gray-600);">(goal: familiarity, not mastery)</span></h3>
+    <ul style="margin:0 0 4px 18px;font-size:14px;line-height:1.8;color:var(--gray-800);">
+      <li>Taking and presenting a focused or interval history</li>
+      <li>Asking targeted follow-up questions based on a working differential</li>
+      <li>Generating a reasonable differential and supporting your reasoning</li>
+      <li>Committing to a leading diagnosis while staying open to revision</li>
+      <li>Putting together a concise assessment and a basic problem-based plan</li>
+      <li>Engaging in clinical discussion, including asking questions when unsure</li>
+    </ul>
+  </div>
+
+  <hr>
+
+
+
+  <hr>
+
+  <h2 id="platform-how">How Cases Work</h2>
+
+  <ol class="step-list">
+    <li><div><strong>Review case instructions</strong><div style="color:var(--gray-600);margin-top:2px;">Overview of what you will do in the encounter.</div></div></li>
+    <li><div><strong>Review the door note</strong><div style="color:var(--gray-600);margin-top:2px;">Patient name, setting, reason for visit, and the specific task you are being asked to perform.</div></div></li>
+    <li><div><strong>Review the chart</strong><div style="color:var(--gray-600);margin-top:2px;">Available before you enter the encounter and at any point during it to review labs, vitals, and prior information.</div></div></li>
+    <li><div><strong>Engage in the encounter</strong><div style="color:var(--gray-600);margin-top:2px;">Voice or text. Multi-step cases may include patients, family members, and physicians, each with their own instructions.</div></div></li>
+    <li><div><strong>Complete follow-up activities</strong><div style="color:var(--gray-600);margin-top:2px;">Note writing, if required for the case.</div></div></li>
+    <li><div><strong>Review your feedback</strong><div style="color:var(--gray-600);margin-top:2px;">Provided for history-taking, communication, and/or documentation skills, along with take-home learning resources.</div></div></li>
+    <li><div><strong>Share with a mentor</strong> <span style="font-weight:400;color:var(--gray-400);font-size:12.5px;">(optional)</span><div style="color:var(--gray-600);margin-top:2px;">Use the share encounter button to send your performance to a faculty mentor. Note a specific question if you have one, or flag technical issues or case content concerns.</div></div></li>
+  </ol>
+
+  <p style="font-size:13.5px;color:var(--gray-600);margin:4px 0 20px;">Cases can be repeated at any time to practice a different approach or revisit after receiving feedback.</p>
+
+  <div class="callout green" style="margin-top:28px;">
+    <strong>Feedback is appreciated</strong>
+    We are actively developing this series to fit the needs of students. Your input will directly shape what comes next — cases you found unhelpful, features you would like to see, things that worked well, or technical issues you encountered.
+  </div>
+
+  <p style="margin-top:24px;font-size:13px;color:var(--gray-400);">MD-PhD Clinical Refresher Series · 2026</p>
+
+</section>
+
+<!-- ── Reference divider ── -->
+<div style="margin:8px 0 48px;text-align:center;">
+  <div style="border-top:1px solid var(--gray-200);margin-bottom:20px;"></div>
+  <span style="display:inline-block;background:var(--gray-100);border:1px solid var(--gray-200);border-radius:20px;padding:6px 20px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);">Reference &amp; Review · Sections 2–4</span>
+  <p style="margin-top:10px;font-size:13px;color:var(--gray-400);font-style:italic;">For reference as you work through the cases — not required reading before you begin.</p>
+</div>
+
+<!-- ── Section 3: The Medical Interview ── -->
+<section id="interview">
+  <div class="section-label">Section 2</div>
+  <h2 id="complete-hx">The Complete History</h2>
+  <p>A complete history has a consistent structure. The following components apply across specialties, with some variation in emphasis depending on the clinical context.</p>
+  <div class="callout gray">
+    <strong>A note on clerkships</strong>
+    In most clinical settings, you will rarely — if ever — be asked to gather all of these components in a single encounter. The value of reviewing the complete history is familiarity: knowing what questions exist so you can recognize which ones matter most for the patient in front of you, whether that is a focused urgent visit, a new patient intake, or an annual physical.
+  </div>
+
+  <dl class="def-list">
+    <dt>History of Present Illness (HPI)</dt>
+    <dd>Narrative account of the chief concern — onset, duration, severity, location, quality, modifying factors, associated symptoms, and how it has evolved over time.</dd>
+    <dt>Past Medical and Surgical History</dt>
+    <dd>Relevant diagnoses, hospitalizations, and surgeries. For each: when established, how managed, and any complications.</dd>
+    <dt>Medications and Allergies</dt>
+    <dd>All medications (Rx, OTC, supplements) with doses — confirm what the patient actually takes. For each allergy, document the specific reaction.</dd>
+    <dt>Family History</dt>
+    <dd>First-degree relatives with relevant diagnoses — note the condition, relative, and age of onset.</dd>
+    <dt>Social and Exposure History</dt>
+    <dd>Occupation, housing, social supports, tobacco/alcohol/drug use, sexual history, travel, and exposures — depth calibrated to the differential.</dd>
+    <dt>Review of Systems (ROS)</dt>
+    <dd>Structured screen across organ systems for symptoms not raised in the HPI — not a repeat of the HPI, but a targeted check for related or comorbid problems.</dd>
+  </dl>
+
+  <details>
+    <summary>WCM Complete History Checklist <span class="note">click to expand</span></summary>
+    <table class="rubric-table">
+      <thead><tr><th>#</th><th>Item</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2" style="background:var(--tint);font-weight:600;color:var(--red);">Pre-encounter</td></tr>
+        <tr><td></td><td>Perform hand hygiene on entering the room</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">A. History of Present Illness</td></tr>
+        <tr><td>1</td><td>Location (if applicable)</td></tr>
+        <tr><td>2</td><td>Quality (description)</td></tr>
+        <tr><td>3</td><td>Quantification/Severity (pain scale 1–10; better, worse, or unchanged?)</td></tr>
+        <tr><td>4</td><td>Chronology/Timing (how long; constant or intermittent?)</td></tr>
+        <tr><td>5</td><td>Setting (where or when do symptoms occur?)</td></tr>
+        <tr><td>6</td><td>Modifying factors (better or worse with anything? tried anything for it?)</td></tr>
+        <tr><td>7</td><td>Associated symptoms/signs (depends on the specific chief concern)</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">B. Past Medical History</td></tr>
+        <tr><td>8</td><td>Any past medical or psychiatric problems; for each diagnosis:</td></tr>
+        <tr><td>9</td><td>When and how the diagnosis was made</td></tr>
+        <tr><td>10</td><td>How it has been or is currently being treated</td></tr>
+        <tr><td>11</td><td>Any complications or related problems</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">C. Surgical History</td></tr>
+        <tr><td>12</td><td>Any past surgery; for each surgery:</td></tr>
+        <tr><td>13</td><td>When the surgery was performed</td></tr>
+        <tr><td>14</td><td>Why the surgery was performed</td></tr>
+        <tr><td>15</td><td>Any complications or related problems</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">D. OB/GYN History (patients assigned female at birth)</td></tr>
+        <tr><td>16</td><td>Age at menarche; open-ended questions about menstrual history</td></tr>
+        <tr><td>17</td><td>Prior pregnancies</td></tr>
+        <tr><td>18</td><td>Number of deliveries; any pregnancy-related complications</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">E. Medications</td></tr>
+        <tr><td>19</td><td>Do you take any medications?</td></tr>
+        <tr><td>20</td><td>Dose and frequency of each medication</td></tr>
+        <tr><td>21</td><td>Any problems taking or accessing medications</td></tr>
+        <tr><td>22</td><td>Any over-the-counter medications</td></tr>
+        <tr><td>23</td><td>Any supplements or complementary medicine</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">F. Allergies</td></tr>
+        <tr><td>24</td><td>Any allergies (including food); for each:</td></tr>
+        <tr><td>25</td><td>Specific allergic reaction</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">G. Social, Occupational, and Sexual History</td></tr>
+        <tr><td>26</td><td>Where you were born and where you live now</td></tr>
+        <tr><td>27</td><td>Who you live with</td></tr>
+        <tr><td>28</td><td>Social supports / who can you turn to in an emergency</td></tr>
+        <tr><td>29</td><td>Current relationship or partner status</td></tr>
+        <tr><td>30</td><td>Screen for domestic violence ("Do you feel safe at home?")</td></tr>
+        <tr><td>31</td><td>Sexual history: currently/ever active; types of activity; STI testing; protection against STI/pregnancy</td></tr>
+        <tr><td>32</td><td>Current occupation</td></tr>
+        <tr><td>33</td><td>Educational background / health literacy screen ("How comfortable are you filling out medical forms?")</td></tr>
+        <tr><td>34</td><td>Tobacco use (current/past; amount; duration)</td></tr>
+        <tr><td>35</td><td>Alcohol use (amount; frequency)</td></tr>
+        <tr><td>36</td><td>Recreational drug use (which drugs; route of use)</td></tr>
+        <tr><td>37</td><td>Diet and exercise habits</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">H. Family History</td></tr>
+        <tr><td>38</td><td>Medical problems in parents, siblings, or children</td></tr>
+        <tr><td colspan="2" style="background:var(--o-2);font-weight:600;color:var(--o-dk);">I. Review of Systems</td></tr>
+        <tr><td>39</td><td>Explain the purpose of the ROS to the patient</td></tr>
+        <tr><td>40</td><td>Use an organized sequence for ROS questions</td></tr>
+        <tr><td colspan="2" style="background:var(--soft2);font-style:italic;color:#444;">Ask about at least two items in each category below:</td></tr>
+        <tr><td>41</td><td><strong>General/Systemic:</strong> Fever, chills, night sweats, weight changes, appetite changes, fatigue</td></tr>
+        <tr><td>42</td><td><strong>Skin/Integument:</strong> Rashes, lumps, itchiness, changes in hair or nails</td></tr>
+        <tr><td>43</td><td><strong>Neurologic/Psychiatric:</strong> Headaches, weakness, numbness, memory changes, speech/gait difficulties, depressed mood, nervousness, sleep difficulties</td></tr>
+        <tr><td>44</td><td><strong>HEENT:</strong> Vision changes, hearing changes, tinnitus, dizziness, neck lumps/swollen glands</td></tr>
+        <tr><td>45</td><td><strong>Endocrine:</strong> Temperature intolerance, excessive hunger/thirst, frequent urination</td></tr>
+        <tr><td>46</td><td><strong>Cardiovascular:</strong> Chest pain, palpitations, exertional dyspnea, orthopnea, PND, near-syncope/syncope, leg swelling, calf pain with walking</td></tr>
+        <tr><td>47</td><td><strong>Pulmonary:</strong> Cough, wheezing, shortness of breath</td></tr>
+        <tr><td>48</td><td><strong>Gastrointestinal:</strong> Dysphagia, heartburn, nausea, vomiting, abdominal pain, constipation, diarrhea, change in stool caliber, melena, hematochezia</td></tr>
+        <tr><td>49</td><td><strong>Genitourinary:</strong> Dysuria, hematuria, urgency, nocturia, incontinence, difficulty initiating stream, genital discharge/sores, sexual function</td></tr>
+        <tr><td>50</td><td><strong>Musculoskeletal:</strong> Muscle weakness or pain, joint pain or swelling, back pain, limited range of motion</td></tr>
+        <tr><td>51</td><td><strong>Hematologic:</strong> Abnormal bleeding, easy bruising, lymphadenopathy (neck, axilla, groin)</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary>MIRS Communication Skills Rubric <span class="note">click to expand — used to evaluate interview technique</span></summary>
+    <table class="rubric-table">
+      <thead><tr><th>Category</th><th>What is being evaluated</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Opening</td>
+          <td><strong>Full credit:</strong> Introduces self, clarifies role, asks how to address the patient, uses patient's name.<br><strong>Partial:</strong> Introduction missing a critical element.<br><strong>No credit:</strong> No introduction.</td>
+        </tr>
+        <tr>
+          <td>Elicits spectrum of concerns</td>
+          <td><strong>Full:</strong> Elicits patient's full spectrum of concerns within the first few minutes.<br><strong>Partial:</strong> Elicits some but not all concerns.<br><strong>No credit:</strong> Fails to elicit concerns.</td>
+        </tr>
+        <tr>
+          <td>Timeline</td>
+          <td><strong>Full:</strong> Obtains sufficient information to establish a chronology of the chief concern and HPI.<br><strong>Partial:</strong> Obtains some chronology but gaps remain.<br><strong>No credit:</strong> Fails to establish chronology.</td>
+        </tr>
+        <tr>
+          <td>Questioning skills — types of questions</td>
+          <td><strong>Full:</strong> Begins with open-ended questions, followed by specific or direct questions.<br><strong>Partial:</strong> Often skips open-ended questions and goes directly to specific/direct.<br><strong>No credit:</strong> Uses "why" questions, multiple questions, or leading questions.</td>
+        </tr>
+        <tr>
+          <td>Questioning skills — verification</td>
+          <td><strong>Full:</strong> Always seeks clarification, verification, and specificity of patient responses.<br><strong>Partial:</strong> Does not always seek clarification or specificity.<br><strong>No credit:</strong> Accepts information at face value without clarification.</td>
+        </tr>
+        <tr>
+          <td>Lack of jargon</td>
+          <td><strong>Full:</strong> Asks questions in language easily understood; clarifies any necessary medical terms.<br><strong>Partial:</strong> Occasionally uses jargon without defining it.<br><strong>No credit:</strong> Uses difficult medical terms and jargon throughout.</td>
+        </tr>
+        <tr>
+          <td>Impact of illness on patient</td>
+          <td><strong>Full:</strong> Inquires about the patient's feelings about illness and how it has changed their life.<br><strong>Partial:</strong> Partially addresses impact or offers a limited statement.<br><strong>No credit:</strong> Fails to acknowledge any impact of illness on patient's life.</td>
+        </tr>
+        <tr>
+          <td>Verbal facilitation skills</td>
+          <td><strong>Full:</strong> Uses facilitation throughout — short statements, silence, reflection, repetition — at appropriate times.<br><strong>Partial:</strong> Uses some facilitative skills but inconsistently.<br><strong>No credit:</strong> Fails to use facilitative skills.</td>
+        </tr>
+        <tr>
+          <td>Non-verbal facilitation skills</td>
+          <td><strong>Full:</strong> Good eye contact, relaxed open body language, appropriate facial expressions, forward lean.<br><strong>Partial:</strong> Some facilitative techniques used but inconsistently.<br><strong>No credit:</strong> No attempt to put patient at ease; negative or closed body language.</td>
+        </tr>
+        <tr>
+          <td>Empathy and acknowledging patient cues</td>
+          <td><strong>Full:</strong> Supportive comments about patient emotions; intermittent verbal reassurance.<br><strong>Partial:</strong> A few empathetic statements; generally neutral.<br><strong>No credit:</strong> No empathy demonstrated; may use negative emphasis or criticism.</td>
+        </tr>
+        <tr>
+          <td>Encouragement of questions</td>
+          <td><strong>Full:</strong> Encourages patient questions at the end of major subsections and at close of interview.<br><strong>Partial:</strong> Provides opportunity at close only, or inconsistently during interview.<br><strong>No credit:</strong> Fails to provide opportunity for patient questions.</td>
+        </tr>
+        <tr>
+          <td>Admitting lack of knowledge</td>
+          <td><strong>Full:</strong> When unable to answer, admits lack of knowledge and commits to finding out.<br><strong>Partial:</strong> Admits lack of knowledge but refers patient elsewhere without follow-through.<br><strong>No credit:</strong> Makes up answers to satisfy the patient.</td>
+        </tr>
+        <tr>
+          <td>Closure</td>
+          <td><strong>Full:</strong> Clearly specifies plans — what will be done, when patient will hear back, next steps.<br><strong>Partial:</strong> Partially details plans for the future.<br><strong>No credit:</strong> Fails to specify plans; patient leaves without clear next steps.</td>
+        </tr>
+        <tr>
+          <td>Achieve a shared plan</td>
+          <td><strong>Full:</strong> Discusses diagnosis/prognosis, negotiates a plan, invites patient to contribute.<br><strong>Partial:</strong> Discusses plan but does not allow patient to contribute.<br><strong>No credit:</strong> Fails to discuss diagnosis or prognosis with patient.</td>
+        </tr>
+        <tr>
+          <td>Overall interview technique</td>
+          <td><strong>Full:</strong> Consistently patient-centered; mixes patient- and physician-centered styles appropriately.<br><strong>Partial:</strong> Starts patient-centered but reverts to physician-centered by the end.<br><strong>No credit:</strong> Does not follow patient's lead; uses only physician-centered technique.</td>
+        </tr>
+        <tr>
+          <td>Organization</td>
+          <td><strong>Full:</strong> Questions follow a logical order for the patient.<br><strong>Partial:</strong> Follows topics but has a few disjointed questions.<br><strong>No credit:</strong> Questions seem disjointed and unorganized.</td>
+        </tr>
+        <tr>
+          <td>Pacing of interview</td>
+          <td><strong>Full:</strong> Attentive to patient responses; listens without interruption; interview progresses smoothly.<br><strong>Partial:</strong> Comfortable pace most of the time but occasional interruptions or rushed sections.<br><strong>No credit:</strong> Frequently interrupts patient; awkward pauses break the flow.</td>
+        </tr>
+        <tr>
+          <td>Transitional statements</td>
+          <td><strong>Full:</strong> Uses full transitional statements (what and why) when moving between subsections.<br><strong>Partial:</strong> Sometimes uses effective transitions but inconsistently.<br><strong>No credit:</strong> Moves between subsections without signposting; patient is left uncertain.</td>
+        </tr>
+        <tr>
+          <td>Summarization</td>
+          <td><strong>Full:</strong> Summarizes data at the end of each major line of inquiry to verify and clarify.<br><strong>Partial:</strong> Summarizes at the end of some lines but inconsistently.<br><strong>No credit:</strong> Fails to summarize; constantly repeats questions.</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <hr>
+
+  <div style="background:var(--green-lt);border-left:3px solid var(--green);border-radius:6px;padding:14px 18px 14px 18px;margin:8px 0 20px;">
+    <h2 id="focused-hx" style="margin-bottom:0;">The Focused History</h2>
+  </div>
+  <p>In focused encounters, the same structural components apply but depth is calibrated to the clinical question. The categories below provide a framework for hypothesis-driven inquiry — the presenting concern and your emerging differential determine which to prioritize.</p>
+
+  <details>
+    <summary>Focused History Question Categories — Reference Guide <span class="note">click to expand</span></summary>
+    <table class="rubric-table">
+      <thead><tr><th>Category</th><th>What to ask and why</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="background:var(--tint);color:var(--red);">Chief concern — cardinal features</td>
+          <td>Characterize the primary symptom: <strong>Onset</strong> (when, how sudden), <strong>Duration</strong>, <strong>Severity</strong>, <strong>Location/Radiation</strong>, <strong>Quality</strong>. Variation applies for psychiatric and non-pain presentations.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--o-2);color:var(--o-dk);">Symptom course</td>
+          <td>Pace of illness (worsening, improving, stable) · Therapeutics tried · Aggravating and alleviating factors · Prior similar episodes</td>
+        </tr>
+        <tr>
+          <td style="background:var(--peach);color:var(--o-dk);">Red flag symptoms</td>
+          <td>Ask about symptoms associated with can't-miss diagnoses — malignancy, ACS, stroke, PE, life-threatening infections, surgical emergencies, suicidal ideation. Each question should correspond to a specific item on the differential.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--b-2);color:var(--b-dk);">Associated symptoms</td>
+          <td>Symptoms related to likely items on the differential not covered in red flags. Goal is differentiation, not exhaustive screening.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--o-2);color:var(--o-dk);">Personal medical / health history</td>
+          <td>Medical and surgical history · Menstrual history (when relevant) · Medications · Prior hospitalizations · Immunization history · Birth history (pediatrics)</td>
+        </tr>
+        <tr>
+          <td style="background:var(--b-2);color:var(--b-dk);">Family history</td>
+          <td>Family history of diagnoses with a hereditary component relevant to the differential. Specify condition, relative, and age of onset.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--o-1);color:var(--o-dk);">Social and exposure history</td>
+          <td>Sexual history · Belief systems · Travel · Toxin/occupational exposure · Drug, alcohol, tobacco use · Finances and housing · Risk factors for abuse</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary>Example Focused History Checklist — Febrile Infant <span class="note">click to expand</span></summary>
+    <table class="rubric-table">
+      <thead><tr><th>#</th><th>Category</th><th>What to ask / why it matters</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Fever characterization</strong></td>
+          <td>"How did you measure the temperature?" / "Was it taken rectally?" / "What was the reading?" <br><em>Rectal temperature is the standard in infants. ≥38.0 °C rectal meets the threshold for full evaluation in young infants.</em></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Feeding history</strong></td>
+          <td>"How has feeding been today?" / "Same amount as usual?" / "Is she waking up to feed?"<br><em>Feeding is one of the earliest behaviors affected by illness. Poor feeding can be an early sign of systemic infection.</em></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Red flag symptoms</strong></td>
+          <td>"Has she been more lethargic or unusually irritable?" / "Any trouble breathing?" / "Any rash or blisters?" / "Any seizure-like movements?"<br><em>Lethargy or marked irritability → meningitis/sepsis. Respiratory distress → pneumonia/sepsis. Vesicular rash → neonatal HSV. Seizure-like activity → CNS infection (meningitis, HSV encephalitis).</em></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Associated symptoms</strong></td>
+          <td>"Any vomiting or diarrhea?" / "Congestion or cough?" / "Any change in wet diapers or urine output?"<br><em>Vomiting/diarrhea → GI infection. Congestion/cough → viral respiratory infection. Decreased urine output → dehydration.</em></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Birth and perinatal history</strong></td>
+          <td>"Was she full term?" / "Any complications at delivery or afterward?" / "Was she in the NICU?"<br><em>Prematurity increases susceptibility to infection. A complicated nursery stay may indicate prior perinatal complications.</em></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Maternal GBS status</strong></td>
+          <td>"Do you know if mom was tested for Group B Strep during pregnancy?" / "Did she need antibiotics during labor?"<br><em>Untreated maternal GBS colonization is associated with higher rates of neonatal early-onset sepsis.</em></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><strong>HSV / herpes exposure</strong></td>
+          <td>"Does mom or anyone at home have herpes or cold sores?" / "Were there any active sores at the time of delivery?" / "Any blisters on the baby?"<br><em>HSV exposure during delivery or from caregivers (HSV-1) can cause serious neonatal infection that may initially present as fever only.</em></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><strong>Sick contacts and exposures</strong></td>
+          <td>"Is anyone sick at home?" / "Any recent contact with someone who was ill?"<br><em>Sick household contacts increase the likelihood of viral infections in the infant.</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+  <div class="callout gray">
+    <strong>Tips for focused histories</strong>
+    <ul style="margin:6px 0 0 16px;">
+      <li>Consider a differential diagnosis before entering the room (include common and "can't miss" conditions); refine or expand this as you gather more history</li>
+      <li>Characterize the chief concern (onset, progression, key features)</li>
+      <li>Ask about associated symptoms, including those that could suggest a "can't miss" diagnosis — even if unlikely</li>
+      <li>Identify red flags relevant to the presentation</li>
+      <li>Review the medication list with the patient (confirm what they are actually taking and identify clinical relevance)</li>
+      <li>Target family and social history to relevant risk factors (do not need to be exhaustive)</li>
+      <li>Elicit the patient's perspective ("What do you think is going on?" / "What worries you most?")</li>
+    </ul>
+  </div>
+
+  <h3>Specialty-specific considerations (focused history)</h3>
+  <div class="spec-grid">
+    <div class="spec-box" style="background:var(--lavender);"><strong style="color:var(--b-dk);">Psychiatry</strong>Assess mood, affect, thought process/content, and safety (SI/HI). Screen for substance use and prior psychiatric history. Establish confidentiality boundaries early.</div>
+    <div class="spec-box" style="background:var(--peach);"><strong style="color:var(--o-dk);">Pediatrics</strong>Integrate caregiver and child perspectives. Review birth history, development, immunizations, and feeding. Gauge caregiver concerns and reliability of history.</div>
+    <div class="spec-box" style="background:var(--green-lt);"><strong style="color:var(--green);">Obstetrics / Gynecology</strong>Clarify pregnancy status (LMP, contraception, sexual activity). Obtain obstetric and gynecologic history. Screen for ectopic risk and safety concerns.</div>
+    <div class="spec-box" style="background:var(--blue-lt);"><strong style="color:var(--blue);">Neurology</strong>Localize symptoms precisely — onset, progression, and focal deficits. Assess associated features (weakness, numbness, speech, vision, gait) and establish baseline function.</div>
+    <div class="spec-box" style="background:var(--o-2);"><strong style="color:var(--o-dk);">Surgery</strong>Focus on acuity and trajectory. Identify red flags (peritonitis, obstruction, bleeding). Confirm NPO status, last oral intake, and anticoagulation use.</div>
+    <div class="spec-box" style="background:var(--b-2);"><strong style="color:var(--b-dk);">Emergency Medicine</strong>Prioritize onset and acuity — ask about red flags first. Establish key risk factors quickly (cardiac history, prior clots, immunocompromise) and confirm medications and allergies early.</div>
+  </div>
+
+  <hr>
+
+  <h3 id="interval-hx">The Interval Inpatient History</h3>
+  <p>Rather than building a history from scratch, the interval history focuses on what has changed and what remains unresolved — built from chart review before you enter the room and a focused bedside conversation with the patient.</p>
+
+  <details>
+    <summary>Interval Hospitalization History: Pre-Rounding &amp; Bedside Assessment <span class="note">click to expand — <a href="Interval_Rounding_Handout.docx" download style="color:inherit;text-decoration:underline;">download handout (.docx)</a></span></summary>
+    <table class="rubric-table">
+      <thead><tr><th>Category</th><th>What to check or ask</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:var(--tint);font-weight:600;text-align:center;color:var(--red);">PART 1: PRE-ROUNDING — Chart Review Before Seeing the Patient</td></tr>
+        <tr>
+          <td style="background:var(--tint);"><strong>Vital sign trends</strong></td>
+          <td>Review all vitals from the last 24 hours: Temperature (overnight fever spikes?) · Heart rate (trending?) · BP (new hypotension/hypertension?) · RR and O₂ saturation · Telemetry alerts · Fluid balance/weight</td>
+          <td>A single reading can be misleading. Trends reveal clinical trajectory.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--peach);"><strong>Overnight events and nursing notes</strong></td>
+          <td>Acute changes or escalations · Falls or safety events · Patient complaints overnight · PRN medications given · Sleep quality and demeanor · Drain output, wound checks</td>
+          <td>Nursing notes capture events not in structured data. PRN use proxies symptom burden.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--o-2);"><strong>Labs and imaging</strong></td>
+          <td>CBC, metabolic panel, LFTs, coagulation (trends and critical values) · Cultures (new growth?) · Overnight imaging reads · Pending studies</td>
+          <td>Results may change your assessment before you walk in.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--peach);"><strong>Medications and changes</strong></td>
+          <td>New medications started or stopped · Dose changes (antibiotics, anticoagulants, diuretics) · PRNs given · Antibiotic day of therapy · Dosing adjustments needed · Medications held</td>
+          <td>Medication changes explain new symptoms or improvements.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--b-2);"><strong>Consult notes and team communication</strong></td>
+          <td>New consult recommendations (implemented?) · Updated specialist notes · Social work/case management updates · PT/OT notes · Goals of care documentation · Procedures scheduled</td>
+          <td>Consultant recommendations may require action that morning.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--soft2);"><strong>Your updated assessment</strong></td>
+          <td>Problem list in priority order today · What has changed · Key questions to answer · Likely disposition trajectory · What you will present</td>
+          <td>Pre-rounding without synthesis is data collection, not preparation.</td>
+        </tr>
+        <tr><td colspan="3" style="background:var(--o-2);font-weight:600;text-align:center;color:var(--o-dk);">PART 2: BEDSIDE VISIT — Interval History from the Patient</td></tr>
+        <tr>
+          <td style="background:var(--tint);"><strong>Interval course and trajectory</strong></td>
+          <td>How did you sleep? · How are you feeling compared to yesterday/admission? · Has [chief concern] gotten better, worse, or the same? · Anything concerning overnight?</td>
+          <td>The patient's subjective trajectory is a high-yield anchor.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--peach);"><strong>Current symptom status</strong></td>
+          <td>Pain (severity, location, character — same or different?) · Dyspnea · Nausea/vomiting · Subjective fever/chills · Any new symptoms since admission</td>
+          <td>Asking specifically about each active problem ensures nothing is missed.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--o-2);"><strong>Functional status and recovery</strong></td>
+          <td>Activity level (out of bed? walking?) · Appetite and oral intake · Bowel function · Urination · Sleep quality</td>
+          <td>Functional markers predict readiness for discharge.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--peach);"><strong>Pertinent positives/negatives for active diagnoses</strong></td>
+          <td>Symptoms indicating improvement · Symptoms indicating deterioration or complication · Red flags relevant to the diagnosis · Items from the differential not yet ruled out</td>
+          <td>The interval history is a daily hypothesis test.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--b-2);"><strong>Patient understanding and questions</strong></td>
+          <td>Do you understand why you're here and what we're treating? · Questions about medications or the plan? · Anything you're worried about that we haven't discussed? · Have you been able to talk to family?</td>
+          <td>Unaddressed concerns become barriers to discharge.</td>
+        </tr>
+        <tr>
+          <td style="background:var(--soft2);"><strong>Goals of care</strong> <em style="font-weight:normal;">(when applicable)</em></td>
+          <td>Has anything changed about how you want us to approach your care? · Family conversations about wishes? · Health care proxy or advance directive on file? · Values or priorities to keep in mind?<br><em>These conversations should happen proactively when the patient is stable.</em></td>
+          <td>Most effectively explored outside of immediate crisis.</td>
+        </tr>
+      </tbody>
+    </table>
+  </details>
+
+</section>
+
+<!-- ── Section 4: Oral Presentations ── -->
+<section id="presentations">
+  <div class="section-label">Section 3</div>
+  <h2 id="pres-anatomy">Oral Presentations</h2>
+  <p>An oral presentation is a structured synthesis delivered to a listener. It is curated and interpretive — not a verbatim account of the encounter. Its purpose is to transfer clinical understanding efficiently.</p>
+
+  <h3>The one-liner</h3>
+  <p>A single sentence that orients the listener — who the patient is, what brought them in, and one or two contextual factors that shape the differential. It is a frame, not a diagnosis.</p>
+  <p><em>Example: "Jordan is a 72-year-old man on adalimumab for rheumatoid arthritis presenting with one day of worsening left lower quadrant pain."</em></p>
+
+  <h3>History of Present Illness</h3>
+  <p>Brief and narrative. Include the high-yield positives and the clinically meaningful negatives. Not everything you asked — the information that matters for the differential you are building.</p>
+
+  <h3>Past history, medications, family, social</h3>
+  <p>Pertinent items only. The attending knows the structure of a complete history; they want to know which elements of the past history are relevant to this presentation and why.</p>
+
+  <h3>Physical exam</h3>
+  <p>Vitals first, every time. Then the relevant exam findings. When you report a finding, attach its significance: "voluntary guarding but no rebound tenderness" carries different diagnostic weight than "abdominal tenderness."</p>
+
+  <h3>Assessment &amp; Problem Representation</h3>
+  <p>Your clinical interpretation, structured in two parts: a problem representation followed by a prioritized differential. For a step-by-step breakdown and worked example, see the <a href="#prob-rep">Assessment &amp; Problem Representation</a> section below — the same framework applies to your oral presentation and your note.</p>
+
+  <h3>Plan</h3>
+  <p>Organized by problem. Each item should trace directly back to the assessment. For a worked example and guidance on structure, see the <a href="#plan">Plan</a> section below.</p>
+
+  <hr>
+
+  <h2>Specialty-specific Communication</h2>
+  <p>Certain specialties require adjustments to both how you take a history and how you structure your presentation and note. The considerations below apply across all activities in specialty cases.</p>
+  <div class="spec-grid">
+    <div class="spec-box" style="background:var(--green-lt);"><strong style="color:var(--green);">Obstetrics / Gynecology</strong>Include gestational age and obstetric context in the one-liner. Differential, urgency, and plan shift by trimester. Safety considerations belong in the assessment, not as an afterthought.</div>
+    <div class="spec-box" style="background:var(--lavender);"><strong style="color:var(--b-dk);">Psychiatry</strong>MSE findings are core objective data. The assessment integrates diagnostic criteria, safety, and insight. Avoid leading with a label before establishing the supporting features.</div>
+    <div class="spec-box" style="background:var(--peach);"><strong style="color:var(--o-dk);">Pediatrics</strong>Name your source of history (parent, child, or both). Include age in months or years in the one-liner. Developmental context and caregiver concerns are part of the clinical picture.</div>
+    <div class="spec-box" style="background:var(--blue-lt);"><strong style="color:var(--blue);">Inpatient Medicine</strong>Include hospital day and presenting diagnosis in the one-liner. Follow interval format — what changed, what the data show, what the plan is for today.</div>
+    <div class="spec-box" style="background:var(--b-2);"><strong style="color:var(--b-dk);">Emergency Medicine</strong>Lead with the presenting concern and time-sensitive elements. Include disposition thinking in the assessment. Name your rule-out explicitly when evidence is still pending.</div>
+  </div>
+
+  <hr>
+
+  <h2 id="pres-attending">Presenting to your AI-Attending</h2>
+  <div class="callout blue">
+    <strong>What to expect</strong>
+    When the attending says "go ahead," deliver your full presentation — one-liner through plan — without waiting for prompts. A complete presentation, even an imperfect one, gives more to work with and more to learn from. The attending will push back, probe your reasoning, and ask you to support your thinking. This is deliberate: the goal is to help you arrive at the answer through questions, not to give it to you. For medical content they are a resource — ask if you are stuck. For presentation structure, work toward it yourself.
+  </div>
+</section>
+
+<!-- ── Assessment & Problem Representation ── -->
+<section id="prob-rep">
+  <div class="section-label">Deep Dive</div>
+  <h2>Assessment &amp; Problem Representation</h2>
+  <p>The assessment is the interpretive core of both your oral presentation and your clinical note. It is where you move from data to reasoning — synthesizing what you gathered into a clinical picture that drives the differential and plan. It is structured in two parts: a problem representation followed by a prioritized differential.</p>
+  <p><strong>Problem representation</strong> is a one- to two-sentence synthesis of the case using medical terminology. It translates raw data — symptoms, vitals, demographic context, key risk factors — into a clinical pattern that activates the appropriate differential. It does not name a diagnosis; it sets up the diagnostic reasoning that follows.</p>
+
+  <div style="margin:20px 0 4px;border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);">
+    <div style="background:var(--peach);padding:10px 16px;border-bottom:1px solid var(--gray-200);font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);">Step 1 — Problem Representation</div>
+    <div style="padding:14px 16px;font-size:13.5px;line-height:1.65;">
+      <em>"72-year-old immunocompromised man (on a biologic for rheumatoid arthritis) presenting with one day of acute-onset, constant focal LLQ pain, low-grade fever, and tachycardia — a pattern consistent with an acute colonic process."</em>
+    </div>
+  </div>
+
+  <p style="font-size:13.5px;color:var(--gray-600);margin:12px 0 8px;padding-left:2px;"><strong style="color:var(--gray-800);">Differential:</strong> Name your leading diagnosis and support it with at least two findings from the history or exam. Then give two or three alternatives — for each, note why it belongs on the list and why it is less likely than your leading diagnosis.</p>
+
+  <div style="margin:0 0 4px;border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);">
+    <div style="background:var(--o-1);padding:10px 16px;border-bottom:1px solid var(--gray-200);font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--green);">Step 2 — Differential</div>
+    <div style="padding:14px 16px;font-size:13.5px;line-height:1.65;">
+      <strong>Leading:</strong> Acute diverticulitis — classic LLQ localization with fever and tachycardia; immunosuppression may blunt exam findings.<br><br>
+      <strong>Alternatives:</strong>
+      <ul style="margin:6px 0 0 18px;">
+        <li><strong>Colonic malignancy with perforation</strong> — on differential given age and family history of colon cancer; less likely because this is an acute focal presentation.</li>
+        <li><strong>Infectious colitis</strong> — on differential given biologic use; less likely because no diarrhea.</li>
+        <li><strong>Ischemic colitis</strong> — on differential given age and hemodynamic instability; less likely because no hematochezia.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin:8px 0 20px;border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);">
+    <div style="background:var(--o-2);padding:10px 16px;border-bottom:1px solid var(--gray-200);font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--o-dk);">Together — Assessment</div>
+    <div style="padding:14px 16px;font-size:13.5px;line-height:1.65;">
+      <em>72-year-old immunocompromised man on adalimumab presenting with one day of acute LLQ pain and fever. Vitals are notable for tachycardia (HR 102) and mild hypotension, raising concern for early septic shock. Most consistent with acute diverticulitis — LLQ localization, fever, and hemodynamic changes are classic; immunosuppression may blunt exam and laboratory findings.</em><br><br>
+      <em>Differential also includes colonic malignancy with perforation (on list given age and family history of colon cancer at 65; less likely because this is an acute focal process without mass or obstruction symptoms), infectious colitis (on list given biologic use; less likely because no diarrhea), and ischemic colitis (on list given age and hemodynamic instability; less likely because no hematochezia).</em>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>In an oral presentation</h3>
+  <p>The assessment follows the physical exam and precedes the plan. Deliver the problem representation aloud as a single statement, then walk through your differential — leading diagnosis first, supported by specific findings, then alternatives with your reasoning for each. Do not wait to be asked for the differential; it is part of the assessment.</p>
+
+  <h3>In a clinical note</h3>
+  <p>The same structure appears as the <strong>A</strong> in a SOAP note or the <strong>Assessment &amp; Plan</strong> in an H&amp;P. Write the problem representation as the opening sentence of the assessment, followed by your numbered differential with supporting reasoning. Each item in the plan should trace back to a specific problem in the assessment.</p>
+</section>
+
+<!-- ── The Plan ── -->
+<section id="plan">
+  <div class="section-label">Deep Dive</div>
+  <h2>The Plan</h2>
+  <p>The plan is the action layer of your assessment. It is organized by problem — not by order type or timing — and every item in it should be traceable back to a specific diagnosis or concern in the assessment. A plan that cannot be linked to the assessment is a plan without a rationale.</p>
+
+  <h3>Structure</h3>
+  <p>Number each problem and group your orders, referrals, and follow-up under it. For each problem, think in terms of: what you are trying to confirm or rule out, what treatment or management you are initiating, what you are monitoring, and what the disposition or next step is.</p>
+
+  <div style="margin:20px 0 4px;border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);">
+    <div style="background:var(--b-1);padding:10px 16px;border-bottom:1px solid var(--gray-200);font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--b-dk);">Example — Plan</div>
+    <div style="padding:14px 16px;font-size:13.5px;line-height:1.65;">
+      <strong>1. Rule out perforation:</strong> CT abdomen/pelvis with IV contrast. NPO pending imaging. IV access ×2. Surgical consult on standby.<br><br>
+      <strong>2. Infectious workup:</strong> Blood cultures ×2, CBC with differential, CMP, lactate, CRP, urinalysis.<br><br>
+      <strong>3. Empiric antibiotics:</strong> Piperacillin-tazobactam after cultures drawn. Acetaminophen for pain and fever. Hold NSAIDs.<br><br>
+      <strong>4. Hold immunosuppression:</strong> Hold adalimumab and methotrexate; notify rheumatology.<br><br>
+      <strong>5. Disposition:</strong> Admit for IV antibiotics and monitoring. Upgrade to surgical team if CT shows perforation or abscess.
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>In an oral presentation</h3>
+  <p>Deliver the plan after the assessment, organized by problem. You do not need to read every order — summarize your thinking for each problem and name the key actions. The attending will ask for specifics if needed.</p>
+
+  <h3>In a clinical note</h3>
+  <p>The <strong>P</strong> in a SOAP note and the <strong>Plan</strong> in an H&amp;P follow the same problem-based structure. Be specific: name orders with doses and timing where relevant, include follow-up plans, and make the link to the assessment explicit for each item. Avoid vague entries like "continue current management" without specifying what that means.</p>
+</section>
+
+<!-- ── Section 5: Notes ── -->
+<section id="notes">
+  <div class="section-label">Section 4</div>
+  <h2>Clinical Note Writing</h2>
+  <p>For a subset of cases, you will write a note documenting the encounter. Unlike a presentation, a note is a durable record — complete, accurate, and structured for care coordination and medicolegal purposes. In clerkships you will use two main formats, each suited to a different moment in care.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;">
+    <div style="border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);">
+      <div style="background:var(--blue-lt);padding:10px 16px;border-bottom:1px solid var(--gray-200);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);">H&amp;P — History &amp; Physical</div>
+      <div style="padding:14px 16px;font-size:13px;line-height:1.75;color:var(--gray-600);">
+        <span style="display:block;font-size:11.5px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">When: new admissions · new patient visits</span>
+        <strong style="color:var(--gray-800);font-size:12px;">CC &amp; HPI</strong><br>
+        Chief complaint and full narrative of the presenting illness.<br><br>
+        <strong style="color:var(--gray-800);font-size:12px;">Past History</strong><br>
+        Medical history, surgical history, medications, allergies, family history, social history, and ROS — each as its own labeled section.<br><br>
+        <strong style="color:var(--gray-800);font-size:12px;">Physical Exam</strong><br>
+        Full exam documented by system, with vitals first.<br><br>
+        <strong style="color:var(--gray-800);font-size:12px;">Assessment &amp; Plan</strong><br>
+        Diagnosis with reasoning and a problem-based plan.
+      </div>
+    </div>
+    <div style="border-radius:8px;overflow:hidden;border:1px solid var(--gray-200);">
+      <div style="background:var(--green-lt);padding:10px 16px;border-bottom:1px solid var(--gray-200);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);">SOAP Note</div>
+      <div style="padding:14px 16px;font-size:13px;line-height:1.75;color:var(--gray-600);">
+        <span style="display:block;font-size:11.5px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">When: follow-up visits · interval progress notes</span>
+        <strong style="color:var(--gray-800);font-size:12px;">S — Subjective</strong><br>
+        Chief concern, HPI, and relevant history (PMH, meds, allergies, family/social hx) folded in where pertinent. What the patient reports.<br><br>
+        <strong style="color:var(--gray-800);font-size:12px;">O — Objective</strong><br>
+        Vitals (always first), physical exam findings, labs, imaging, and other data. What you observe and measure.<br><br>
+        <strong style="color:var(--gray-800);font-size:12px;">A — Assessment</strong><br>
+        Your clinical interpretation — leading diagnosis with supporting findings, differential if uncertain.<br><br>
+        <strong style="color:var(--gray-800);font-size:12px;">P — Plan</strong><br>
+        Organized by problem. Orders, referrals, treatments, follow-up — each traceable to the assessment.
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:13.5px;color:var(--gray-600);margin-bottom:20px;">The key difference is structure, not content. A SOAP note does not omit family or social history — it folds them into the Subjective where relevant. An H&amp;P surfaces them as labeled sections because the encounter is comprehensive by design. Most notes you write in this series will follow the SOAP format.</p>
+
+  <div class="callout gray">
+    <strong>Tips for a good note</strong>
+    <ul style="margin:6px 0 0 16px;">
+      <li>Place vital signs in the Objective section (not in the HPI)</li>
+      <li>Include pertinent negatives as clinical findings (e.g., "no rebound tenderness")</li>
+      <li>Prioritize and support diagnoses in the assessment (show your reasoning)</li>
+      <li>Link each plan item directly to the assessment with a clear rationale</li>
+      <li>Be specific in the plan (orders, doses, timing, follow-up)</li>
+      <li>Use clear, concise language (avoid repetition and unnecessary detail)</li>
+    </ul>
+  </div>
+
+  <h3 id="notes-assessment">Writing the assessment</h3>
+  <p>The <strong>A</strong> in a SOAP note and the <strong>Assessment &amp; Plan</strong> in an H&amp;P follow the same structure as the assessment in an oral presentation: open with a problem representation, state your leading diagnosis with supporting evidence, then work through your differential with explicit reasoning for each alternative. The plan is organized by problem and traces directly back to the assessment.</p>
+  <p>For the full framework — including how to build a problem representation, structure the differential, and connect the plan — see the <a href="#prob-rep">Assessment &amp; Problem Representation</a> section. The examples there are drawn from a SOAP context and apply directly to note writing.</p>
+
+  <details>
+    <summary>Exemplar Note — Amanda Anderson <span class="note">click to expand — interval inpatient progress note</span></summary>
+    <div style="padding:16px 0 4px;font-size:13.5px;line-height:1.7;">
+      <p style="margin-bottom:10px;font-size:12px;color:var(--gray-400);">Amanda Anderson &nbsp;·&nbsp; Hospital Day 3 &nbsp;·&nbsp; Interval Progress Note</p>
+
+      <p style="margin-bottom:10px;"><strong>S — Subjective</strong></p>
+      <p style="margin-bottom:14px;padding-left:12px;">Patient reports new-onset palpitations this morning, described as "heart feels fast and fluttery," associated with lightheadedness and fatigue. Denies chest pain, dyspnea, or leg swelling. Reports improved breathing compared to admission. Endorses poor sleep overnight and increased anxiety about symptoms.</p>
+
+      <p style="margin-bottom:10px;"><strong>O — Objective</strong></p>
+      <p style="margin-bottom:6px;padding-left:12px;"><strong>Vitals (24h):</strong> HR 88–132 · BP 114–124/70–82 · RR 16–18 · SpO₂ 96–99% RA · Afebrile</p>
+      <p style="margin-bottom:6px;padding-left:12px;"><strong>I/O (24h):</strong> Intake 3,300 mL · Output 2,800 mL</p>
+      <p style="margin-bottom:6px;padding-left:12px;"><strong>Exam:</strong><br>
+      General: Alert, conversational, no acute distress<br>
+      Cardiac: Irregularly irregular rhythm, no murmurs<br>
+      Pulmonary: Clear bilaterally<br>
+      Extremities: No edema<br>
+      Neuro: No focal deficits</p>
+      <p style="margin-bottom:6px;padding-left:12px;"><strong>Labs:</strong> Na 139 · K 4.1 · Cl 104 · HCO₃ 25 · BUN 16 · Cr 1.1 · Glucose 102 · <strong>Mg 1.5 (low)</strong> · Phos 2.2</p>
+      <p style="margin-bottom:14px;padding-left:12px;"><strong>EKG:</strong> Irregularly irregular rhythm, HR ~128, no acute ischemic changes</p>
+
+      <p style="margin-bottom:10px;"><strong>A — Assessment</strong></p>
+      <p style="margin-bottom:14px;padding-left:12px;">45-year-old woman with HFpEF, hospital day 3 for volume overload now improving, with new-onset tachyarrhythmia most consistent with atrial fibrillation with rapid ventricular response.<br><br>
+      <strong>1. Atrial fibrillation with RVR</strong> — Leading diagnosis. Irregularly irregular rhythm on exam and EKG with HR to 132. Hemodynamically stable (BP, mentation, oxygenation preserved). New AF likely triggered by physiologic stress and electrolyte abnormality (low Mg) in the setting of recent diuresis and underlying atrial enlargement from HFpEF.<br>
+      <strong>2. Pulmonary embolism</strong> — On differential given hospitalization and new tachycardia. Against: no chest pain, hypoxia, or leg swelling; SpO₂ preserved; rhythm irregularly irregular rather than sinus tachycardia.<br>
+      <strong>3. Acute coronary syndrome</strong> — On differential given tachycardia. Against: no chest pain, no ischemic EKG changes.<br>
+      <strong>4. Infectious cause</strong> — Consider if no other etiology identified. Against: afebrile, no localizing symptoms.</p>
+
+      <p style="margin-bottom:10px;"><strong>P — Plan</strong></p>
+      <div style="padding-left:12px;">
+        <p><strong>1. Atrial fibrillation with RVR:</strong> Continue telemetry. Rate control — continue metoprolol, titrate to HR and BP. Replete magnesium IV (goal >2.0). Monitor potassium. Evaluate anticoagulation indication (CHA₂DS₂-VASc).</p>
+        <p><strong>2. HFpEF, improving:</strong> Continue diuresis as tolerated. Daily weights and I/O trending.</p>
+        <p><strong>3. Electrolyte abnormalities:</strong> Replete Mg IV. Recheck BMP in AM.</p>
+        <p><strong>4. Disposition:</strong> Continue inpatient monitoring pending rate control and clinical stability.</p>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ── Pilot Feature: Clinical Management ── -->
+<section id="management">
+  <div class="section-label">Pilot Feature</div>
+  <h2>Clinical Management</h2>
+  <p>Iterative clinical management — the ongoing cycle of collecting information, interpreting it, and making decisions as the patient evolves — is at the core of what we do as clinicians. It is also one of the hardest things to practice as a student, because many learning cases end at the initial assessment and it is difficult to feel connected to the process of information flow when you cannot independently enter orders.</p>
+
+  <h3>What management involves</h3>
+  <div class="spec-grid" style="margin-bottom:20px;">
+    <div class="spec-box" style="background:var(--blue-lt);"><strong style="color:var(--blue);">Intentional ordering</strong>Order tests and treatments with a clear clinical question in mind—what are you trying to confirm, rule out, or monitor?</div>
+    <div class="spec-box" style="background:var(--green-lt);"><strong style="color:var(--green);">Interpretation and reassessment</strong>Use new data (labs, vitals, clinical response) to continually update and refine your assessment.</div>
+    <div class="spec-box" style="background:var(--o-2);"><strong style="color:var(--o-dk);">Triage and follow-up</strong>Determine the appropriate level of care (admit vs. discharge) and set a clear follow-up plan and timeline.</div>
+  </div>
+
+  <h3>How it works</h3>
+  <p>After the interview and presentation, you enter a management interface where you order tests, review results, and adjust your plan as new data — labs, vitals, clinical updates — is released over time. In select cases, you will take on the role of the treating clinician over a simulated 24-hour period.</p>
+
+  <div class="callout gray">
+    <strong>This feature is in pilot</strong>
+    The management component is available in select cases. Feedback from this cohort will be used to refine the interface and expand it to additional cases. If you encounter unexpected behavior, use the feedback button within the case to flag it.
+  </div>
+</section>
+
+
+</main>
+
+</body>
+</html>
