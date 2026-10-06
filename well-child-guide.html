@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Well-Child Visit Guide</title>
+</head>
+<body>
+<style>
+/* Layout: one centered reading column; a plain text navigation; each visit is a two-column row sheet (label | content). */
+:root{
+  --ink:#1c1917; --body:#2a2523; --muted:#6a615c; --accent:#8f2d25; --rule:#d8cfc9; --bg:#fdfcfb; --sel:#f3ece8;
+  --serif: Charter,'Bitstream Charter','Iowan Old Style','Source Serif Pro',Georgia,serif;
+  --sans: Carlito,Calibri,'Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#f1ebe7;--body:#e8e2de;--muted:#a89f99;--accent:#d9776d;--rule:#3a3430;--bg:#1b1816;--sel:#2a2421;color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#f1ebe7;--body:#e8e2de;--muted:#a89f99;--accent:#d9776d;--rule:#3a3430;--bg:#1b1816;--sel:#2a2421;color-scheme:dark}
+
+body{background:var(--bg);color:var(--body);font-family:var(--serif);font-size:17px;line-height:1.55;margin:0}
+.wrap{max-width:46rem;margin:0 auto;padding-inline:16px;padding-block:2.2rem 4rem}
+h1,h2,h3{color:var(--ink);font-weight:600;text-wrap:balance;margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.label{font-family:var(--sans);font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+
+/* Title block */
+.kicker{margin-bottom:.55rem}
+h1{font-size:2.15rem;line-height:1.15;letter-spacing:-.005em}
+.subtitle{font-style:italic;color:var(--muted);margin:.45rem 0 1.1rem;font-size:1.05rem}
+.titlerule{border:0;border-top:1.5px solid var(--ink);margin:0 0 1.2rem}
+.intro p{margin:0 0 .8rem}
+
+/* Text navigation */
+nav.main{display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;margin:1.4rem 0 .4rem;padding-bottom:.7rem;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:.95rem}
+.tl{background:none;border:0;padding:0;font:inherit;color:var(--muted);cursor:pointer;text-decoration:none}
+.tl[aria-current="true"]{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px}
+.tl:hover{color:var(--accent)}
+
+section.view{padding-top:1.4rem}
+h2{font-size:1.45rem;margin-bottom:.5rem}
+h3{font-size:1.12rem;margin:1.6rem 0 .5rem}
+
+/* Age picker */
+.picker{display:grid;gap:.55rem;margin:.6rem 0 1.4rem}
+.band{display:grid;grid-template-columns:9rem 1fr;gap:.2rem 1rem;align-items:baseline}
+.ages{display:flex;flex-wrap:wrap;gap:.25rem .95rem;font-family:var(--sans);font-size:.95rem}
+.ages .tl{color:var(--body)}
+.ages .tl[aria-current="true"]{color:var(--accent)}
+.allrow{font-family:var(--sans);font-size:.88rem;margin-top:.2rem}
+
+/* Visit sheet */
+.sheet{border-top:1.5px solid var(--ink);padding-top:1rem}
+.sheet + .sheet{margin-top:2.6rem}
+.sheethead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.3rem 1rem;margin-bottom:.9rem}
+.sheethead h2{font-size:1.6rem;margin:0}
+.row{display:grid;grid-template-columns:8.5rem 1fr;gap:12px;padding:.55rem 0}
+.row .label{padding-top:.28rem}
+.row > div{min-width:0}
+.row ul{margin:0;padding-left:1.05rem}
+.row li{margin:.12rem 0}
+.row li::marker{color:var(--muted)}
+.row p{margin:0}
+.sub{font-family:var(--sans);font-size:.8rem;color:var(--muted);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:.45rem 0 .1rem}
+.sub:first-child{margin-top:0}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:1.2rem;padding-top:.7rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.92rem}
+
+/* Notes and numbered principles */
+.note{font-size:.92rem;color:var(--muted);border-top:1px solid var(--rule);padding-top:.6rem;margin-top:1.2rem}
+ol.steps{list-style:none;padding:0;margin:.4rem 0;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding-left:2rem;margin:.45rem 0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;color:var(--accent);font-weight:700;font-family:var(--sans)}
+
+/* Tables */
+.tbl{overflow-x:auto;margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%;font-size:.95rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--sans);font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:700;padding:.45rem .6rem .45rem 0;border-top:1.5px solid var(--ink);border-bottom:1px solid var(--rule)}
+td{padding:.45rem .6rem .45rem 0;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+
+/* Exam checklists */
+.checklist{columns:2 18rem;column-gap:2rem;margin:.3rem 0}
+.checklist .grp{break-inside:avoid;margin:0 0 .8rem}
+.checklist ul{margin:.15rem 0 0;padding-left:1.05rem}
+.checklist li{margin:.1rem 0}
+
+/* Quiz */
+.qbar{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;align-items:baseline;font-family:var(--sans);font-size:.92rem;margin:.4rem 0 1rem}
+.q{border-top:1.5px solid var(--ink);padding-top:.9rem}
+.qmeta{display:flex;justify-content:space-between;gap:1rem;font-family:var(--sans);font-size:.85rem;color:var(--muted);margin-bottom:.4rem}
+.qprompt{font-size:1.12rem;color:var(--ink);margin:.2rem 0 .8rem}
+.opts{display:grid;gap:.4rem;margin:0 0 .8rem}
+.opt{display:grid;grid-template-columns:1.6rem 1fr;gap:.4rem;text-align:left;background:none;border:0;border-bottom:1px solid var(--rule);padding:.45rem 0;font:inherit;color:var(--body);cursor:pointer}
+.opt .k{font-family:var(--sans);font-weight:700;color:var(--muted)}
+.opt:hover:not([disabled]) .k{color:var(--accent)}
+.opt[disabled]{cursor:default}
+.opt.right .k,.opt.right{color:var(--accent)}
+.opt.right{font-weight:600}
+.opt.wrong{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--muted)}
+.explain{font-size:.98rem;margin:.2rem 0 .9rem}
+.explain b{font-family:var(--sans);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.qnav{display:flex;justify-content:space-between;gap:1rem;font-family:var(--sans);font-size:.92rem}
+.score{font-family:var(--sans);font-size:.92rem}
+
+.refs{padding-left:1.3rem}
+.refs li{margin:.35rem 0}
+footer{margin-top:3rem;padding-top:.6rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.3rem 1rem}
+
+@media (max-width:560px){
+  h1{font-size:1.75rem}
+  .row,.band{grid-template-columns:1fr;gap:.15rem}
+  .row .label{padding-top:0}
+}
+@media print{
+  :root{--bg:#fff}
+  body{font-size:9.3pt;line-height:1.4}
+  .row{padding:.3rem 0}
+  .row li{margin:0}
+  nav.main,.picker,.pager,.allrow,.intro,.noprint,.wrap>header,.wrap>footer{display:none!important}
+  .wrap{padding-block:0}
+  .sheet{break-before:page}
+  .sheet:first-of-type{break-before:auto}
+  .row,tr{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="label kicker">Pediatrics</div>
+    <h1>Well-Child Visit Guide</h1>
+    <p class="subtitle">Newborn through 21 years</p>
+    <hr class="titlerule">
+    <div class="intro">
+      <p>Each visit page lists what to ask, what to screen, which vaccines are due, where to focus the exam, and what to discuss with the family. Screening follows the Bright Futures/AAP periodicity schedule, milestones follow the CDC 2022 checklists, and vaccines follow the AAP 2026 schedule.</p>
+    </div>
+  </header>
+
+  <nav class="main" aria-label="Sections">
+    <button class="tl" data-view="visits">Visit reference</button>
+    <button class="tl" data-view="exam">Physical exam by age</button>
+    <button class="tl" data-view="quiz">Self-check</button>
+    <button class="tl" data-view="sources">Sources</button>
+  </nav>
+
+  <!-- VISITS -->
+  <section class="view" id="view-visits">
+    <div class="picker" id="picker"></div>
+    <div id="sheets"></div>
+  </section>
+
+  <!-- EXAM -->
+  <section class="view" id="view-exam" hidden>
+    <h2>Physical exam by age</h2>
+    <p>The sequence follows standard structured clinical observation forms. The approach changes more with age than the content does.</p>
+
+    <h3>Approach</h3>
+    <ol class="steps">
+      <li>Gather as much as possible by observation before touching the child: color, work of breathing, tone, alertness, interaction with the parent.</li>
+      <li>Examine infants and toddlers on the parent's lap when that keeps them calm. Stay at the child's eye level.</li>
+      <li>Go from least to most distressing. Auscultate heart and lungs while the child is quiet; leave ears, mouth, and hips for last.</li>
+      <li>Examine a painful area last, after you have a sense of the child's overall state.</li>
+      <li>Be honest. If something will hurt, say so calmly. Use distraction freely with toddlers.</li>
+      <li>Expect stranger anxiety from about 9 to 18 months. A child who cooperated at 6 months may not at 12.</li>
+      <li>Offer a chaperone for sensitive exams and keep areas covered when you are not examining them.</li>
+    </ol>
+
+    <h3>Vital signs by age</h3>
+    <p class="muted" style="font-size:.95rem">Count respirations for a full 60 seconds in infants; periodic breathing makes shorter counts unreliable. Count pulse for at least 30 seconds. Use a cuff whose bladder width is about 40% of the arm circumference.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Age</th><th>Heart rate, awake</th><th>Respiratory rate</th></tr></thead>
+      <tbody>
+        <tr><td>Neonate (to 4 wk)</td><td>100–205</td><td>30–53 (infant range)</td></tr>
+        <tr><td>Infant (1–12 mo)</td><td>100–180</td><td>30–53</td></tr>
+        <tr><td>Toddler (1–2 y)</td><td>98–140</td><td>22–37</td></tr>
+        <tr><td>Preschool (3–5 y)</td><td>80–120</td><td>20–28</td></tr>
+        <tr><td>School age (6–11 y)</td><td>75–118</td><td>18–25</td></tr>
+        <tr><td>Adolescent (12–15 y)</td><td>60–100</td><td>12–20</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted" style="font-size:.9rem">Ranges from the AHA PALS reference values. Blood pressure is measured at every visit from age 3 and interpreted against the 2017 AAP percentile tables for age, sex, and height.</p>
+
+    <div id="examlists"></div>
+
+    <h3>Watch it done</h3>
+    <ul>
+      <li><a href="https://www.youtube.com/watch?v=cracmPo3iYo" target="_blank" rel="noopener">Newborn physical exam</a> (video linked from Penn Peds in Practice)</li>
+      <li><a href="https://www.youtube.com/watch?v=2KCSUWpcLLw" target="_blank" rel="noopener">Pediatric cardiovascular assessment</a> (video linked from Penn Peds in Practice)</li>
+      <li>JoVE Physical Examination series: comprehensive newborn exam, toddler and preschool exam, adolescent exam (library access)</li>
+    </ul>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="view" id="view-quiz" hidden>
+    <h2>Self-check</h2>
+    <p>Questions on what is due, what is expected, and what to do next. Answer, then read the explanation before moving on.</p>
+    <div class="qbar">
+      <span class="score" id="score" aria-live="polite"></span>
+    </div>
+    <div id="quiz"></div>
+  </section>
+
+  <!-- SOURCES -->
+  <section class="view" id="view-sources" hidden>
+    <h2>Sources</h2>
+    <ol class="refs">
+      <li>American Academy of Pediatrics, Bright Futures. Recommendations for Preventive Pediatric Health Care (Periodicity Schedule). <a href="https://www.aap.org/periodicityschedule" target="_blank" rel="noopener">aap.org/periodicityschedule</a></li>
+      <li>Hagan JF, Shaw JS, Duncan PM, eds. <i>Bright Futures: Guidelines for Health Supervision of Infants, Children, and Adolescents.</i> 4th ed. AAP; 2017.</li>
+      <li>American Academy of Pediatrics. Recommended Childhood and Adolescent Immunization Schedule: United States, 2026. <i>Pediatrics.</i> doi:<a href="https://doi.org/10.1542/peds.2025-075754" target="_blank" rel="noopener">10.1542/peds.2025-075754</a></li>
+      <li>Zubler JM, Wiggins LD, Macias MM, et al. Evidence-informed milestones for developmental surveillance tools. <i>Pediatrics.</i> 2022;149(3):e2021052138. CDC checklists at <a href="https://www.cdc.gov/act-early/milestones/index.html" target="_blank" rel="noopener">cdc.gov/act-early</a></li>
+      <li>Kemper AR, Newman TB, Slaughter JL, et al. Clinical practice guideline revision: management of hyperbilirubinemia in the newborn infant 35 or more weeks of gestation. <i>Pediatrics.</i> 2022;150(3):e2022058859.</li>
+      <li>Flynn JT, Kaelber DC, Baker-Smith CM, et al. Clinical practice guideline for screening and management of high blood pressure in children and adolescents. <i>Pediatrics.</i> 2017;140(3):e20171904.</li>
+      <li>American Heart Association. Pediatric Advanced Life Support provider manual, normal vital signs by age. 2020.</li>
+      <li>Dosman C, et al. "Crucial Skills" in child development charts, infant/toddler and early childhood. PedsCases, 2025. <a href="https://www.pedscases.com" target="_blank" rel="noopener">pedscases.com</a></li>
+      <li>The Pediatric History and Physical; Structured Clinical Observation forms for the infant, toddler, and school-age/adolescent exam. Teaching materials.</li>
+      <li>Inspired by <a href="https://www.med.upenn.edu/pedsinpractice/well-child-care/" target="_blank" rel="noopener">Peds in Practice @ PSOM</a>, Perelman School of Medicine, University of Pennsylvania.</li>
+    </ol>
+    <p class="note"><b>Immunization note, October 2026.</b> In January 2026 the CDC moved several routine vaccines (hepatitis A and B, rotavirus, influenza, COVID-19, meningococcal, RSV antibody) to shared clinical decision-making. A federal court stayed that change in March 2026 and restored the prior CDC schedule; the government's appeal is pending in the First Circuit. This guide follows the AAP 2026 schedule, which is endorsed by AAFP, ACOG, AMA, IDSA, and others. New York State also requires blood lead testing at 1 and 2 years. Check the current schedules before clinic.</p>
+  </section>
+
+  <footer><span>Well-Child Visit Guide</span><span>October 2026</span></footer>
+</div>
+
+<script>
+const V = [
+{id:"nb",band:"Infancy",short:"3–5 days",title:"Newborn visit, 3–5 days",
+ focus:"Confirm the transition home is safe: feeding, weight, jaundice, and the nursery screens.",
+ history:["Pregnancy: maternal labs (blood type, GBS, HIV, HBsAg, syphilis, rubella), complications, exposures","Delivery: gestational age, route, Apgars, birth weight, resuscitation, length of stay","Nursery: hepatitis B vaccine, vitamin K, erythromycin, bilirubin level and phototherapy","Feeding: breast or formula, frequency, latch, wet diapers and stools per day","Household: who lives at home, smoke exposure, smoke and CO detectors, firearms, supports"],
+ milestones:{note:"No CDC checklist before 2 months. Observe instead:",items:["Flexed posture, symmetric movement of all four limbs","Moro, grasp, suck, and rooting reflexes present","Alerts to voice, briefly fixes on a face","Cries to signal need; calms when held"]},
+ screening:["Weight against birth weight: up to 7–10% loss is expected, birth weight regained by 10–14 days","Review newborn blood screen, hearing screen, and CCHD pulse oximetry results","Bilirubin: plot against the 2022 AAP hour-specific thresholds when jaundiced","Psychosocial and behavioral assessment of the family"],
+ vaccines:["Hepatitis B #1 within 24 hours of birth, if not given in the nursery","RSV monoclonal antibody (nirsevimab or clesrovimab) during RSV season if the mother was not vaccinated at least 14 days before delivery"],
+ exam:["Weight, length, head circumference plotted on WHO charts","Fontanelles and sutures, cephalohematoma or caput","Red reflex in both eyes","Palate (cleft), clavicles (fracture)","Murmur, femoral pulses, capillary refill","Umbilical stump, abdominal masses","Ortolani and Barlow; sacral dimple or hair tuft","Genitalia: both testes descended, hypospadias; patent anus","Skin: jaundice extent, birthmarks, rashes; tone and primitive reflexes"],
+ guidance:["Safe sleep: on the back, own flat surface, room-share without bed-sharing","Rear-facing car seat for every ride","Feeding cues; vitamin D 400 IU daily for breastfed infants","Rectal temperature of 38.0 °C or higher before 2 months needs same-day evaluation","Never shake a baby; plan for crying; smoke-free home and car"],
+ watch:["Hyperbilirubinemia","Excess weight loss or poor feeding","Benign newborn rashes: erythema toxicum, milia, neonatal acne"]},
+
+{id:"1mo",band:"Infancy",short:"1 mo",title:"1-month visit",
+ focus:"Growth on track, parent coping, and the first look at maternal mood.",
+ history:["Interval history; feeding volume and frequency; stools and voids","Sleep location and position","Parental mood, sleep, and support at home"],
+ milestones:{note:"No CDC checklist yet. Observe instead:",items:["Lifts head briefly when prone","Follows a face toward midline","Startles to loud sound","Begins to calm with a familiar voice"]},
+ screening:["Maternal depression screen (EPDS or PHQ-2/9)","Confirm newborn screen and hearing results are final; Hepatitis B risk assessment","Weight gain about 20–30 g per day"],
+ vaccines:["Hepatitis B #2 (due 1–2 months)"],
+ exam:["Growth parameters","Jaundice should be resolving; persistent jaundice needs a fractionated bilirubin","Thrush, diaper dermatitis, seborrheic dermatitis","Umbilical granuloma or hernia","New murmur as pulmonary resistance falls (VSD)","Red reflex, hips"],
+ guidance:["Crying peaks around 6 weeks; plan for when it is overwhelming","Safe sleep, car seat, fever rules","Tummy time while awake and supervised"],
+ watch:["Colic","Spitting up (reflux) and infant dyschezia","Nasolacrimal duct obstruction"]},
+
+{id:"2mo",band:"Infancy",short:"2 mo",title:"2-month visit",
+ focus:"First vaccine visit and the first CDC milestone checklist.",
+ history:["Interval history, feeding, sleep, stools","Child care plans and return to work","Parent mood"],
+ milestones:{note:"CDC 2-month checklist (most children):",items:["Calms when spoken to or picked up; smiles when you talk to them","Looks at your face; watches you as you move","Makes sounds other than crying; reacts to loud sounds","Holds head up when on tummy; moves both arms and legs; opens hands briefly"]},
+ screening:["Maternal depression screen","Developmental surveillance","Psychosocial and behavioral assessment"],
+ vaccines:["DTaP #1, IPV #1, Hib #1, PCV #1, Rotavirus #1","Hepatitis B #2 if not given at 1 month"],
+ exam:["Social smile and head control","Head shape: positional plagiocephaly","Hips, murmurs, red reflex, testes"],
+ guidance:["What to expect after vaccines","Rolling is coming: never leave the baby alone on a raised surface","Tummy time, safe sleep, car seat"],
+ watch:["Positional plagiocephaly","Infant eczema","Reflux"]},
+
+{id:"4mo",band:"Infancy",short:"4 mo",title:"4-month visit",
+ focus:"Head control and social engagement; plan for starting solids.",
+ history:["Feeding; interest in food","Sleep pattern and night waking","Parent mood"],
+ milestones:{note:"CDC 4-month checklist:",items:["Smiles on own to get attention; chuckles","Coos and makes sounds back; turns head toward your voice","Holds head steady without support when held","Holds a toy put in the hand; brings hands to mouth; pushes up onto elbows on tummy"]},
+ screening:["Maternal depression screen","Anemia risk assessment","Developmental surveillance"],
+ vaccines:["DTaP #2, IPV #2, Hib #2, PCV #2, Rotavirus #2"],
+ exam:["No head lag on pull-to-sit","Moro and grasp reflexes fading","Eyes tracking; intermittent crossing can be normal until 4–6 months","Hips, growth"],
+ guidance:["Solids around 6 months, when the infant sits with support and shows interest","Infants with severe eczema or egg allergy: discuss early peanut introduction","No honey or juice before 12 months","Teething, falls from rolling"],
+ watch:["Growth faltering","Persistent head lag (hypotonia)"]},
+
+{id:"6mo",band:"Infancy",short:"6 mo",title:"6-month visit",
+ focus:"Solids, first teeth, and the first influenza and COVID-19 doses.",
+ history:["Solid foods introduced and tolerated; allergen introduction","Teeth, water source (fluoride)","Sleep, child care, parent mood"],
+ milestones:{note:"CDC 6-month checklist:",items:["Knows familiar people; laughs","Takes turns making sounds; blows raspberries; squeals","Reaches to grab a toy; puts things in mouth","Rolls tummy to back; pushes up on straight arms; leans on hands to sit"]},
+ screening:["Maternal depression screen","Oral health risk; fluoride varnish once teeth erupt; fluoride supplement if water is deficient","Lead and TB risk assessment","Developmental surveillance"],
+ vaccines:["DTaP #3, PCV #3, Hib #3 (product dependent), Rotavirus #3 (RV5 only)","Hepatitis B #3 and IPV #3 (due 6–18 months)","Influenza: 2 doses 4 weeks apart in the first season","COVID-19 (AAP recommends for all children 6–23 months)"],
+ exam:["Sits with support; birth weight roughly doubled","First teeth, gums","Persistent strabismus after 4–6 months: corneal light reflex and cover test, refer","Hips, red reflex"],
+ guidance:["Iron-rich foods; offer common allergens early","Choking hazards; baby-proofing; water safety","Sunscreen from 6 months; open cup practice","Rear-facing car seat"],
+ watch:["Acute otitis media and viral infections once in child care","Iron deficiency risk"]},
+
+{id:"9mo",band:"Infancy",short:"9 mo",title:"9-month visit",
+ focus:"First standardized developmental screen; mobility and home safety.",
+ history:["Table foods, cup use, milk volume","Sleep and separation","Developmental concerns from the family"],
+ milestones:{note:"CDC 9-month checklist:",items:["Shy or clingy with strangers; smiles or laughs at peek-a-boo","Makes repeated sounds (mamama, bababa); lifts arms to be picked up","Looks for objects dropped out of sight; bangs two things together","Sits without support; moves objects hand to hand; rakes food with fingers"]},
+ screening:["Developmental screen with a standardized tool (ASQ, SWYC, PEDS)","Oral health; fluoride varnish","Lead risk assessment"],
+ vaccines:["Catch-up of any missed doses; influenza in season"],
+ exam:["Crawling, pulling to stand","Hips: limited abduction or leg-length difference (Galeazzi)","Teeth, strabismus, growth"],
+ guidance:["Stranger and separation anxiety are normal","Bedtime routine; read together","Poison control number; locked medicines; stored and locked firearms","No screens before 18 months except video chat"],
+ watch:["Developmental delay","Sleep disruption from separation anxiety"]},
+
+{id:"12mo",band:"Infancy",short:"12 mo",title:"12-month visit",
+ focus:"Live-virus vaccines, anemia and lead testing, and the switch to whole milk.",
+ history:["Milk type and volume; bottle use","Dental home","Walking, words, behavior"],
+ milestones:{note:"CDC 12-month checklist:",items:["Plays games like pat-a-cake","Waves bye-bye; calls a parent mama, dada, or another special name; understands no","Puts something in a container; looks for things they saw you hide","Pulls to stand; cruises along furniture; picks up small things with thumb and pointer finger"]},
+ screening:["Hemoglobin or hematocrit","Blood lead level (required in New York at 1 and 2 years)","Oral health; fluoride varnish; TB risk assessment","Developmental surveillance"],
+ vaccines:["MMR #1, Varicella #1, Hepatitis A #1","PCV #4 and Hib booster (12–15 months)"],
+ exam:["Cruising or walking; physiologic genu varum is common","Pincer grasp","Dental caries","Birth weight roughly tripled"],
+ guidance:["Whole milk, about 16–24 oz per day; wean from bottle","Rear-facing car seat as long as the seat allows","Water safety, falls, burns","Tantrums begin; consistent limits"],
+ watch:["Iron deficiency anemia","Febrile seizures (6 months to 5 years)"]},
+
+{id:"15mo",band:"Early childhood",short:"15 mo",title:"15-month visit",
+ focus:"Walking, first words, and limit-setting.",
+ history:["Words used and understood","Walking and falls","Behavior, sleep, diet"],
+ milestones:{note:"CDC 15-month checklist:",items:["Copies other children; shows you an object they like; claps when excited","Tries to say one or two words besides mama or dada; points to ask for something","Follows directions given with a gesture and words; stacks two small objects","Takes a few steps on own; feeds self with fingers"]},
+ screening:["Anemia and lead risk assessment","Oral health; fluoride varnish","Developmental surveillance"],
+ vaccines:["DTaP #4 (15–18 months)","Any 12–15 month doses not yet given"],
+ exam:["Gait; refer if not walking by 18 months","Teeth, ears (with the child on the parent's lap)","Joint attention: follows your point"],
+ guidance:["Discipline without spanking: redirect, time-in, praise","Talk, sing, and read to build language","Climbing and drowning risks"],
+ watch:["Tantrums","Language delay","Otitis media"]},
+
+{id:"18mo",band:"Early childhood",short:"18 mo",title:"18-month visit",
+ focus:"First autism screen and a standardized developmental screen.",
+ history:["Words, pointing, response to name","Loss of any skills","Screen time, sleep"],
+ milestones:{note:"CDC 18-month checklist:",items:["Points to show you something interesting; looks at a few pages of a book with you","Tries to say three or more words besides mama or dada","Follows one-step directions without gestures; copies chores","Walks without holding on; scribbles; drinks from an open cup; tries a spoon"]},
+ screening:["Developmental screen with a standardized tool","Autism screen (M-CHAT-R/F)","Anemia and lead risk; oral health; fluoride varnish"],
+ vaccines:["Hepatitis A #2 (at least 6 months after #1)","DTaP #4 if not given at 15 months"],
+ exam:["Walks well, may run","Observe pointing and shared attention during the visit","Teeth, eyes, growth"],
+ guidance:["Toilet-training readiness signs come later, often after 2 years","Consistent routines and simple choices","Media: co-view high-quality content if any"],
+ watch:["Autism red flags: no pointing, no words, loss of skills","Sleep regression"]},
+
+{id:"24mo",band:"Early childhood",short:"2 y",title:"2-year visit",
+ focus:"Second autism screen, BMI begins, and second lead test.",
+ history:["Phrases, play, peers","Diet, milk volume, stools","Toileting interest"],
+ milestones:{note:"CDC 2-year checklist:",items:["Notices when others are hurt or upset","Says at least two words together; points to two body parts","Holds something in one hand while using the other; plays with more than one toy at a time","Kicks a ball; runs; walks up a few stairs; eats with a spoon"]},
+ screening:["Autism screen (M-CHAT-R/F)","Blood lead level (New York)","Anemia, dyslipidemia, and TB risk assessment","Oral health; fluoride varnish","Switch from WHO to CDC growth charts; start plotting BMI"],
+ vaccines:["Catch-up as needed; influenza every season"],
+ exam:["BMI percentile","Running, jumping beginning","Dental caries","Speech intelligibility (about half understood by strangers)"],
+ guidance:["Toilet-training readiness: interest, staying dry longer, dislikes dirty diapers","Lower-fat milk after 2 years; physical activity daily","Forward-facing harness seat only after outgrowing rear-facing limits"],
+ watch:["Constipation","Behavior concerns and tantrums","Picky eating"]},
+
+{id:"30mo",band:"Early childhood",short:"30 mo",title:"30-month visit",
+ focus:"Third standardized developmental screen; language and pretend play.",
+ history:["Words, sentences, pretend play","Toileting progress","Preschool or child care plans"],
+ milestones:{note:"CDC 30-month checklist:",items:["Plays next to and sometimes with other children; follows simple routines","Says about 50 words; combines two or more words with an action word","Uses things to pretend; follows two-step instructions; knows at least one color","Twists things with hands; takes off some clothes; jumps with both feet"]},
+ screening:["Developmental screen with a standardized tool","Oral health; fluoride varnish","Lead risk assessment"],
+ vaccines:["Catch-up as needed; influenza every season"],
+ exam:["Jumping, gait","Speech in the room","Teeth, growth"],
+ guidance:["Preschool readiness; play with peers","Toilet training without pressure","Sibling adjustment"],
+ watch:["Speech and language delay","Normal developmental dysfluency"]},
+
+{id:"3y",band:"Early childhood",short:"3 y",title:"3-year visit",
+ focus:"Blood pressure and visual acuity screening begin.",
+ history:["Preschool or home; peers","Speech understood by others","Sleep, diet, activity, screen time"],
+ milestones:{note:"CDC 3-year checklist:",items:["Calms within 10 minutes after you leave; joins other children to play","Has a back-and-forth conversation; asks who, what, where, why","Draws a circle when shown; avoids hot objects when warned","Strings items together; puts on some clothes; uses a fork"]},
+ screening:["Blood pressure, then every visit","Visual acuity (LEA or HOTV) or instrument-based screen","Oral health; fluoride varnish; lead, anemia, TB risk"],
+ vaccines:["Catch-up as needed; influenza every season"],
+ exam:["Blood pressure with the correct cuff","Vision chart","Speech mostly understood by strangers","Jumping, pedaling"],
+ guidance:["Forward-facing harness car seat","Street and water safety; supervised play","Healthy eating and active play"],
+ watch:["Speech and language concerns","Overweight","Daytime wetting is still common"]},
+
+{id:"4y",band:"Early childhood",short:"4 y",title:"4-year visit",
+ focus:"Kindergarten booster vaccines and objective hearing screen.",
+ history:["School readiness; behavior in groups","Sleep, diet, activity","Body safety conversations"],
+ milestones:{note:"CDC 4-year checklist:",items:["Comforts others; likes to be a helper; changes behavior by setting","Speaks in sentences of four or more words; tells about one thing from the day","Names a few colors; draws a person with three or more parts","Catches a large ball; unbuttons some buttons; holds a crayon between fingers and thumb"]},
+ screening:["Blood pressure","Vision (acuity) and hearing (audiometry)","Dyslipidemia, lead, TB risk; oral health; fluoride varnish"],
+ vaccines:["DTaP #5, IPV #4, MMR #2, Varicella #2 (any time 4–6 years)"],
+ exam:["Hops, balances on one foot","Copies a circle and cross","Vision, hearing, BP"],
+ guidance:["Booster seat once the harness is outgrown","Kindergarten readiness: sharing, taking turns, following directions","Bike helmet; swim lessons; body safety"],
+ watch:["Attention and behavior concerns","Overweight"]},
+
+{id:"5y",band:"Middle childhood",short:"5 y",title:"5-year visit",
+ focus:"School entry: development, vision, hearing, and vaccines complete.",
+ history:["Kindergarten adjustment; teacher concerns","Sleep (10–13 hours), screens","Toileting, bedwetting"],
+ milestones:{note:"CDC 5-year checklist:",items:["Follows rules and takes turns; does simple chores","Tells a story with at least two events; keeps a conversation going","Counts to 10; writes some letters in their name; pays attention 5–10 minutes","Buttons some buttons; hops on one foot"]},
+ screening:["Blood pressure; vision and hearing","Oral health; last year for fluoride varnish","Lead risk through age 6"],
+ vaccines:["Any 4–6 year doses not yet given; influenza every season"],
+ exam:["Hops, skips","Prints letters","Vision, hearing, BP, BMI"],
+ guidance:["Booster seat until the lap and shoulder belt fit","Family media plan; consistent bedtime","Stranger and body safety; helmet"],
+ watch:["Nocturnal enuresis (common until about 7 years)","School adjustment"]},
+
+{id:"6y",band:"Middle childhood",short:"6 y",title:"6-year visit",
+ focus:"School performance, friendships, and the permanent teeth.",
+ history:["Reading and learning; attention in class","Friends, activities, bullying","Sleep, diet, activity"],
+ milestones:{note:"No CDC checklist after 5 years. Ask about:",items:["Early reading and writing progress","Following classroom rules and routines","Friendships and team play","Coordination for sports, bikes, swimming"]},
+ screening:["Blood pressure; vision and hearing","Oral health; fluoride supplement if water is deficient","Dyslipidemia and lead risk"],
+ vaccines:["Catch-up as needed; influenza every season"],
+ exam:["First permanent molars; ask about sealants","Vision, BP, BMI"],
+ guidance:["Booster seat until about 4 ft 9 in","Helmet, water safety","Bullying and online safety; 9–12 hours of sleep"],
+ watch:["ADHD and learning difficulties","Enuresis","Overweight"]},
+
+{id:"7to10",band:"Middle childhood",short:"7–10 y",title:"7- to 10-year visits (annual)",
+ focus:"Universal lipid screen, early puberty, and HPV can start at 9.",
+ history:["School performance and peers","Activities, sports, screen use","Early pubertal changes; family history of early cardiac death"],
+ milestones:{note:"No CDC checklist. Ask about:",items:["Academic progress and attention","Friendships and self-esteem","Independence in daily routines","Pubertal onset: breast buds 8–13 years; testicular enlargement 9–14 years"]},
+ screening:["Vision and hearing at 8 and 10","Lipid panel once between 9 and 11 years","Blood pressure; BMI; sudden cardiac arrest risk assessment"],
+ vaccines:["HPV series may begin at 9 (AAP: 2 doses at 9–12 years)","Influenza every season"],
+ exam:["Tanner staging begins","Forward-bend test for scoliosis around puberty","BP, BMI, skin"],
+ guidance:["Puberty education before it starts","Booster seat until the adult belt fits; back seat until 13","Activity at least 60 minutes daily; sleep 9–12 hours"],
+ watch:["Overweight and obesity","Anxiety","Precocious puberty"]},
+
+{id:"11to14",band:"Adolescence",short:"11–14 y",title:"11- to 14-year visits (annual)",
+ focus:"Confidential time begins, along with depression and substance-use screening.",
+ history:["Confidential interview without the parent (HEADSS or SSHADESS)","Mood, sleep, school, social media","Menarche and menstrual history; sexual activity"],
+ milestones:{note:"Early adolescence. Assess:",items:["Pubertal stage and body image","Peer relationships and school engagement","Emerging independence","Risk behaviors"]},
+ screening:["Depression (PHQ-A) and suicide risk (ASQ) from 12","Tobacco, alcohol, and drug use (CRAFFT) from 11","STI and HIV risk assessment; hearing once 11–14","Vision at 12; BP; BMI; dyslipidemia risk"],
+ vaccines:["Tdap, MenACWY #1 (11–12 years)","HPV: 2 doses if started before 15","Influenza every season"],
+ exam:["Offer a chaperone; keep areas covered","Tanner staging, scoliosis, acne","Testicular exam; breast exam as indicated"],
+ guidance:["What stays confidential and what does not","Vaping, alcohol, and substances; online safety","Sleep, nutrition, and sports safety"],
+ watch:["Depression and anxiety","Acne","Menstrual concerns"]},
+
+{id:"15to17",band:"Adolescence",short:"15–17 y",title:"15- to 17-year visits (annual)",
+ focus:"HIV screening, meningococcal booster, and driving.",
+ history:["Confidential HEADSS interview","Relationships, sexual activity, contraception","Driving, work, future plans"],
+ milestones:{note:"Middle adolescence. Assess:",items:["Identity and autonomy","Abstract reasoning and planning","Risk-taking and peer influence","School and work goals"]},
+ screening:["Depression and suicide risk; CRAFFT","HIV screen once between 15 and 21; STI testing as indicated","Hearing once 15–17; vision at 15; BP; BMI"],
+ vaccines:["MenACWY booster at 16","MenB 16–23 years (preferred 16–18)","HPV catch-up; influenza every season"],
+ exam:["Tanner 4–5 expected","Skin, BP, BMI","Sensitive exam with chaperone offered"],
+ guidance:["Seat belts, no phones while driving, no riding with an impaired driver","Contraception and condoms; consent","Firearm safety; substances"],
+ watch:["Depression and suicide risk","Substance use","Sports injuries"]},
+
+{id:"18to21",band:"Adolescence",short:"18–21 y",title:"18- to 21-year visits (annual)",
+ focus:"Final lipid and hepatitis C screens and the transition to adult care.",
+ history:["Confidential HEADSS interview","College, work, insurance","Sexual health, substances, mood"],
+ milestones:{note:"Late adolescence. Assess:",items:["Independent management of health care","Relationships and future planning","Financial and housing stability"]},
+ screening:["Lipid panel once between 17 and 21","Hepatitis C screen once between 18 and 79 years","HIV once by 21; STI testing as indicated; hearing once 18–21","Cervical cancer screening starts at 21"],
+ vaccines:["Catch-up: HPV through 26 years, MenACWY, MenB","Influenza every season"],
+ exam:["BP, BMI, skin","Sensitive exams with chaperone offered"],
+ guidance:["Plan the transfer to an adult clinician","Alcohol, driving, and sexual health","Mental health resources at college or work"],
+ watch:["Mental health","Gaps in care during transition"]}
+];
+
+const EXAM = [
+{title:"Infant",sub:"Newborn to about 12 months",groups:[
+ ["General",["Wash hands; examine in the diaper","Build rapport with the family","Pulse 30 seconds or longer; respirations a full 60 seconds"]],
+ ["HEENT",["Skull: sutures, fontanelle size","Conjunctivae; tracking and strabismus","Red reflex and pupillary reflex","External ears; otoscopy with the child held securely","Mouth, teeth, palate"]],
+ ["Chest and heart",["Inspect for symmetry","Lungs front and back","Stethoscope on skin; four areas (URSB, ULSB, LLSB, apex)","Bilateral femoral pulses"]],
+ ["Abdomen and nodes",["Auscultate, then palpate four quadrants","Liver edge and spleen tip","Cervical, supraclavicular, axillary, inguinal nodes"]],
+ ["Spine and hips",["Dimples or hair tufts","Gluteal fold symmetry","Ortolani and Barlow, or Galeazzi as appropriate"]],
+ ["Neuro, MSK, skin, GU",["Age-appropriate milestones","Tone, strength, reflexes; primitive reflexes","Extremities and joint range of motion","All skin exposed for rashes and birthmarks","External genitalia; both testes palpated"]]
+]},
+{title:"Toddler",sub:"About 1 to 4 years",groups:[
+ ["General",["Wash hands; examine in diaper or gown","Distraction and engagement to keep the toddler comfortable","Pulse and respirations as for infants"]],
+ ["HEENT",["Scalp, conjunctivae","Tracking, strabismus, red reflex, pupils","External ears and otoscopy with secure positioning, done last","Mouth and teeth"]],
+ ["Chest and heart",["Lungs front and back","Four auscultation areas on skin","Femoral pulses"]],
+ ["Abdomen and nodes",["Four quadrants, liver, spleen","Lymph node regions"]],
+ ["Spine and hips",["Dimples, tufts, gluteal folds","Galeazzi test"]],
+ ["Neuro, MSK, skin, GU",["Milestones by observation","Tone, strength, reflexes","Gait","Extremities, range of motion, skin","Genitalia; testes"]]
+]},
+{title:"School age and adolescent",sub:"About 5 to 21 years",groups:[
+ ["General",["Wash hands; gown or appropriate undressing","Rapport with the patient, not only the parent","Protect privacy; cover areas not being examined"]],
+ ["HEENT",["Scalp, conjunctivae, full extraocular movements","Cover-uncover test for strabismus; pupils","Ears with otoscope; mouth and teeth"]],
+ ["Chest and heart",["Lungs front and back","Breast development (Tanner)","Four auscultation areas; femoral or dorsalis pedis pulses"]],
+ ["Abdomen and nodes",["Four quadrants, liver, spleen","Lymph node regions"]],
+ ["Neuro",["Funduscopy as indicated","Cranial nerves","Tone and strength, central and peripheral; sensation","Reflexes; gait"]],
+ ["MSK, skin, GU",["Extremities and range of motion; scoliosis","All skin examined","External genitalia with Tanner staging; testes"]]
+]}
+];
+
+const Q = [
+{lv:"pre",p:"By which visit should head lag on pull-to-sit be gone?",o:["2 months","4 months","9 months","12 months"],a:1,e:"Head steady without support when held is on the CDC 4-month checklist. Persistent head lag after 4 months suggests hypotonia."},
+{lv:"pre",p:"Which skill is on the CDC 9-month checklist?",o:["Walks without holding on","Says two words together","Sits without support","Picks up small objects with a mature pincer grasp"],a:2,e:"Sitting without support is a 9-month milestone. A refined pincer is expected by 12 months, walking by 18, and two-word phrases by 2 years."},
+{lv:"pre",p:"A 2-year-old should be able to:",o:["Say at least two words together","Hop on one foot","Draw a circle when shown","Name several colors"],a:0,e:"Two-word combinations are on the 2-year checklist. Drawing a circle is at 3 years, naming colors at 4, and hopping on one foot at 5."},
+{lv:"pre",p:"Why count an infant's respiratory rate for a full 60 seconds?",o:["Infants breathe too fast to count in 15 seconds","Periodic breathing makes short counts unreliable","Pulse oximetry requires it","It reduces crying"],a:1,e:"Infants normally have periodic breathing with pauses under 15 to 20 seconds, so a 15-second sample can be badly skewed."},
+{lv:"pre",p:"The Barlow maneuver tests whether:",o:["A dislocated hip can be reduced","A reduced hip can be dislocated","Leg lengths are equal","The hip has full abduction"],a:1,e:"Barlow: adduct and press posteriorly to see if a located hip dislocates. Ortolani: abduct and lift to see if a dislocated hip relocates."},
+{lv:"pre",p:"In what order should you examine a calm toddler on a parent's lap?",o:["Ears and mouth first, then heart and lungs","Heart and lungs first, ears and mouth last","Head to toe in strict order","Painful area first"],a:1,e:"Go from least to most distressing. Auscultate while the child is quiet; save otoscopy and the mouth for last."},
+{lv:"pre",p:"A newborn should regain birth weight by about:",o:["3–5 days","10–14 days","4 weeks","2 months"],a:1,e:"Up to 7 to 10% loss in the first days is expected; most infants are back to birth weight by 10 to 14 days."},
+{lv:"pre",p:"An absent or white red reflex calls for:",o:["Recheck at the next well visit","Urgent ophthalmology referral","Vision screen at 3 years","No action if the child tracks"],a:1,e:"Leukocoria can signal retinoblastoma or congenital cataract. Refer urgently."},
+{lv:"clk",p:"Which screens are due at the 18-month visit?",o:["Developmental screen and M-CHAT-R/F","Lipid panel and vision","Hemoglobin and hearing","M-CHAT-R/F only"],a:0,e:"Bright Futures calls for a standardized developmental screen at 9, 18, and 30 months and autism screening at 18 and 24 months."},
+{lv:"clk",p:"When does routine blood pressure measurement start for a healthy child?",o:["Newborn","12 months","3 years","6 years"],a:2,e:"BP is measured at every visit from age 3; before that, only for children with risk factors."},
+{lv:"clk",p:"Universal lipid screening is done:",o:["Once at 2 years","Once at 9–11 and once at 17–21","Every year from 10","Only with a family history"],a:1,e:"Bright Futures recommends a lipid panel once between 9 and 11 years and once between 17 and 21, with risk assessment at other visits."},
+{lv:"clk",p:"At which visit do you switch from WHO to CDC growth charts and begin BMI?",o:["12 months","18 months","2 years","3 years"],a:2,e:"WHO charts are used from birth to 2 years; CDC charts and BMI percentiles from 2 years."},
+{lv:"clk",p:"Maternal depression screening is recommended at:",o:["The newborn visit only","1, 2, 4, and 6 months","Every visit to 2 years","6 and 12 months"],a:1,e:"Bright Futures includes perinatal depression screening at the 1-, 2-, 4-, and 6-month visits."},
+{lv:"clk",p:"Under the AAP 2026 schedule, HPV vaccination is:",o:["One dose at 11–12","Two doses starting at 9–12 years","Three doses starting at 13","Shared decision-making only"],a:1,e:"AAP recommends two doses beginning at 9 to 12 years while one-dose evidence is reviewed; three doses if started at 15 or older."},
+{lv:"clk",p:"A 16-year-old is due for which meningococcal vaccine?",o:["MenACWY booster","MenACWY first dose","No meningococcal vaccine","MenB only if in college"],a:0,e:"MenACWY at 11 to 12 with a booster at 16. MenB is given at 16 to 23 years, preferably 16 to 18."},
+{lv:"clk",p:"In New York State, blood lead testing is required at:",o:["12 months only","1 and 2 years","Only with risk factors","Kindergarten entry"],a:1,e:"New York requires a blood lead test at about 1 and 2 years, in addition to risk assessment through age 6."},
+{lv:"clk",p:"Depression and suicide-risk screening begins at:",o:["8 years","10 years","12 years","15 years"],a:2,e:"Bright Futures screens for depression and suicide risk annually from 12 to 21 years (PHQ-A and ASQ are common tools)."},
+{lv:"clk",p:"A breastfed 1-week-old should receive:",o:["Iron drops","Vitamin D 400 IU daily","Fluoride drops","Nothing additional"],a:1,e:"Exclusively or partially breastfed infants need vitamin D 400 IU daily starting in the first days of life."},
+{lv:"clk",p:"A 6-week-old has a rectal temperature of 38.2 °C at home. The family should:",o:["Give acetaminophen and watch","Be seen the same day","Call at the next well visit","Recheck in 24 hours"],a:1,e:"Fever in an infant under about 2 months needs same-day evaluation; follow the 2021 AAP febrile infant guideline for 8 to 60 days."},
+{lv:"clk",p:"An undescended testis that has not descended by what age warrants referral?",o:["Birth","6 months","2 years","School entry"],a:1,e:"Spontaneous descent after 6 months corrected age is unlikely. Refer to urology, aiming for orchiopexy by 18 months."}
+];
+
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let state = {view:"visits", visit:"nb", all:false, level:"all", qi:0, answers:{}};
+try{ const s=JSON.parse(localStorage.getItem("wcv-state")||"null"); if(s) Object.assign(state,{visit:s.visit||"nb",level:s.level||"all"}); }catch(e){}
+function save(){ try{localStorage.setItem("wcv-state",JSON.stringify({visit:state.visit,level:state.level}))}catch(e){} }
+
+function list(a){return "<ul>"+a.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>"}
+function row(label,html){return `<div class="row"><div class="label">${label}</div><div>${html}</div></div>`}
+function sheet(v){
+  const i=V.indexOf(v), prev=V[i-1], next=V[i+1];
+  return `<article class="sheet" id="v-${v.id}">
+   <div class="sheethead"><h2>${esc(v.title)}</h2><span class="label">${esc(v.band)}</span></div>
+   ${row("Focus","<p>"+esc(v.focus)+"</p>")}
+   ${row("History",list(v.history))}
+   ${row("Development",`<div class="sub">${esc(v.milestones.note)}</div>`+list(v.milestones.items))}
+   ${row("Screening",list(v.screening))}
+   ${row("Vaccines",list(v.vaccines))}
+   ${row("Exam focus",list(v.exam))}
+   ${row("Guidance",list(v.guidance))}
+   ${row("Watch for",list(v.watch))}
+   ${state.all?"":`<div class="pager">${prev?`<button class="tl" data-go="${prev.id}">&larr; ${esc(prev.short)}</button>`:"<span></span>"}${next?`<button class="tl" data-go="${next.id}">${esc(next.short)} &rarr;</button>`:"<span></span>"}</div>`}
+  </article>`;
+}
+function renderPicker(){
+  const bands=[...new Set(V.map(v=>v.band))];
+  $("#picker").innerHTML = bands.map(b=>`<div class="band"><span class="label">${b}</span><div class="ages">${V.filter(v=>v.band===b).map(v=>`<button class="tl" data-go="${v.id}" aria-current="${!state.all&&state.visit===v.id}">${esc(v.short)}</button>`).join("")}</div></div>`).join("")
+   + `<div class="band allrow"><span></span><div><button class="tl" id="allbtn" aria-current="${state.all}">${state.all?"Show one visit at a time":"Show all visits on one page"}</button></div></div>`;
+}
+function renderVisits(){
+  renderPicker();
+  $("#sheets").innerHTML = state.all ? V.map(sheet).join("") : sheet(V.find(v=>v.id===state.visit)||V[0]);
+}
+function renderExam(){
+  $("#examlists").innerHTML = EXAM.map(e=>`<h3>${e.title} <span class="muted" style="font-weight:400;font-size:.95rem">${e.sub}</span></h3><div class="checklist">${e.groups.map(g=>`<div class="grp"><div class="sub">${g[0]}</div>${list(g[1])}</div>`).join("")}</div>`).join("");
+}
+function qset(){return Q}
+function renderQuiz(){
+  const set=qset(); if(state.qi>=set.length) state.qi=0;
+  const q=set[state.qi], key=Q.indexOf(q), ans=state.answers[key];
+  const done=set.filter(x=>state.answers[Q.indexOf(x)]!==undefined), right=done.filter(x=>state.answers[Q.indexOf(x)]===x.a).length;
+  $("#score").textContent = done.length?`${right} of ${done.length} correct`:"";
+  $("#quiz").innerHTML = `<div class="q">
+   <div class="qmeta"><span>Question ${state.qi+1} of ${set.length}</span><span></span></div>
+   <p class="qprompt">${esc(q.p)}</p>
+   <div class="opts">${q.o.map((o,i)=>{let c=""; if(ans!==undefined){ if(i===q.a)c="right"; else if(i===ans)c="wrong"; }
+     return `<button class="opt ${c}" data-opt="${i}" ${ans!==undefined?"disabled":""}><span class="k">${"ABCD"[i]}</span><span>${esc(o)}</span></button>`}).join("")}</div>
+   ${ans!==undefined?`<p class="explain"><b>${ans===q.a?"Correct.":"Not quite."}</b> ${esc(q.e)}</p>`:""}
+   <div class="qnav"><button class="tl" data-q="-1" ${state.qi===0?"hidden":""}>&larr; Previous</button><span></span>${state.qi<set.length-1?`<button class="tl" data-q="1">Next question &rarr;</button>`:`<button class="tl" id="restart">Start the set again</button>`}</div>
+  </div>`;
+}
+function show(view){
+  state.view=view;
+  document.querySelectorAll("section.view").forEach(s=>s.hidden = s.id!=="view-"+view);
+  document.querySelectorAll("nav.main .tl").forEach(b=>b.setAttribute("aria-current",b.dataset.view===view));
+  if(view==="visits") renderVisits();
+  if(view==="quiz") renderQuiz();
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button"); if(!t) return;
+  if(t.dataset.view){show(t.dataset.view); return;}
+  if(t.dataset.go){state.visit=t.dataset.go; state.all=false; save(); renderVisits(); $("#picker").scrollIntoView({block:"start"}); return;}
+  if(t.id==="allbtn"){state.all=!state.all; renderVisits(); return;}
+  if(t.dataset.opt!==undefined){const q=qset()[state.qi]; state.answers[Q.indexOf(q)]=+t.dataset.opt; renderQuiz(); return;}
+  if(t.dataset.q){state.qi+= +t.dataset.q; renderQuiz(); return;}
+  if(t.id==="restart"){qset().forEach(q=>delete state.answers[Q.indexOf(q)]); state.qi=0; renderQuiz(); return;}
+});
+renderExam();
+const h=(location.hash||"").slice(1);
+if(h==="all"){state.all=true; show("visits");}
+else if(["exam","quiz","sources"].includes(h)) show(h);
+else { const m=V.find(v=>"v-"+v.id===h); if(m) state.visit=m.id; show("visits"); }
+</script>
+
+</body>
+</html>
