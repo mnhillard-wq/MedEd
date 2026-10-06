@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pediatric Reasoning Cases</title>
+<style>
+/* Layout: one centered reading column; instructions, then the conversation panel, then notes. */
+:root{
+  --ink:#1c1917; --body:#2a2523; --muted:#6a615c; --accent:#8f2d25; --rule:#d8cfc9; --bg:#fdfcfb; --tint:#f3ece8;
+  --serif: Charter,'Bitstream Charter','Iowan Old Style','Source Serif Pro',Georgia,serif;
+  --sans: Carlito,Calibri,'Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#f1ebe7;--body:#e8e2de;--muted:#a89f99;--accent:#d9776d;--rule:#3a3430;--bg:#1b1816;--tint:#2a2421;color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#f1ebe7;--body:#e8e2de;--muted:#a89f99;--accent:#d9776d;--rule:#3a3430;--bg:#1b1816;--tint:#2a2421;color-scheme:dark}
+
+body{background:var(--bg);color:var(--body);font-family:var(--serif);font-size:17px;line-height:1.55;margin:0}
+.wrap{max-width:44rem;margin:0 auto;padding-inline:16px;padding-block:2.2rem 4rem}
+h1,h2,h3{color:var(--ink);font-weight:600;text-wrap:balance;margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.label{font-family:var(--sans);font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+.partof{font-family:var(--sans);font-size:.78rem;color:var(--muted);margin-bottom:1.1rem}
+.kicker{margin-bottom:.55rem}
+h1{font-size:2.15rem;line-height:1.15}
+.subtitle{font-style:italic;color:var(--muted);margin:.45rem 0 1.1rem;font-size:1.05rem}
+.titlerule{border:0;border-top:1.5px solid var(--ink);margin:0 0 1.2rem}
+p{margin:0 0 .8rem}
+h2{font-size:1.3rem;margin:2rem 0 .6rem}
+
+ol.steps{list-style:none;padding:0;margin:.4rem 0;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding-left:2rem;margin:.55rem 0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;color:var(--accent);font-weight:700;font-family:var(--sans)}
+
+.row{display:grid;grid-template-columns:8.5rem 1fr;gap:12px;padding:.45rem 0}
+.row .label{padding-top:.28rem}
+.row > div{min-width:0}
+
+[hidden]{display:none!important}
+/* Conversation panel */
+.panel{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:1.1rem 0 1.2rem;margin:1.6rem 0}
+.panel h2{margin:0 0 .3rem}
+.actions{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:.9rem 0 .2rem}
+.btn{font-family:var(--sans);font-size:1rem;font-weight:700;padding:.65rem 1.3rem;border:1.5px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer}
+.btn.plain{background:transparent;color:var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+#status{font-family:var(--sans);font-size:.92rem;margin:.6rem 0 0}
+.chat{max-height:26rem;overflow-y:auto;margin:.8rem 0 0;border-top:1px solid var(--rule)}
+.msg{padding:.55rem 0;border-bottom:1px solid var(--rule);white-space:pre-wrap;overflow-wrap:anywhere}
+.msg small{display:block;font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.1rem}
+.msg.ai small{color:var(--accent)}
+.ask{display:flex;gap:.6rem;margin-top:.8rem}
+.ask input{flex:1;min-width:0;font:inherit;font-size:1rem;padding:.55rem .7rem;border:1px solid var(--rule);background:var(--bg);color:var(--body)}
+#convErr{font-family:var(--sans);font-size:.92rem;margin-top:.6rem}
+
+.topics{font-size:.98rem}
+.note{font-size:.92rem;color:var(--muted)}
+footer{margin-top:3rem;padding-top:.6rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.3rem 1rem}
+
+@media (max-width:560px){ h1{font-size:1.75rem} .row{grid-template-columns:1fr;gap:.15rem} .row .label{padding-top:0} }
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="partof">Part of Reasoning Lab – Peds</div>
+    <div class="label kicker">Pediatrics</div>
+    <h1>Pediatric Reasoning Cases</h1>
+    <p class="subtitle">Ten-minute dialogic reasoning cases led by an AI teacher</p>
+    <hr class="titlerule">
+  </header>
+
+  <p>Each session is a short, one-on-one case discussion with Dr. Bell, an AI clinician-teacher. The cases are built on curriculum content from the Council on Medical Student Education in Pediatrics (COMSEP). Dr. Bell presents a patient, asks you to commit to a judgment, explain what drives it, and decide what to do next, and adds brief teaching points along the way. Expect a teaching conversation, not an oral exam.</p>
+
+  <h2>How a session works</h2>
+  <ol class="steps">
+    <li>Start the conversation by voice or by typing. Each session runs about 10 minutes.</li>
+    <li>Choose your case. Tell Dr. Bell the age, setting, or problem you want to practice, for example "a toddler," "the emergency department," or "a child with a limp." Or say "you pick," and Dr. Bell will choose one.</li>
+    <li>Dr. Bell describes the patient. Ask for the history, exam findings, or tests you need. You get the information that moves the reasoning forward, not a full chart.</li>
+    <li>Think out loud. Commit to where you are leaning, say what supports it, and name what you would not want to miss. Uncertainty is fine; a lean still counts.</li>
+    <li>Dr. Bell closes with one or two takeaways you can use on your next patient.</li>
+  </ol>
+
+  <section class="panel" aria-labelledby="convh">
+    <h2 id="convh">Talk with Dr. Bell</h2>
+    <p class="muted" style="margin:0">Use headphones in a quiet room. Your browser will ask for microphone access when you start by voice.</p>
+    <div class="actions" id="startrow">
+      <button class="btn" id="startVoice" type="button">Start talking</button>
+      <button class="btn plain" id="startText" type="button">Type instead</button>
+    </div>
+    <p class="muted" id="status" role="status" hidden></p>
+    <div class="chat" id="chat" aria-live="polite" hidden></div>
+    <form class="ask" id="chatform" hidden>
+      <label for="msg" style="position:absolute;left:-9999px">Message to Dr. Bell</label>
+      <input id="msg" type="text" autocomplete="off" placeholder="Type a message to Dr. Bell">
+      <button class="btn" type="submit">Send</button>
+    </form>
+    <div class="actions"><button class="btn plain" id="endBtn" type="button" hidden>End conversation</button></div>
+    <p class="muted" id="convErr" hidden></p>
+  </section>
+
+  <h2>What you can ask for</h2>
+  <div class="row"><div class="label">Age</div><div>Newborn, infant, toddler, school age, adolescent</div></div>
+  <div class="row"><div class="label">Setting</div><div>Well visit, sick visit, emergency department, newborn nursery, inpatient floor</div></div>
+  <div class="row"><div class="label">Problem</div><div class="topics">Fever, cough, sore throat, ear pain, abdominal pain, diarrhea and dehydration, rash, limp and joint pain, heart murmur, bleeding, blood or protein in the urine, poor growth, speech delay, behavior and sleep, newborn jaundice and breathing, nutrition and feeding, adolescent health, ingestions, injuries, and child safety</div></div>
+  <p class="note" style="margin-top:.6rem">If no case matches your request closely, Dr. Bell will say so and offer the nearest one.</p>
+
+  <h2>Before you start</h2>
+  <ul>
+    <li>This is practice for clinical reasoning, not guidance for the care of real patients.</li>
+    <li>Do not share information about real patients. Conversations are recorded and processed by the voice service.</li>
+    <li>Dr. Bell can make mistakes. Check anything that matters against a trusted reference or your attending.</li>
+  </ul>
+
+  <footer><span>Case content based on curriculum materials from the Council on Medical Student Education in Pediatrics (COMSEP)</span><span>October 2026</span></footer>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  function el(tag,cls,text){var n=document.createElement(tag); if(cls) n.className=cls; if(text) n.textContent=text; return n;}
+  var AGENT='agent_6701m46qxx3yedar60fbcv6wp9ap';
+  var LIB='https://cdn.jsdelivr.net/npm/@elevenlabs/client@1.26.0/+esm';
+  var conv=null, ending=false, lastTyped=null;
+  function setStatus(t){ var n=$('status'); n.textContent=t||''; n.hidden=!t; }
+  function addMsg(who,text){
+    var chat=$('chat'); chat.hidden=false;
+    var m=el('div','msg '+(who==='me'?'me':'ai')); m.appendChild(el('small',null,who==='me'?'You':'Dr. Bell')); m.appendChild(document.createTextNode(text));
+    chat.appendChild(m); chat.scrollTop=chat.scrollHeight;
+  }
+  function showErr(t){ var n=$('convErr'); n.textContent=''; n.appendChild(document.createTextNode(t+' ')); var a=el('a',null,'Open the conversation in a new tab.'); a.href='https://elevenlabs.io/app/talk-to?agent_id='+AGENT; a.target='_blank'; a.rel='noopener'; n.appendChild(a); n.hidden=false; }
+  function reset(){ conv=null; $('chatform').hidden=true; $('endBtn').hidden=true; $('startrow').hidden=false; $('startVoice').textContent='Start a new case'; }
+  async function startConv(mode){
+    $('convErr').hidden=true; $('startrow').hidden=true; setStatus('Connecting to Dr. Bell.'); ending=false;
+    try{
+      var mod=await import(LIB);
+      conv=await mod.Conversation.startSession({
+        agentId:AGENT,
+        connectionType: mode==='text' ? 'websocket' : 'webrtc',
+        textOnly: mode==='text',
+        onConnect:function(){ setStatus(mode==='text'?'Connected. Type your reply.':'Connected. Speak when Dr. Bell finishes.'); $('chatform').hidden=false; $('endBtn').hidden=false; },
+        onMessage:function(p){
+          if(!p||!p.message) return;
+          if(p.source==='user' && lastTyped && p.message.trim()===lastTyped){ lastTyped=null; return; }
+          addMsg(p.source==='user'?'me':'ai', p.message);
+        },
+        onModeChange:function(p){ if(mode==='voice') setStatus(p.mode==='speaking'?'Dr. Bell is speaking.':'Listening.'); },
+        onError:function(){ if(!ending) showErr('Something went wrong with the conversation.'); },
+        onDisconnect:function(){ setStatus(ending?'Conversation ended.':'The session has ended.'); reset(); }
+      });
+    }catch(e){
+      setStatus('');
+      showErr(mode==='text' ? 'The conversation could not start. Check your connection.' : 'The conversation could not start. Check your microphone permission and connection, or type instead.');
+      reset();
+    }
+  }
+  $('startVoice').addEventListener('click',function(){ startConv('voice'); });
+  $('startText').addEventListener('click',function(){ startConv('text'); });
+  $('endBtn').addEventListener('click',function(){ ending=true; if(conv){ conv.endSession(); } });
+  $('chatform').addEventListener('submit',function(e){
+    e.preventDefault(); var inp=$('msg'), t=inp.value.trim(); if(!t||!conv) return;
+    lastTyped=t; conv.sendUserMessage(t); addMsg('me',t); inp.value='';
+  });
+})();
+</script>
+</body>
+</html>
