@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>WCM Skills Lab</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><link rel="stylesheet" href="skillslab.css"></head><body>
+<div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html">WCM <span>Skills Lab</span></a><span class="pill">Faculty preview</span></header>
+
+<section><p class="kicker">Goal-directed clerkship practice</p><h1>Cases by clerkship</h1><p class="lede">Each clerkship page lists its practice cases. On every case you can try the case if it is ready, open the proposed rubric, and send comments or suggested changes.</p></section>
+<section class="how"><span class="lbl">How to review a case</span><ol class="steps"><li>Open a clerkship and pick a case.</li><li>Try it as a learner would, if it is marked ready.</li><li>Open the proposed rubric. It opens in Notion and needs faculty access.</li><li>Type your comments on the card and send them to the feedback form.</li></ol></section>
+<div class="tiles"><a class="tile" href="clerkship-pediatrics.html"><span class="tname">Pediatrics</span><span class="tcount">5 cases · 1 ready to try · 2 in testing</span><span class="tpts">Amina Rahman, Claudia Lopez, Izzy Ochal, Megan Morris, Simone Adeyemi</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-internal-medicine.html"><span class="tname">Internal Medicine</span><span class="tcount">4 cases · 1 ready to try · 1 in testing</span><span class="tpts">Carol Nguyen, Ethel Kaplan, Three patients, 30 minutes</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-surgery.html"><span class="tname">Surgery</span><span class="tcount">3 cases</span><span class="tpts">Elena Vazquez, Marcus Webb</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-psychiatry.html"><span class="tname">Psychiatry</span><span class="tcount">4 cases · 1 in testing</span><span class="tpts">Isaac Washington, Marcus Greene, Natalie Carson, Rebecca Moran</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-neurology.html"><span class="tname">Neurology</span><span class="tcount">6 cases · 2 ready to try</span><span class="tpts">Alex Rivera, Ellie Thomas, Izzy Ochal, Kayla Novak, Three patients, 30 minutes</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-ob-gyn.html"><span class="tname">OB/GYN</span><span class="tcount">2 cases</span><span class="tpts">Maria Torres, Mona Lee</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-emergency-medicine.html"><span class="tname">Emergency Medicine</span><span class="tcount">2 cases · 1 ready to try · 1 in testing</span><span class="tpts">Claudia Lopez, Three patients, 30 minutes</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-family-medicine.html"><span class="tname">Family Medicine</span><span class="tcount">3 cases</span><span class="tpts">Jessica Raymond, Lorraine Hayes, Rami Farouk</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-ambulatory-care.html"><span class="tname">Ambulatory Care</span><span class="tcount">2 cases</span><span class="tpts">Jessica Raymond</span><span class="go" aria-hidden="true">→</span></a><a class="tile" href="clerkship-anesthesia-critical-care.html"><span class="tname">Anesthesia and Critical Care</span><span class="tcount">1 case</span><span class="tpts">Cases requested</span><span class="go" aria-hidden="true">→</span></a></div>
+<footer class="foot"><span>WCM Skills Lab · faculty preview</span><a href="cases.html">Pilot cases for students</a></footer>
+</div>
+<script>
+document.querySelectorAll('form.fb').forEach(function(f){
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var t=f.querySelector('textarea'), s=f.querySelector('.fbnote');
+    var text='['+f.dataset.case+'] '+t.value.trim();
+    function go(msg){ s.textContent=msg; s.hidden=false; window.open(f.action,'_blank','noopener'); }
+    if(!t.value.trim()){ s.textContent='Type a comment first.'; s.hidden=false; return; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){go('Your comment is copied. In the form that opens, choose "'+f.dataset.case+'" and paste it.');},
+      function(){t.select();go('Copy your comment (it is selected), then paste it into the form that opens.');});
+    } else { t.select(); go('Copy your comment (it is selected), then paste it into the form that opens.'); }
+  });
+});
+</script>
+</body></html>
