@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>Family Medicine · WCM Skills Lab</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><link rel="stylesheet" href="skillslab.css"></head><body>
+<div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html">WCM <span>Skills Lab</span></a><span class="pill">Faculty preview</span></header>
+
+<nav class="crumb"><a href="index.html">All clerkships</a></nav>
+<section><p class="kicker">Clerkship</p><h1>Family Medicine</h1><p class="lede">3 cases. Try any case marked ready, open its proposed rubric, and leave comments right on the card.</p></section>
+<div class="cards">
+<article class="card" id="jessica-raymond">
+<div class="cardtop"><span class="chip built">Built, not yet on this site</span></div>
+<h3>Jessica Raymond</h3><p class="cc">Diabetes and weight management: motivational interviewing</p>
+<p class="desc">A 55-year-old with type 2 diabetes and cardiometabolic risk factors returns to clinic to talk about physical activity and weight. The learner practices motivational interviewing: eliciting change talk, exploring barriers, and supporting a plan the patient builds.</p>
+<div class="meta"><div><span class="lbl">Primary skill</span>Communication &amp; Counseling</div><div><span class="lbl">Learner activity</span>Patient / Family Counseling</div><div><span class="lbl">Attending</span>Nicole Rosenblum</div><div><span class="lbl">Also listed in</span>Ambulatory Care</div></div>
+<p class="safe"><span class="lbl">Cannot miss</span>Avoid directive or judgmental counseling; assess readiness, barriers, and priorities before building a plan together.</p>
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Jessica Raymond – Diabetes/weight MI">
+<label class="lbl" for="fb25">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb25" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+<article class="card" id="rami-farouk">
+<div class="cardtop"><span class="chip req">Requested</span></div>
+<h3>Rami Farouk</h3><p class="cc">New-onset type 2 diabetes</p>
+<p class="desc">A young adult with newly diagnosed type 2 diabetes in clinic. Planned focus: confirming the diagnosis, initial management, and lifestyle counseling.</p>
+<div class="meta"><div><span class="lbl">Attending</span>Dr. Nair</div></div>
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Rami Farouk – New-onset T2DM">
+<label class="lbl" for="fb26">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb26" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+<article class="card" id="lorraine-hayes">
+<div class="cardtop"><span class="chip req">Requested</span></div>
+<h3>Lorraine Hayes</h3><p class="cc">Stage 2 hypertension</p>
+<p class="desc">A middle-aged adult with stage 2 hypertension in clinic. Planned focus: starting treatment, screening for secondary causes, and shared decision-making.</p>
+<div class="meta"><div><span class="lbl">Attending</span>Dr. Nair</div></div>
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Lorraine Hayes – Stage 2 hypertension">
+<label class="lbl" for="fb27">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb27" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+</div>
+<footer class="foot"><span>WCM Skills Lab · faculty preview</span><a href="cases.html">Pilot cases for students</a></footer>
+</div>
+<script>
+document.querySelectorAll('form.fb').forEach(function(f){
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var t=f.querySelector('textarea'), s=f.querySelector('.fbnote');
+    var text='['+f.dataset.case+'] '+t.value.trim();
+    function go(msg){ s.textContent=msg; s.hidden=false; window.open(f.action,'_blank','noopener'); }
+    if(!t.value.trim()){ s.textContent='Type a comment first.'; s.hidden=false; return; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){go('Your comment is copied. In the form that opens, choose "'+f.dataset.case+'" and paste it.');},
+      function(){t.select();go('Copy your comment (it is selected), then paste it into the form that opens.');});
+    } else { t.select(); go('Copy your comment (it is selected), then paste it into the form that opens.'); }
+  });
+});
+</script>
+</body></html>

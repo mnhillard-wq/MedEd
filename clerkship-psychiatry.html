@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>Psychiatry · WCM Skills Lab</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><link rel="stylesheet" href="skillslab.css"></head><body>
+<div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html">WCM <span>Skills Lab</span></a><span class="pill">Faculty preview</span></header>
+
+<nav class="crumb"><a href="index.html">All clerkships</a></nav>
+<section><p class="kicker">Clerkship</p><h1>Psychiatry</h1><p class="lede">4 cases. Try any case marked ready, open its proposed rubric, and leave comments right on the card.</p></section>
+<div class="cards">
+<article class="card" id="natalie-carson">
+<div class="cardtop"><span class="chip testing">In testing</span><span class="stage">Sim tests</span></div>
+<h3>Natalie Carson</h3><p class="cc">Suicidal thoughts at student health</p>
+<p class="desc">A student seen in an outpatient setting who discloses suicidal thoughts. The learner assesses risk, plans for safety, and decides between hospital and community care while keeping rapport.</p>
+<div class="meta"><div><span class="lbl">Primary skill</span>Communication &amp; Counseling</div><div><span class="lbl">Learner activity</span>AI-SP History</div><div><span class="lbl">Attending</span>Dr. Reyes</div></div>
+
+<div class="actions"><a class="btn ghost" href="https://app.notion.com/p/3edc24fa4b30819882ccd83701a4c914" target="_blank" rel="noopener">Proposed rubric</a></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Natalie Carson – Suicidal ideation">
+<label class="lbl" for="fb12">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb12" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+<article class="card" id="isaac-washington">
+<div class="cardtop"><span class="chip dev">In development</span><span class="stage">Audit</span></div>
+<h3>Isaac Washington</h3><p class="cc">First-episode psychosis</p>
+<p class="desc">A young adult with a first psychotic episode; his mother is part of the history. The learner separates primary psychosis from substance-induced and medical causes and assesses safety.</p>
+<div class="meta"><div><span class="lbl">Attending</span>Dr. Reyes</div></div>
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Isaac Washington – First-episode psychosis">
+<label class="lbl" for="fb13">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb13" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+<article class="card" id="marcus-greene">
+<div class="cardtop"><span class="chip built">Built, not yet on this site</span></div>
+<h3>Marcus Greene</h3><p class="cc">Acute mania</p>
+<p class="desc">An outpatient presenting with an acute manic episode. Focus: distinguishing mania from other mood states and planning treatment when insight is limited.</p>
+<div class="meta"><div><span class="lbl">Attending</span>Dr. Reyes</div></div>
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Marcus Greene – Mania">
+<label class="lbl" for="fb14">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb14" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+<article class="card" id="rebecca-moran">
+<div class="cardtop"><span class="chip built">Built, not yet on this site</span></div>
+<h3>Rebecca Moran</h3><p class="cc">Schizophrenia with paranoia</p>
+<p class="desc">An outpatient with schizophrenia and paranoid symptoms. Focus: reasoning about psychotic disorders. A preceptor is still needed.</p>
+<div class="meta"><div><span class="lbl">Attending</span>Needs preceptor</div></div>
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Rebecca Moran – Schizophrenia">
+<label class="lbl" for="fb15">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb15" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+</div>
+<footer class="foot"><span>WCM Skills Lab · faculty preview</span><a href="cases.html">Pilot cases for students</a></footer>
+</div>
+<script>
+document.querySelectorAll('form.fb').forEach(function(f){
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var t=f.querySelector('textarea'), s=f.querySelector('.fbnote');
+    var text='['+f.dataset.case+'] '+t.value.trim();
+    function go(msg){ s.textContent=msg; s.hidden=false; window.open(f.action,'_blank','noopener'); }
+    if(!t.value.trim()){ s.textContent='Type a comment first.'; s.hidden=false; return; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){go('Your comment is copied. In the form that opens, choose "'+f.dataset.case+'" and paste it.');},
+      function(){t.select();go('Copy your comment (it is selected), then paste it into the form that opens.');});
+    } else { t.select(); go('Copy your comment (it is selected), then paste it into the form that opens.'); }
+  });
+});
+</script>
+</body></html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>Emergency Medicine · WCM Skills Lab</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><link rel="stylesheet" href="skillslab.css"></head><body>
+<div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html">WCM <span>Skills Lab</span></a><span class="pill">Faculty preview</span></header>
+
+<nav class="crumb"><a href="index.html">All clerkships</a></nav>
+<section><p class="kicker">Clerkship</p><h1>Emergency Medicine</h1><p class="lede">2 cases. Try any case marked ready, open its proposed rubric, and leave comments right on the card.</p></section>
+<div class="cards">
+<article class="card" id="claudia-lopez">
+<div class="cardtop"><span class="chip testing">In testing</span><span class="stage">Sim tests</span></div>
+<h3>Claudia Lopez</h3><p class="cc">Febrile 28-day-old infant</p>
+<p class="desc">A 28-day-old girl brought to the ED with a first fever; her father is the historian. The learner presents to Dr. Brooks and reasons through serious bacterial infection, the screening labs, the spinal-fluid decision at 22 to 28 days, HSV, empiric antibiotics, and disposition.</p>
+<div class="meta"><div><span class="lbl">Primary skill</span>Clinical Reasoning</div><div><span class="lbl">Learner activity</span>Attending Debrief</div><div><span class="lbl">Attending</span>Dr. Brooks</div><div><span class="lbl">Also listed in</span>Pediatrics</div></div>
+<p class="safe"><span class="lbl">Cannot miss</span>Do not let a reassuring appearance skip blood culture, catheterized urine, and screening markers. Spinal fluid follows the 22-to-28-day pathway; admission while cultures are followed is usual.</p>
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Claudia Lopez – Febrile 28-day infant">
+<label class="lbl" for="fb23">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb23" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+<article class="card" id="emergency-medicine-case-(requested)">
+<div class="cardtop"><span class="chip req">Requested</span></div>
+<h3>Case to be defined</h3><p class="cc">Case to be defined</p>
+<p class="desc">Second emergency medicine case, not yet defined. Faculty input on the priority skill and scenario is welcome.</p>
+
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Emergency Medicine case (requested)">
+<label class="lbl" for="fb24">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb24" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+</div>
+<footer class="foot"><span>WCM Skills Lab · faculty preview</span><a href="cases.html">Pilot cases for students</a></footer>
+</div>
+<script>
+document.querySelectorAll('form.fb').forEach(function(f){
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var t=f.querySelector('textarea'), s=f.querySelector('.fbnote');
+    var text='['+f.dataset.case+'] '+t.value.trim();
+    function go(msg){ s.textContent=msg; s.hidden=false; window.open(f.action,'_blank','noopener'); }
+    if(!t.value.trim()){ s.textContent='Type a comment first.'; s.hidden=false; return; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){go('Your comment is copied. In the form that opens, choose "'+f.dataset.case+'" and paste it.');},
+      function(){t.select();go('Copy your comment (it is selected), then paste it into the form that opens.');});
+    } else { t.select(); go('Copy your comment (it is selected), then paste it into the form that opens.'); }
+  });
+});
+</script>
+</body></html>

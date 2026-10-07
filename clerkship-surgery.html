@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>Surgery · WCM Skills Lab</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><link rel="stylesheet" href="skillslab.css"></head><body>
+<div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html">WCM <span>Skills Lab</span></a><span class="pill">Faculty preview</span></header>
+
+<nav class="crumb"><a href="index.html">All clerkships</a></nav>
+<section><p class="kicker">Clerkship</p><h1>Surgery</h1><p class="lede">3 cases. Try any case marked ready, open its proposed rubric, and leave comments right on the card.</p></section>
+<div class="cards">
+<article class="card" id="marcus-webb">
+<div class="cardtop"><span class="chip dev">In development</span><span class="stage">Audit</span></div>
+<h3>Marcus Webb</h3><p class="cc">Post-op appendectomy, doing well</p>
+<p class="desc">A patient on the surgical ward after appendectomy who is recovering as expected. The learner takes an interval history on rounds and decides on discharge readiness. Pairs with Elena Vazquez.</p>
+<div class="meta"><div><span class="lbl">Primary skill</span>Interval History</div><div><span class="lbl">Learner activity</span>Interval Assessment</div><div><span class="lbl">Attending</span>Dr. Park</div></div>
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Marcus Webb – Post-op appendectomy doing well">
+<label class="lbl" for="fb9">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb9" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+<article class="card" id="elena-vazquez">
+<div class="cardtop"><span class="chip dev">In development</span><span class="stage">Audit</span></div>
+<h3>Elena Vazquez</h3><p class="cc">Post-op appendectomy, doing poorly</p>
+<p class="desc">A patient on the surgical ward after appendectomy whose course is worsening. The learner separates expected recovery from a complication and escalates. Pairs with Marcus Webb.</p>
+<div class="meta"><div><span class="lbl">Primary skill</span>Interval History</div><div><span class="lbl">Learner activity</span>Interval Assessment</div><div><span class="lbl">Attending</span>Dr. Park</div></div>
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Elena Vazquez – Post-op appendectomy doing poorly">
+<label class="lbl" for="fb10">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb10" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+<article class="card" id="blood-transfusion-consent-(requested)">
+<div class="cardtop"><span class="chip req">Requested</span></div>
+<h3>Case to be defined</h3><p class="cc">Informed consent for blood transfusion</p>
+<p class="desc">Planned case: obtaining consent for transfusion, explaining risks, benefits, and alternatives to an anxious patient.</p>
+<div class="meta"><div><span class="lbl">Primary skill</span>Communication &amp; Counseling</div><div><span class="lbl">Learner activity</span>Patient / Family Counseling</div></div>
+
+<div class="actions"><span class="nolink">Rubric not drafted yet</span></div>
+<form class="fb" action="https://app.notion.com/p/a87294ac5ef04056916e1905bc6a4ae7?v=aa84812d670e4c2fa455aa31a4fcf32f&source=copy_link" data-case="Blood transfusion consent (requested)">
+<label class="lbl" for="fb11">Your comments, suggested changes, or rubric edits</label>
+<textarea id="fb11" rows="3" placeholder="What would you change about this case or its rubric?"></textarea>
+<div class="fbrow"><button class="btn small" type="submit">Send to feedback form</button></div>
+<p class="fbnote" role="status" hidden></p>
+</form>
+</article>
+</div>
+<footer class="foot"><span>WCM Skills Lab · faculty preview</span><a href="cases.html">Pilot cases for students</a></footer>
+</div>
+<script>
+document.querySelectorAll('form.fb').forEach(function(f){
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var t=f.querySelector('textarea'), s=f.querySelector('.fbnote');
+    var text='['+f.dataset.case+'] '+t.value.trim();
+    function go(msg){ s.textContent=msg; s.hidden=false; window.open(f.action,'_blank','noopener'); }
+    if(!t.value.trim()){ s.textContent='Type a comment first.'; s.hidden=false; return; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){go('Your comment is copied. In the form that opens, choose "'+f.dataset.case+'" and paste it.');},
+      function(){t.select();go('Copy your comment (it is selected), then paste it into the form that opens.');});
+    } else { t.select(); go('Copy your comment (it is selected), then paste it into the form that opens.'); }
+  });
+});
+</script>
+</body></html>
