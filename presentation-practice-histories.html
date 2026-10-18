@@ -36,6 +36,17 @@ a{color:var(--primary-deep);text-underline-offset:2px}
 .task{margin:0;font-size:15px;border-left:3px solid var(--primary);padding:2px 0 2px 12px}
 .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--muted)}
 @media print{.bar,.top,.crumb,.foot{display:none}.card{break-inside:avoid}}
+.pick{display:grid;grid-template-columns:16rem 1fr;gap:20px;align-items:start}
+.pick .cards{display:block}
+.menu{position:sticky;top:16px;display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.menu a{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink)}
+.menu a:hover{border-color:var(--primary)}
+.menu a[aria-current="true"]{background:var(--tint);border-color:var(--primary)}
+.menu .mn{font-weight:600}
+.menu .mc{font-size:13px;color:var(--muted)}
+.js .card[hidden]{display:none}
+@media (max-width:760px){.pick{grid-template-columns:1fr}.menu{position:static}}
+@media print{.menu{display:none}.js .card[hidden]{display:flex}}
 </style></head><body>
 <div class="bar" aria-hidden="true"></div>
 <div class="wrap">
@@ -55,20 +66,28 @@ a{color:var(--primary-deep);text-underline-offset:2px}
     <li>Present to Dr. Cole, then say "done."</li>
   </ol>
 </section>
+<div class="pick">
+<nav class="menu" aria-label="Choose a practice history">
+  <div class="lbl">Choose a patient</div>
+  <a href="#ashgrove" data-id="ashgrove"><span class="mn">Corinne Ashgrove</span><span class="mc">34-year-old woman &middot; burning with urination</span></a>
+  <a href="#castellano" data-id="castellano"><span class="mn">Walter Castellano</span><span class="mc">61-year-old man &middot; painful big toe</span></a>
+  <a href="#brandvold" data-id="brandvold"><span class="mn">Lyle Brandvold</span><span class="mc">27-year-old man &middot; low back pain</span></a>
+</nav>
 <div class="cards">
 
-<article class="card">
+<article class="card" id="ashgrove">
   <div class="cardtop"><span class="chip">Practice history 1</span><span class="stage">Outpatient &middot; urgent visit</span></div>
   <h3>Corinne Ashgrove</h3>
   <p class="cc">34-year-old woman, "burning when I pee"</p>
+  <p class="vitals" style="border:0;padding:0">Source: the patient, who gave a clear history.</p>
   <ol class="notes">
-    <li>Burning with urination for 2 days. Going every hour, small amounts, with a strong urge each time.</li>
+    <li>Burning with urination for 2 days, 6 out of 10. Going every hour, small amounts, with a strong urge each time.</li>
     <li>Frequency woke her twice last night and made her miss a work meeting this morning, so she called for a visit.</li>
     <li>Bought phenazopyridine (AZO) at the drugstore yesterday. The burning eased a little and her urine turned orange.</li>
     <li>No fever, chills, back or side pain, nausea, or vomiting. Has not seen blood in her urine.</li>
     <li>No vaginal discharge, itching, or odor. One male partner, her husband. Levonorgestrel IUD placed after her son was born. Last period 2 weeks ago, regular.</li>
     <li>Had one urinary tract infection 3 years ago, treated with antibiotics, resolved.</li>
-    <li>Migraines since her twenties; takes sumatriptan 50 mg about twice a month.</li>
+    <li>Migraines since her twenties; takes sumatriptan 50 mg about twice a month. Takes a daily vitamin D supplement.</li>
     <li>Cesarean delivery 4 years ago. No other surgeries or hospitalizations.</li>
     <li>Allergic to sulfa drugs: hives.</li>
     <li>Graphic designer. Lives with her husband and 4-year-old son. Never smoked, 1 to 2 glasses of wine a week, no drug use.</li>
@@ -79,32 +98,34 @@ a{color:var(--primary-deep);text-underline-offset:2px}
   <p class="task">Your turn: commit to a leading diagnosis, name one alternative and why it is less likely, and say how she is doing.</p>
 </article>
 
-<article class="card">
+<article class="card" id="castellano">
   <div class="cardtop"><span class="chip">Practice history 2</span><span class="stage">Outpatient &middot; same-day visit</span></div>
   <h3>Walter Castellano</h3>
   <p class="cc">61-year-old man, "my big toe is killing me"</p>
+  <p class="vitals" style="border:0;padding:0">Source: the patient and his wife, who came with him.</p>
   <ol class="notes">
     <li>Woke 2 nights ago with severe pain in the right big toe. It is red, hot, and swollen. Even the bedsheet touching it hurts. Pain 9 out of 10.</li>
     <li>The night before, he was at a family party: several beers and a steak dinner.</li>
     <li>Took ibuprofen 400 mg three times yesterday, which helped a little.</li>
-    <li>Came in today because he could not get his work boot on.</li>
+    <li>Came in today because he could not get his shoe on for work.</li>
     <li>Had two milder episodes of pain in the same toe in the past year, each gone on its own within a few days. Never saw anyone for them. No injury, no cuts or scrapes on the foot. No other joints hurt. No fever or chills.</li>
     <li>High blood pressure for 10 years and high cholesterol.</li>
-    <li>Takes hydrochlorothiazide 25 mg daily and atorvastatin 20 mg daily.</li>
+    <li>Takes hydrochlorothiazide 25 mg daily and atorvastatin 20 mg daily. Fish oil capsule daily.</li>
     <li>Appendectomy at age 22. No other surgeries.</li>
     <li>No known drug allergies.</li>
-    <li>Building superintendent, lives with his wife. Quit smoking 20 years ago after 15 pack-years. 4 to 5 beers on weekends. No drug use.</li>
+    <li>Hospital pharmacist, lives with his wife. Quit smoking 20 years ago after 15 pack-years. 4 to 5 beers on weekends. No drug use.</li>
     <li>Brother has gout. Father died of a heart attack at 70.</li>
-    <li>No rash, back pain, urinary symptoms, or kidney stones.</li>
+    <li>No rash, back pain, urinary symptoms, or kidney stones. Rest of the review of systems negative.</li>
   </ol>
-  <p class="vitals">T 37.4 &deg;C &middot; HR 88 &middot; BP 146/90 &middot; RR 16 &middot; SpO&#8322; 98% &middot; BMI 31 &middot; Uncomfortable, walking with a limp. Right first toe joint red, warm, swollen, very tender to light touch; skin intact; other joints normal.</p>
+  <p class="vitals">T 37.4 &deg;C &middot; HR 88 &middot; BP 146/90 &middot; RR 16 &middot; SpO&#8322; 98% &middot; BMI 31 &middot; Uncomfortable, walking with a limp. Right first toe joint warm, swollen, shiny, and discolored, very tender to light touch; skin intact; other joints normal.</p>
   <p class="task">Your turn: commit to a leading diagnosis, name one alternative and why it is less likely, and say how he is doing.</p>
 </article>
 
-<article class="card">
+<article class="card" id="brandvold">
   <div class="cardtop"><span class="chip">Practice history 3</span><span class="stage">Outpatient &middot; scheduled visit</span></div>
   <h3>Lyle Brandvold</h3>
   <p class="cc">27-year-old man, "my back is still sore"</p>
+  <p class="vitals" style="border:0;padding:0">Source: the patient, who gave a clear history.</p>
   <ol class="notes">
     <li>Low back pain for 3 weeks. Started the morning after he carried a couch down three flights of stairs while helping a friend move.</li>
     <li>Aching across the low back, worse on the right. 6 out of 10. Worse with bending and sitting at his desk; better lying down and with a heating pad.</li>
@@ -112,18 +133,26 @@ a{color:var(--primary-deep);text-underline-offset:2px}
     <li>Booked the visit because it is improving more slowly than he hoped and he has a 6-hour drive next week.</li>
     <li>Pain does not go down his legs. No numbness, tingling, or weakness. No trouble urinating or controlling his bowels. No numbness in the groin.</li>
     <li>No fever, weight loss, or pain that wakes him at night. No history of cancer. No injection drug use.</li>
-    <li>Mild asthma since childhood; uses an albuterol inhaler about once a month.</li>
+    <li>Mild asthma since childhood; uses an albuterol inhaler about once a month. No vitamins or supplements.</li>
     <li>No surgeries or hospitalizations.</li>
     <li>Allergic to penicillin: rash as a child.</li>
     <li>Software tester, lives with a roommate. Plays recreational soccer but stopped since the injury. Never smoked. 3 to 4 drinks on weekends, occasional cannabis.</li>
     <li>Father had surgery for a herniated disc at 50. Mother is healthy.</li>
-    <li>No abdominal pain, urinary symptoms, or rash.</li>
+    <li>No abdominal pain, urinary symptoms, or rash. Rest of the review of systems negative.</li>
   </ol>
   <p class="vitals">T 36.8 &deg;C &middot; HR 70 &middot; BP 122/76 &middot; RR 14 &middot; SpO&#8322; 99% &middot; Comfortable at rest, walks normally, gets onto the exam table without help. Right lower lumbar muscle tenderness, no midline spinal tenderness; straight leg raise negative; strength, sensation, and reflexes in the legs normal.</p>
   <p class="task">Your turn: commit to a leading diagnosis, name one alternative and why it is less likely, and say how he is doing.</p>
 </article>
 
 </div>
+</div>
 <footer class="foot"><span>WCM Skills Lab &middot; faculty preview &middot; fictional patients for practice only</span><a href="coach-cole.html">Dr. Cole presentation coach</a></footer>
 </div>
+<script>
+(function(){document.documentElement.classList.add('js');
+var links=[].slice.call(document.querySelectorAll('.menu a')),cards=[].slice.call(document.querySelectorAll('.pick .card'));
+function show(id,scroll){if(!document.getElementById(id))id=cards[0].id;cards.forEach(function(c){c.hidden=c.id!==id;});links.forEach(function(a){a.setAttribute('aria-current',a.dataset.id===id?'true':'false');});if(scroll&&window.innerWidth<=760)document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
+links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();history.replaceState(null,'','#'+a.dataset.id);show(a.dataset.id,true);});});
+show((location.hash||'').slice(1),false);})();
+</script>
 </body></html>
