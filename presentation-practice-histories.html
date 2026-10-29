@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>Practice Cases for Presentations · Complete History</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap"><style>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>Presentation Practice Patients</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap"><style>
 :root{--bg:#F4F5F8;--surface:#FFFFFF;--ink:#101317;--muted:#5C6470;--line:#DEE1E7;--primary:#2D4DAB;--primary-deep:#193388;--tint:#EAF3FF;--brand:#0B1D60;--on-primary:#FFFFFF;
 --display:"Newsreader",Georgia,serif;--body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080A0E;--surface:#1B1E23;--ink:#F0F2F4;--muted:#A0A5AE;--line:#2E333B;--primary:#86A4EC;--primary-deep:#BBD1FF;--tint:#1B243B;--on-primary:#080A0E;color-scheme:dark}}
@@ -53,18 +53,37 @@ a{color:var(--primary-deep);text-underline-offset:2px}
 .notes{font-size:14px;line-height:1.4;gap:2px}
 .vitals{font-size:13px;line-height:1.4;padding-top:6px}
 .task{font-size:14px;line-height:1.4}
+.menu .grp{margin:10px 0 2px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.menu .grp:first-of-type{margin-top:2px}
+.menu .grp small{display:block;text-transform:none;letter-spacing:0;font-weight:500;font-size:12px}
+.js .how[hidden]{display:none}
+.side{display:flex;flex-direction:column;gap:16px;min-width:0}
+@media print{.js .how[hidden]{display:block}}
 @media (min-width:1000px){.pick .notes{columns:2;column-gap:28px;display:block}.pick .notes li{break-inside:avoid;margin-bottom:3px}}
 </style></head><body>
 <div class="bar" aria-hidden="true"></div>
 <div class="wrap">
 <header class="top"><span class="brand">Practice Cases <span>for Presentations</span></span></header>
 <header>
-  <p class="kicker">Complete history &middot; Preclinical</p>
-  <h1>Practice histories for presenting to Dr. Cole</h1>
-  <p class="lede">No recent patient to present? Use one of these. Each is a set of interview notes in the order the patient told the story. Your job is to turn the notes into an organized oral presentation and to finish with an assessment of your own. All three patients are fictional.</p>
+  <p class="kicker">Oral presentation practice</p>
+  <h1>Practice patients for presentation coaching</h1>
+  <p class="lede">No recent patient to present? Use one of these. Each is a set of interview notes in the order the patient told the story. Your job is to turn the notes into an organized oral presentation and to finish with an assessment of your own. Choose the specialty that matches your coach. All patients are fictional.</p>
 </header>
-<section class="how">
-  <div class="lbl">How to use these</div>
+<div class="pick">
+<nav class="menu" aria-label="Choose a practice patient">
+  <div class="lbl">Choose a patient</div>
+  <div class="grp">Outpatient medicine<small>Dr. Cole &middot; MS1-2 complete history</small></div>
+  <a href="#ashgrove" data-id="ashgrove"><span class="mn">Corinne Ashgrove</span><span class="mc">34-year-old woman &middot; burning with urination</span></a>
+  <a href="#castellano" data-id="castellano"><span class="mn">Walter Castellano</span><span class="mc">61-year-old man &middot; painful big toe</span></a>
+  <a href="#brandvold" data-id="brandvold"><span class="mn">Lyle Brandvold</span><span class="mc">27-year-old man &middot; low back pain</span></a>
+  <div class="grp">Psychiatry<small>Dr. Ashby &middot; MS3-4 clerkship</small></div>
+  <a href="#renwick" data-id="renwick"><span class="mn">Tobias Renwick</span><span class="mc">22-year-old man &middot; hearing voices</span></a>
+  <a href="#vandermeer" data-id="vandermeer"><span class="mn">Harold Vandermeer</span><span class="mc">68-year-old man &middot; depression after a loss</span></a>
+  <a href="#arceneaux" data-id="arceneaux"><span class="mn">Delphine Arceneaux</span><span class="mc">34-year-old woman &middot; rounds, hospital day 3</span></a>
+</nav>
+<div class="side">
+<section class="how" data-group="medicine">
+  <div class="lbl">How to use these &middot; Outpatient medicine</div>
   <ol class="steps">
     <li>Pick one patient and read the notes.</li>
     <li>Reorder them into a presentation: opening statement, source, HPI, past medical and surgical history, medications, allergies, social and family history, review of systems, exam, assessment.</li>
@@ -72,16 +91,18 @@ a{color:var(--primary-deep);text-underline-offset:2px}
     <li>Present to Dr. Cole, then say "done."</li>
   </ol>
 </section>
-<div class="pick">
-<nav class="menu" aria-label="Choose a practice history">
-  <div class="lbl">Choose a patient</div>
-  <a href="#ashgrove" data-id="ashgrove"><span class="mn">Corinne Ashgrove</span><span class="mc">34-year-old woman &middot; burning with urination</span></a>
-  <a href="#castellano" data-id="castellano"><span class="mn">Walter Castellano</span><span class="mc">61-year-old man &middot; painful big toe</span></a>
-  <a href="#brandvold" data-id="brandvold"><span class="mn">Lyle Brandvold</span><span class="mc">27-year-old man &middot; low back pain</span></a>
-</nav>
+<section class="how" data-group="psychiatry">
+  <div class="lbl">How to use these &middot; Psychiatry</div>
+  <ol class="steps">
+    <li>Pick one patient and read the notes. The first two are new evaluations; the third is a patient you are presenting on morning rounds.</li>
+    <li>Reorder them into a presentation: opening (how and why the patient came in, and legal status), HPI with a timeline, past psychiatric history, substance use, medical history, medications, allergies, social and family history, mental status exam, data, risk assessment, formulation, assessment, plan.</li>
+    <li>Build your own risk assessment with an overall level, a brief formulation, a working diagnosis with a differential, and a plan that starts with safety and level of care.</li>
+    <li>Present to Dr. Ashby, then say "done."</li>
+  </ol>
+</section>
 <div class="cards">
 
-<article class="card" id="ashgrove">
+<article class="card" id="ashgrove" data-group="medicine">
   <div class="cardtop"><span class="chip">Practice history 1</span><span class="stage">Outpatient &middot; urgent visit</span></div>
   <h3>Corinne Ashgrove</h3>
   <p class="cc">34-year-old woman, "burning when I pee"</p>
@@ -104,7 +125,7 @@ a{color:var(--primary-deep);text-underline-offset:2px}
   <p class="task">Your turn: give a one-sentence problem representation (who, the key features, and how she is doing now), then a prioritized differential: what you think is most likely and why, then one or two others and why they are lower on your list.</p>
 </article>
 
-<article class="card" id="castellano">
+<article class="card" id="castellano" data-group="medicine">
   <div class="cardtop"><span class="chip">Practice history 2</span><span class="stage">Outpatient &middot; same-day visit</span></div>
   <h3>Walter Castellano</h3>
   <p class="cc">61-year-old man, "my big toe is killing me"</p>
@@ -127,7 +148,7 @@ a{color:var(--primary-deep);text-underline-offset:2px}
   <p class="task">Your turn: give a one-sentence problem representation (who, the key features, and how he is doing now), then a prioritized differential: what you think is most likely and why, then one or two others and why they are lower on your list.</p>
 </article>
 
-<article class="card" id="brandvold">
+<article class="card" id="brandvold" data-group="medicine">
   <div class="cardtop"><span class="chip">Practice history 3</span><span class="stage">Outpatient &middot; scheduled visit</span></div>
   <h3>Lyle Brandvold</h3>
   <p class="cc">27-year-old man, "my back is still sore"</p>
@@ -150,14 +171,82 @@ a{color:var(--primary-deep);text-underline-offset:2px}
   <p class="task">Your turn: give a one-sentence problem representation (who, the key features, and how he is doing now), then a prioritized differential: what you think is most likely and why, then one or two others and why they are lower on your list.</p>
 </article>
 
+<article class="card" id="renwick" data-group="psychiatry">
+  <div class="cardtop"><span class="chip">Psychiatry 1</span><span class="stage">Psychiatric emergency department &middot; new evaluation</span></div>
+  <h3>Tobias Renwick</h3>
+  <p class="cc">22-year-old man, "people are sending me messages through my laptop"</p>
+  <p class="vitals" style="border:0;padding:0">Source: the patient, and his roommate by phone. He came in voluntarily with his roommate.</p>
+  <ol class="notes">
+    <li>Roommate called because last night Tobias was shouting at the wall of their apartment. Roommate says that over about 6 weeks Tobias stopped going to class, stayed up most nights, and covered his laptop camera with tape.</li>
+    <li>Tobias says he has heard two men's voices for about a month. They comment on what he is doing and call him a failure.</li>
+    <li>Believes classmates are monitoring him through his laptop and sending him messages in group chats.</li>
+    <li>Engineering junior, previously a B student. Grades dropped this semester and he withdrew from two classes.</li>
+    <li>Sleeping 3 to 4 hours a night for 2 weeks. Feels tired, not energized. Denies racing thoughts, spending sprees, or feeling unusually confident. Mood "stressed."</li>
+    <li>Denies thoughts of suicide or of hurting anyone. The voices have never told him to hurt himself or anyone else. No weapons.</li>
+    <li>No prior psychiatric diagnoses, treatment, or hospitalizations.</li>
+    <li>Vapes cannabis daily since freshman year, more over the past 3 months; last use yesterday. A few drinks on weekends. No other drugs.</li>
+    <li>No medical problems, no medications, no known drug allergies.</li>
+    <li>Lives in a campus apartment with one roommate. Parents live in Ohio; he is close to his older sister. No legal history.</li>
+    <li>Maternal uncle has schizophrenia. No suicide in the family.</li>
+    <li>What you observed: thin, disheveled, hoodie, poor hygiene. Sat still and glanced at the corner of the room; intermittent eye contact. Speech soft, with long pauses before answering. Mood "stressed"; affect blunted. Thought process mostly linear with occasional tangents. Persecutory beliefs about classmates; no suicidal or homicidal ideation. Appeared to be responding to internal stimuli. Oriented, named the months backward correctly. Said "I'm not sick, I just need them to stop."</li>
+  </ol>
+  <p class="vitals">T 36.9 &deg;C &middot; HR 84 &middot; BP 124/78 &middot; RR 14 &middot; SpO&#8322; 99%. CBC, basic metabolic panel, and TSH normal. Urine drug screen positive for THC only. Blood alcohol undetectable. HIV and syphilis tests pending.</p>
+  <p class="task">Your turn: give a risk assessment with an overall level, a brief formulation, a working diagnosis with a differential that includes substance-induced and medical causes, and a plan that starts with safety and level of care.</p>
+</article>
+
+<article class="card" id="vandermeer" data-group="psychiatry">
+  <div class="cardtop"><span class="chip">Psychiatry 2</span><span class="stage">Inpatient psychiatry &middot; new admission</span></div>
+  <h3>Harold Vandermeer</h3>
+  <p class="cc">68-year-old man, "I don't see the point anymore"</p>
+  <p class="vitals" style="border:0;padding:0">Source: the patient, and his daughter, who brought him to the emergency department. Admitted voluntarily.</p>
+  <ol class="notes">
+    <li>His wife died 8 months ago after a long illness. He was her caregiver.</li>
+    <li>Daughter says that over the past 3 months he stopped calling, lost about 15 pounds, stopped going to his woodworking shop, and was not taking his heart medicines.</li>
+    <li>Wakes at 4 a.m. and cannot get back to sleep. Low energy. Cannot follow a TV show. Feels guilty that he "didn't do enough" for his wife.</li>
+    <li>Three days ago his daughter found a handwritten note on the kitchen table addressed to her, about his finances. He says he wrote it "so she'd have things in order."</li>
+    <li>Has thought about shooting himself with his hunting rifle. Says he has not decided to. The rifle and ammunition are in a locked cabinet at home and he has the key. No prior suicide attempts.</li>
+    <li>One episode of depression in his 40s, treated by his primary doctor with sertraline for about a year, with a good response. No psychiatric hospitalizations.</li>
+    <li>Since his wife died, 2 to 3 glasses of whiskey most nights; before that, 1 to 2 drinks a week. Last drink the night before admission. No history of withdrawal. Quit smoking 30 years ago. No drug use.</li>
+    <li>Coronary artery disease with a stent 5 years ago, high blood pressure, type 2 diabetes.</li>
+    <li>Aspirin 81 mg daily, metoprolol 25 mg twice daily, metformin 1000 mg twice daily, atorvastatin 40 mg daily, taken unreliably for 2 months. No known drug allergies.</li>
+    <li>Retired high school shop teacher and Army veteran. Lives alone in a house upstate; his daughter lives 40 minutes away. Has gone to church less since his wife died.</li>
+    <li>Father drank heavily. Brother died by suicide at 55.</li>
+    <li>What you observed: looks older than his age, unshaven, clothes loose on him. Moves slowly. Speech slow and quiet, with long pauses. Mood "I don't see the point"; affect constricted, tearful when he talks about his wife. Thought process linear. Hopelessness and guilt; suicidal ideation with a plan involving the rifle; says he has no intent "right now"; no homicidal ideation; no delusions or hallucinations. Oriented; scored 26 of 30 on a cognitive screen, missing two words on delayed recall. Agreed that he needs to be in the hospital.</li>
+  </ol>
+  <p class="vitals">T 36.6 &deg;C &middot; HR 58 &middot; BP 148/88 &middot; RR 14 &middot; SpO&#8322; 97%. Glucose 212 mg/dL, hemoglobin A1c 8.9%. Sodium 133. CBC, TSH, and B12 normal. Blood alcohol undetectable; urine drug screen negative. ECG: sinus bradycardia, no acute changes.</p>
+  <p class="task">Your turn: give a risk assessment with an overall level, a brief formulation, a working diagnosis with a differential that includes substance-induced and medical causes, and a plan that starts with safety and level of care.</p>
+</article>
+
+<article class="card" id="arceneaux" data-group="psychiatry">
+  <div class="cardtop"><span class="chip">Psychiatry 3</span><span class="stage">Inpatient psychiatry &middot; morning rounds</span></div>
+  <h3>Delphine Arceneaux</h3>
+  <p class="cc">34-year-old woman, hospital day 3, "I feel great, I'm ready to go home"</p>
+  <p class="vitals" style="border:0;padding:0">Source: the patient, overnight nursing notes, and her sister. Admitted involuntarily on two-physician certification.</p>
+  <ol class="notes">
+    <li>Known bipolar I disorder. Admitted 3 days ago from the emergency department after police found her directing traffic downtown at 3 a.m. Stopped her lithium 2 months ago because of weight gain.</li>
+    <li>Two prior hospitalizations for mania, at 24 and 29. No suicide attempts.</li>
+    <li>Lithium 300 mg twice daily restarted on hospital day 1, with olanzapine 10 mg nightly.</li>
+    <li>Overnight per nursing: slept 4 hours (1 hour the first night). Needed one as-needed dose of olanzapine 5 mg last evening for pacing and yelling at another patient. No restraint or seclusion.</li>
+    <li>Eating about half of each meal and drinking fluids. Taking all scheduled medications. Mild hand tremor and some thirst; no nausea or diarrhea.</li>
+    <li>On interview today she talks quickly but can be interrupted; yesterday she could not be. Says she is ready to go home and launch her business. Called her bank twice yesterday about a loan.</li>
+    <li>Denies thoughts of suicide or of hurting anyone. No self-harm on the unit. No violence beyond yelling.</li>
+    <li>Her sister visited yesterday and wants to help with discharge planning; Delphine agreed to include her.</li>
+    <li>What you observed today: well groomed, bright makeup, several layers of jewelry. Restless, at times intrusive, but redirectable. Speech rapid and pressured, interruptible. Mood "great"; affect expansive, irritable when limits are set. Thought process tangential, with flight of ideas at times, less than on admission. Grandiose ideas about her business; no suicidal or homicidal ideation; no paranoia today. Denies hallucinations and is not responding to internal stimuli. Oriented. Says she does not need to be here.</li>
+  </ol>
+  <p class="vitals">T 36.8 &deg;C &middot; HR 82 &middot; BP 126/80 &middot; RR 16. Lithium level this morning 0.6 mEq/L, 12 hours after the last dose. Creatinine 0.8. TSH normal. Urine pregnancy test negative on admission.</p>
+  <p class="task">Your turn: present her as you would on morning rounds: a one-liner, the interval history, the mental status exam today, risk today, then an updated assessment and plan that starts with safety and level of care.</p>
+</article>
+
+</div>
 </div>
 </div>
 <footer class="foot"><span>Fictional patients for practice only</span></footer>
 </div>
 <script>
 (function(){document.documentElement.classList.add('js');
-var links=[].slice.call(document.querySelectorAll('.menu a')),cards=[].slice.call(document.querySelectorAll('.pick .card'));
-function show(id,scroll){if(!document.getElementById(id))id=cards[0].id;cards.forEach(function(c){c.hidden=c.id!==id;});links.forEach(function(a){a.setAttribute('aria-current',a.dataset.id===id?'true':'false');});if(scroll){var tgt=window.innerWidth<=760?document.getElementById(id):document.querySelector('.pick');var r=tgt.getBoundingClientRect();if(r.top<0||r.top>80)tgt.scrollIntoView({behavior:'smooth',block:'start'});}}
+var links=[].slice.call(document.querySelectorAll('.menu a')),cards=[].slice.call(document.querySelectorAll('.pick .card')),hows=[].slice.call(document.querySelectorAll('.pick .how'));
+function resolve(id){if(document.getElementById(id)&&document.getElementById(id).classList.contains('card'))return id;var first=cards.filter(function(c){return c.dataset.group===id;})[0];return first?first.id:cards[0].id;}
+function show(id,scroll){id=resolve(id);var g=document.getElementById(id).dataset.group;cards.forEach(function(c){c.hidden=c.id!==id;});hows.forEach(function(h){h.hidden=h.dataset.group!==g;});links.forEach(function(a){a.setAttribute('aria-current',a.dataset.id===id?'true':'false');});if(scroll){var tgt=window.innerWidth<=760?document.querySelector('.side'):document.querySelector('.pick');var r=tgt.getBoundingClientRect();if(r.top<0||r.top>80)tgt.scrollIntoView({behavior:'smooth',block:'start'});}}
 links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();history.replaceState(null,'','#'+a.dataset.id);show(a.dataset.id,true);});});
 show((location.hash||'').slice(1),false);})();
 </script>
