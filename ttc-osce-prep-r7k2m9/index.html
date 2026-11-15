@@ -1150,7 +1150,7 @@ async function flush(){
 
 async function initDb(){renderBar();renderAssess()}
 function renderStatus(){const nn=$('needname');if(nn)nn.textContent=S.name.trim()?'':'Please enter your name.';const el=$('status');if(!el)return;if(!S.name.trim()){el.className='status';el.textContent='Enter your name so your responses can be saved.';return}
-  el.className='status';el.textContent='Your answers are kept in this browser until you submit the response form.'}
+  el.className='status';el.textContent='Your answers are kept in this browser until you submit.'}
 
 /* ---- render ---- */
 function renderTabs(){
@@ -1238,27 +1238,25 @@ function overview(c,run,r){
 
 function decKey(){return 'decision|'+S.case}
 function dec(){const k=decKey();if(!S.reviews[k])S.reviews[k]={choice:'',changes:''};return S.reviews[k]}
-const FORM_URL='https://tar-cook-eee.notion.site/d22ac303d4bf41638f82add02094b3c2?pvs=105';
 function caseLabel(c){return c.name+' ('+c.caseNo+')'}
 function decLabel(d){return d.choice==='approved'?'Approved for release with changes listed below':'Not approved'}
 function submitMsg(k){
-  const d=S.reviews['decision|'+k]||{};const c=CASES.find(x=>x.key===k);
-  if(SUB[k]==='ok'&&d.submittedAt){const t=new Date(d.submittedAt).toLocaleString();return `<span class="subok">You marked this case as submitted on ${esc(t)}. Thank you. If you change your answer, submit the form again.</span>`}
-  if(SUB[k]==='pending'&&c){const txt=d.changes&&d.changes.trim()?d.changes:'(no changes)';
-    return `<div class="subpend"><b>One more step: complete the response form.</b> It opened in a new tab (<a href="${FORM_URL}" target="_blank" rel="noopener">open it again</a>). Your changes text is already copied. In the form, enter:<ol><li><b>Reviewer name:</b> ${esc(S.name)}</li><li><b>Case:</b> ${esc(caseLabel(c))}</li><li><b>Decision:</b> ${esc(decLabel(d))}</li><li><b>Changes needed:</b> paste (or copy from the box below)</li></ol><textarea readonly rows="3" aria-label="Your changes text" style="width:100%">${esc(txt)}</textarea><p>Press Submit in the form, then come back and click this button.</p><button class="submitbtn" data-a="markdone">I submitted the form</button></div>`}
+  const d=S.reviews['decision|'+k]||{};
+  if(SUB[k]==='ok'&&d.submittedAt){const t=new Date(d.submittedAt).toLocaleString();return `<span class="subok">Submitted on ${esc(t)}. Thank you. If you change your answer, press Submit again and your earlier answer will be replaced.</span>`}
+  if(SUB[k]==='sending')return 'Submitting...';
+  if(SUB[k]==='fail')return '<span class="subbad">Your decision could not be sent. Check your connection and press Submit again.</span>';
   return '';
 }
-function submitDecision(){
+async function submitDecision(){
   const c=curCase(),d=dec(),m=$('submsg');
   if(!S.name.trim()){m.innerHTML='<span class="subbad">Please enter your name at the top of the page first.</span>';const n=$('dname');if(n)n.focus({preventScroll:true});return}
   if(!d.choice){m.innerHTML='<span class="subbad">Please choose Approved or Not approved first.</span>';return}
-  const txt=d.changes&&d.changes.trim()?d.changes:'(no changes)';
-  try{navigator.clipboard.writeText(txt)}catch(e){}
-  window.open(FORM_URL,'_blank','noopener');
-  SUB[c.key]='pending';persist();
-  renderTask();renderStatus();$('submsg').innerHTML=submitMsg(c.key);
+  SUB[c.key]='sending';m.innerHTML=submitMsg(c.key);
+  const row={key:[S.name.trim(),c.key,'decision'].join('|'),case:caseLabel(c),runId:'',runLabel:'',type:'decision',assessment:'Case decision',item:decLabel(d),myRating:'',aiRating:'',view:'',comment:d.changes||'',skipped:''};
+  const ok=await postRows([row]);
+  if(ok){d.submittedAt=new Date().toISOString();SUB[c.key]='ok'}else{SUB[c.key]='fail'}
+  persist();renderTask();renderStatus();$('submsg').innerHTML=submitMsg(c.key);
 }
-function markDone(){const c=curCase(),d=dec();d.submittedAt=new Date().toISOString();SUB[c.key]='ok';persist();renderTask();$('submsg').innerHTML=submitMsg(c.key)}
 function renderDecideOld_(){}
 function renderDecide(){
   const c=curCase(),d=dec();
@@ -1341,7 +1339,6 @@ function renderExport(){
 document.addEventListener('click',async e=>{
   const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,r=rv(),c=curCase(),run=curRun();
   if(a==='submit'){submitDecision();return}
-  if(a==='markdone'){markDone();return}
   
   if(a==='godecide'){if(S.mode!=='review'){S.mode='review';S.stage='s1';S.act=null;closeRef();renderAll()}const el=$('decide');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
   if(a==='mode'){S.mode=b.dataset.k;S.stage='s1';S.act=null;S.hl=null;S.flagOpen=null;closeRef();renderAll();window.scrollTo(0,0);return}
