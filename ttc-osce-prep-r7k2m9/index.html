@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MedSimAI TTC OSCE Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* layout: transcript pane left, assessment pane right; stacked on narrow screens */
+  --ink:#241c1b; --muted:#6a5e5b; --paper:#fbf9f7; --panel:#ffffff; --rule:#ddd2cd;
+  --accent:#8a2c2c; --accent-soft:#f4e6e3; --ok:#2e6a4c; --ok-soft:#e3f0e8; --warn:#8f5f0e; --warn-soft:#f6ecd6;
+  --hl:#fff2c2;
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif; --sans:'Source Sans 3',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#efe6e3; --muted:#b3a5a1; --paper:#1a1514; --panel:#241d1c; --rule:#4a3d3a;
+    --accent:#e08a84; --accent-soft:#3b2623; --ok:#7fc19f; --ok-soft:#1f3329; --warn:#e3b45c; --warn-soft:#38301c; --hl:#4a3f14; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#efe6e3; --muted:#b3a5a1; --paper:#1a1514; --panel:#241d1c; --rule:#4a3d3a;
+  --accent:#e08a84; --accent-soft:#3b2623; --ok:#7fc19f; --ok-soft:#1f3329; --warn:#e3b45c; --warn-soft:#38301c; --hl:#4a3f14; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.5}
+button,input,textarea,select{font:inherit;color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 16px 80px}
+header.top{border-bottom:2px solid var(--accent);padding-bottom:12px;margin-bottom:16px}
+h1{font-size:26px;margin:0 0 4px;font-weight:600}
+.sub{font-family:var(--sans);color:var(--muted);font-size:14px;margin:0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.tab{font-family:var(--sans);border:1px solid var(--rule);background:var(--panel);padding:8px 16px;border-radius:4px;cursor:pointer;font-weight:600}
+.tab[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.intro{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0;font-size:15px}
+.intro h2{font-size:17px;margin:0 0 6px}
+.intro p{margin:6px 0}
+.intro ol{margin:6px 0 6px 20px;padding:0}
+.bar{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:var(--sans);font-size:14px;background:var(--panel);border:1px solid var(--rule);padding:10px 14px;margin-bottom:16px}
+.bar label{display:flex;gap:6px;align-items:center}
+.bar input[type=text]{border:1px solid var(--rule);background:var(--paper);padding:5px 8px;min-width:200px}
+.status{margin-left:auto;color:var(--muted)}
+.status.ok{color:var(--ok)}
+.stages{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 6px}
+.stg{font-family:var(--sans);border:1px solid var(--rule);background:var(--panel);padding:8px 14px;border-radius:4px;cursor:pointer;font-weight:600}
+.stg[aria-selected="true"]{border-color:var(--accent);color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}
+.stagenote{font-family:var(--sans);font-size:14px;color:var(--muted);margin:0 0 16px}
+.cmp{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;margin:6px 0 14px}
+.cmp th,.cmp td{border:1px solid var(--rule);padding:4px 8px;text-align:left;vertical-align:top}
+.cmp th{background:var(--paper)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}
+@media (max-width:980px){.grid{grid-template-columns:1fr}}
+.pane{background:var(--panel);border:1px solid var(--rule)}
+.pane h2{font-size:18px;margin:0;padding:12px 16px;border-bottom:1px solid var(--rule)}
+.tpane{position:sticky;top:8px;max-height:calc(100vh - 16px);display:flex;flex-direction:column}
+@media (max-width:980px){.tpane{position:static;max-height:none}}
+.tscroll{overflow:auto;padding:4px 16px 16px;flex:1}
+.acts{display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--rule)}
+.act{font-family:var(--sans);font-size:13px;border:1px solid var(--rule);background:var(--paper);padding:5px 10px;border-radius:3px;cursor:pointer}
+.act[aria-selected="true"]{border-color:var(--accent);color:var(--accent);font-weight:600}
+.door{font-family:var(--sans);font-size:13px;color:var(--muted);background:var(--paper);padding:8px 10px;margin:10px 0;border-left:3px solid var(--rule)}
+.turn{display:grid;grid-template-columns:92px 1fr auto;gap:8px;padding:6px 6px;border-bottom:1px dotted var(--rule);font-size:15px}
+.turn .who{font-family:var(--sans);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.turn.learner .who{color:var(--accent);font-weight:600}
+.turn.hl{background:var(--hl)}
+.turn.flagged{border-left:3px solid var(--warn);padding-left:4px}
+.flagbtn{font-family:var(--sans);font-size:11px;border:1px solid var(--rule);background:transparent;padding:2px 7px;border-radius:3px;cursor:pointer;color:var(--muted);align-self:start}
+.flagbtn.on{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.flagbox{grid-column:2 / 4;font-family:var(--sans);font-size:13px}
+.flagbox textarea{width:100%;min-height:56px;border:1px solid var(--rule);background:var(--paper);padding:6px}
+.exam{font-family:var(--sans);font-size:13px;margin:12px 0}
+.exam table{border-collapse:collapse;width:100%}
+.exam td,.exam th{border:1px solid var(--rule);padding:5px 8px;text-align:left;vertical-align:top}
+.exam th{background:var(--paper)}
+.apane{padding:0 0 12px}
+.instr{border-top:1px solid var(--rule);padding:14px 16px}
+.instr:first-of-type{border-top:0}
+.instr h3{margin:0 0 4px;font-size:17px}
+.instr .meta{font-family:var(--sans);font-size:13px;color:var(--muted);margin:0 0 8px}
+.scalehelp{font-family:var(--sans);font-size:13px;background:var(--accent-soft);padding:7px 10px;margin:8px 0}
+.crit{border:1px solid var(--rule);background:var(--paper);padding:10px 12px;margin:10px 0}
+.crit h4{margin:0;font-size:15.5px;font-weight:600}
+.crit .assess{font-size:14px;color:var(--muted);margin:3px 0 8px}
+.rate{display:flex;gap:6px;flex-wrap:wrap;font-family:var(--sans)}
+.rbtn{border:1px solid var(--rule);background:var(--panel);padding:6px 11px;border-radius:3px;cursor:pointer;font-size:14px}
+.rbtn[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.rbtn:disabled{cursor:default;opacity:.8}
+.link{font-family:var(--sans);font-size:13px;background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:0;margin-top:6px}
+.ai{margin-top:10px;border-top:1px dashed var(--rule);padding-top:8px;font-family:var(--sans);font-size:14px}
+.pill{display:inline-block;padding:2px 9px;border-radius:10px;font-weight:600;font-size:13px;background:var(--accent-soft);color:var(--accent)}
+.pill.match{background:var(--ok-soft);color:var(--ok)}
+.pill.diff{background:var(--warn-soft);color:var(--warn)}
+.ai p{margin:5px 0}
+.caveat{background:var(--warn-soft);color:var(--ink);border-left:3px solid var(--warn);padding:6px 10px;margin:6px 0;font-size:13px}
+.fb{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.fb .rbtn{font-size:13px;padding:4px 9px}
+.cmt{width:100%;min-height:50px;border:1px solid var(--rule);background:var(--panel);padding:6px;font-family:var(--sans);font-size:14px}
+.reveal{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;font-family:var(--sans);font-size:14px}
+.primary{background:var(--accent);color:#fff;border:1px solid var(--accent);padding:8px 16px;border-radius:3px;cursor:pointer;font-family:var(--sans);font-weight:600}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.secondary{background:var(--panel);border:1px solid var(--accent);color:var(--accent);padding:8px 16px;border-radius:3px;cursor:pointer;font-family:var(--sans);font-weight:600}
+.note{font-family:var(--sans);font-size:14px}
+.export{margin-top:24px;background:var(--panel);border:1px solid var(--rule);padding:14px 18px;font-family:var(--sans);font-size:14px}
+.export textarea{width:100%;min-height:120px;font-family:ui-monospace,Menlo,monospace;font-size:12px;border:1px solid var(--rule);background:var(--paper);padding:8px}
+.summaryline{font-family:var(--sans);font-size:14px;background:var(--paper);border:1px solid var(--rule);padding:8px 10px;margin:8px 0}
+
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;font-family:var(--sans);font-size:14px}
+.goals div{border:1px solid var(--rule);background:var(--paper);padding:10px 12px}
+.goals b{display:block;margin-bottom:3px}
+.refs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 0;padding-bottom:4px;font-family:var(--sans);font-size:14px}
+.refs .chip{border:1px solid var(--accent);background:var(--paper);color:var(--accent);padding:6px 12px;cursor:pointer;font:inherit;font-weight:600}
+.refs .chip[aria-expanded="true"]{background:var(--accent);color:#fff}
+.refs a.chip{text-decoration:none;display:inline-block}
+.refpanel{display:none;border:1px solid var(--rule);background:var(--paper);padding:10px 16px;margin:0 0 10px;max-height:60vh;overflow:auto;font-family:var(--sans);font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.refpanel.on{display:block}
+.refpanel h5{margin:12px 0 4px;font-size:14px;color:var(--accent)}
+.refpanel p,.refpanel li{margin:4px 0}
+.refnote{font-size:13px;color:#555;font-style:italic}
+.reft{border-collapse:collapse;width:100%;margin:4px 0;font-size:13px}
+.reft th,.reft td{border:1px solid var(--rule);padding:4px 8px;text-align:left;vertical-align:top}
+.reft th{background:var(--panel)}
+.decide{margin-top:24px;background:var(--panel);border:1px solid var(--rule);padding:14px 18px;font-family:var(--sans);font-size:14px}
+.decide label.opt{display:block;margin:6px 0;padding:8px 10px;border:1px solid var(--rule);background:var(--paper);cursor:pointer}
+.decide textarea{width:100%;min-height:90px;border:1px solid var(--rule);background:var(--paper);padding:8px;font:inherit;margin-top:6px}
+@media (max-width:700px){.goals{grid-template-columns:1fr}}
+
+.steps{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 0;font-family:var(--sans)}
+.step{flex:1 1 260px;text-align:left;border:1px solid var(--rule);background:var(--panel);padding:10px 14px;cursor:pointer;font:inherit}
+.step b{display:block;font-size:15px}
+.step span{font-size:13px;color:#555}
+.step[aria-selected="true"]{border:2px solid var(--accent);background:var(--paper)}
+.mode-review #stages,.mode-review #stagenote,.mode-review .apane,.mode-review .skiplab{display:none}
+.mode-review .grid{grid-template-columns:1fr}
+.mode-review .tpane{position:static;max-height:none}
+.mode-review .tscroll{max-height:68vh}
+.mode-cal #decide{display:none}
+.nextstep{margin-top:14px;padding-top:12px;border-top:1px dashed var(--rule)}
+.nextstep button{border:1px solid var(--accent);background:var(--paper);color:var(--accent);padding:8px 14px;cursor:pointer;font:inherit;font-weight:600}
+
+.task{margin:12px 0 0;border:2px solid var(--accent);background:var(--paper);padding:10px 14px;font-family:var(--sans);font-size:14px}
+.task b.big{font-size:16px;color:var(--accent)}
+.task .st{display:inline-block;margin:6px 8px 0 0;padding:3px 10px;border:1px solid var(--rule);background:var(--panel)}
+.task .st.done{border-color:#2d7a3e;background:#e8f4ea}
+.task button{border:1px solid var(--accent);background:var(--accent);color:#fff;padding:6px 12px;cursor:pointer;font:inherit;font-weight:600;margin-left:8px}
+.need{color:#a02020;font-family:var(--sans);font-size:13px;font-weight:600}
+.mode-review .status{display:none}
+
+.submitrow{margin-top:12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.submitbtn{border:1px solid var(--accent);background:var(--accent);color:#fff;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer;font-size:15px}
+.submsg{font-family:var(--sans);font-size:14px}
+.subok{color:#1f6b30;font-weight:600}
+.subbad{color:#a02020;font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media print{.bar,.tabs,.export,.flagbtn,.reveal,.rate{display:none}.tpane{position:static;max-height:none}.grid{grid-template-columns:1fr}}
+.subpend{border:1px solid #9b2c2c;background:#fbf4f2;padding:10px 14px;max-width:640px}.subpend ol{margin:6px 0 8px 20px}.subpend li{margin:2px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1><em>MedSimAI</em> TTC OSCE Prep</h1>
+    <p class="sub"><b>The primary goal is to give you an easy way to review these cases without doing the whole simulation, and to help make sure our feedback is accurate.</b></p>
+    <p class="sub" style="font-style:italic">Internal WCM document. The cases look and behave quite differently on the MedSimAI platform than they do on this page. To work through a case in full on your own, go to <a href="https://www.medsimai.com" target="_blank" rel="noopener">medsimai.com</a>.</p>
+    <div class="task" id="task"></div>
+    <div class="steps" role="tablist" id="steps"></div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+  </header>
+  <section class="intro" id="intro"></section>
+  <div class="bar" id="bar"></div>
+  <div class="stages" id="stages" role="tablist"></div>
+  <p class="stagenote" id="stagenote"></p>
+  <div class="refs" id="refs"></div><div class="refpanel" id="refpanel" role="region" aria-live="polite"></div>
+  <div class="grid">
+    <section class="pane tpane" aria-label="Transcript"><h2>Example Transcript</h2><div class="acts" id="acts"></div><div class="tscroll" id="tscroll"></div></section>
+    <section class="pane apane" aria-label="Assessments"><h2>Assessments</h2><div id="assess"></div></section>
+  </div>
+  <section class="decide" id="decide"></section>
+  <section class="export" id="export"></section>
+</div>
+<script>
+/* ============ DATA: edit here to swap or add runs ============ */
+const LV4=['Minimal input','Occasional input','Frequent input','Continuous input'];
+const CASES=[
+{key:'ethel',name:'Ethel Kaplan',caseNo:679,
+ blurb:'87-year-old woman with dementia, hospital day 4 of right lower lobe pneumonia, more confused overnight. Three activities: pre-round with Ethel, talk with her daughter Rachel, talk the case through with Dr. Whitlock (attending).',
+ acts:[{id:'a1',title:'1. Pre-round with Ethel'},{id:'a2',title:'2. Talk with Rachel'},{id:'a3',title:'3. Talk with Dr. Whitlock'}],
+ stages:[{id:'s1',title:'1. Interviews and exam',acts:['a1','a2','exam'],ins:['chk','pe'],note:'Read the pre-round with Ethel, the conversation with Rachel and the exam actions. Complete the TTC checklist and the physical exam checklist.'},{id:'s2',title:'2. Attending reasoning',acts:['a3'],ins:['dlg'],note:'Read the conversation with Dr. Whitlock only. Complete the reasoning dialogue assessment.'},{id:'s3',title:'3. Whole case',acts:['a1','a2','exam','a3'],ins:['sum'],all:true,note:'Rate the Summary Skills rows using everything, then compare all of the assessments side by side.'}],
+ instruments:[
+ {id:'chk',title:'TTC checklist (bedside and collateral)',source:'Read from the Ethel and Rachel conversations.',scale:['Yes','No'],crit:[
+  {id:'c1',label:'Introduce themselves',as:'Gives name and role before the history.'},
+  {id:'c2',label:'Empathic statement',as:'Acknowledges the family member\'s or patient\'s emotion before moving on.'},
+  {id:'c3',label:'Plain language',as:'No unexplained clinical terms.'},
+  {id:'c4',label:'Baseline at home',as:'Asks what Ethel is normally like at home.'},
+  {id:'c5',label:'Sudden overnight change (open question)',as:'An open question about timing brings out the overnight change.'},
+  {id:'c6',label:'Drinking',as:'Asks about fluid intake.'},
+  {id:'c7',label:'Eating',as:'Asks about food intake.'},
+  {id:'c8',label:'Urine or getting to the bathroom',as:'Asks about urination or toileting.'},
+  {id:'c9',label:'One-sided weakness, facial droop, slurred speech, or a fall',as:'Screens for new focal symptoms or a fall.'},
+  {id:'c10',label:'Specific example of the change (open question)',as:'Asks for a concrete example of how she is different.'},
+  {id:'c11',label:'Questions or concerns',as:'Asks the family member what worries her.'},
+  {id:'c12',label:'Assess orientation',as:'Asks Ethel where she is, the date or who she is.'},
+  {id:'c13',label:'Test attention',as:'Uses an attention task such as days of the week backward.'}]},
+ {id:'pe',title:'Physical exam checklist',source:'Read from the maneuvers the learner selected in the exam panel. Technique is not assessed.',scale:['Done','Not done'],crit:[
+  {id:'p1',label:'Lung auscultation',as:'Listens to the lungs (pneumonia on day 4).'},
+  {id:'p2',label:'Hydration status',as:'Notes hydration and nutrition: volume status, dry mouth or mucous membranes, oral cavity, tongue, skin turgor or tenting.'},
+  {id:'p3',label:'Jugular venous pressure',as:'Estimates the neck veins as part of the volume assessment.'},
+  {id:'p4',label:'Focused neurologic exam',as:'Examines pupils, face, strength in all four limbs and other focal signs.'}]},
+ {id:'dlg',title:'TTC structured clinical reasoning dialogue (Dr. Whitlock)',source:'Read from the conversation with Dr. Whitlock. Only the learner\'s own words earn credit; what the attending states does not.',scale:['Met','Partially met','Not met'],crit:[
+  {id:'d1',label:'One-liner',as:'Age, dementia, improving day-4 pneumonia and the new overnight confusion.'},
+  {id:'d2',label:'Most likely diagnosis',as:'Names delirium from a free-water deficit as the leading explanation.'},
+  {id:'d3',label:'Reading the results',as:'Reads sodium, BUN, creatinine and intake as a water deficit with prerenal injury.'},
+  {id:'d4',label:'Support for the conclusion',as:'Ties collateral and bedside findings to the diagnosis.'},
+  {id:'d5',label:'Other diagnoses',as:'Plausible alternatives with reasons, including the time-sensitive one (stroke).'},
+  {id:'d6',label:'Response to treatment',as:'Separates the improving pneumonia from the new problem.'},
+  {id:'d7',label:'Structural barriers (caregiving and supervision)',as:'Identifies who supervises drinking at home and how to find out.'},
+  {id:'d8',label:'Management plan (optional A)',as:'Free water, monitored gradual sodium correction, review of drugs.'},
+  {id:'d9',label:'Discharge readiness (optional B)',as:'Criteria for going home, including a home plan Rachel can carry out.'},
+  {id:'d10',label:'Self-assessment',as:'One specific strength and one specific change.'},
+  {id:'d11',label:'What they learned',as:'One specific learning point.'},
+  {id:'d12',label:'Goal for clerkships',as:'One specific, actionable goal.'}]},
+ {id:'sum',title:'Summary Skills (whole case)',source:'Five rows from the Summary Skills TTC OSCE tool. Row 1 reads the interviews, Row 2 the exam actions, Rows 3 to 5 the attending conversation.',scale:LV4,
+  help:'Levels describe how much input the learner needed from the attending. Minimal input is the least. Frequent input is the expected level for a second-year student before clerkships.',crit:[
+  {id:'s1',label:'Focused history',as:'Did the history surface the new problem, its likely cause and an alternative?'},
+  {id:'s2',label:'Focused physical (selection only)',as:'Did the learner choose maneuvers that fit the question, without a head-to-toe exam? Technique is not assessed.'},
+  {id:'s3',label:'Differential diagnosis',as:'Most likely explanation and at least one alternative, and how much prompting that took.'},
+  {id:'s4',label:'Interpret investigations',as:'Reads the chart results that matter and says what each means.'},
+  {id:'s5',label:'Clinical reasoning',as:'Ties specific findings to the leading diagnosis, an alternative and the treatment decision.'}]}],
+ examAssess:'Physical exam checklist (read from the exam panel)',
+ runs:[{id:'avg14',label:'Average learner, 14 Nov (session 11878)',
+  profile:'Simulated second-year student: efficient and organized, strong with data and presentation, weaker at the bedside. Dr. Whitlock on SP v1.3 and KB v1.3.',
+  door:{a1:'Pre-rounding on an 87-year-old woman with dementia on hospital day 4 of right lower lobe pneumonia. The chart summary shows BP 108/62 this morning, HR 92 to 110, Na 151 (138 on admission), BUN 38, Cr 1.4, intake 300 mL by mouth and 1000 mL IV, urine 850 mL.',a2:'Talk with Ethel\'s daughter Rachel to see how she thinks her mother is doing (5 to 10 minutes).',a3:'Dr. Whitlock, the inpatient medicine attending, did not hear your conversations; her chart is available. Up to 30 minutes, run here in text.'},
+  tr:{
+a1:`ETHEL: Oh… hello dear… are you here to see me?
+LEARNER: Good morning, Mrs. Kaplan, I'm Priya, a medical student with Dr. Whitlock's team. How are you feeling today?
+ETHEL: Good morning, Priya, dear. I'm alright, I think… a little tired, perhaps, but I'm managing.
+LEARNER: Do you know where you are right now?
+ETHEL: I'm right here, dear… in the hospital, I believe.
+LEARNER: Are you having any cough, trouble breathing, or pain anywhere?
+ETHEL: I think my breathing is alright, dear… and perhaps a little cough, I'm not sure. I don't believe I have any pain.
+LEARNER: Are you thirsty at all?
+ETHEL: Oh, I suppose I am a little thirsty, dear. I could use some water, I think.
+LEARNER: Okay, thank you. I'm going to examine you now, is that alright?
+ETHEL: Alright, dear… that's fine. Please go gently, if you would.
+LEARNER: Thank you, Mrs. Kaplan. I'll get the nurse to help you with some water, and I'll come back with the team later. Do you need anything else right now?
+ETHEL: No, dear, I don't think so. Thank you for being kind… I'll wait here.`,
+a2:`RACHEL: Hi. I'm Rachel, I'm her daughter. Thank you for coming in, really. I'm worried about her.
+LEARNER: Hi, I'm Priya, a medical student on Dr. Whitlock's team. Is your mom more confused than usual?
+RACHEL: Yes. Since this morning, she's been much more foggy than usual. It's hard to see her like this.
+LEARNER: When did that start?
+RACHEL: Overnight, from what I can tell. Yesterday morning she was herself, and when I came in early today, she was already different.
+LEARNER: What is she normally like at home?
+RACHEL: At home, she knows where she is and who's with her. She has some memory trouble, yes, but she follows a conversation and answers you back.
+LEARNER: Has she been drinking much water?
+RACHEL: No, barely anything. I tried to get her to drink water this morning and she wouldn't.
+LEARNER: And has she been eating?
+RACHEL: Barely. I brought her soup and fruit this morning and she wouldn't touch it.
+LEARNER: Is she going to the bathroom normally?
+RACHEL: Here, she hasn't been getting up to go like she usually does. At home she gets herself there on her own.
+LEARNER: Okay. Is there anything you're worried about or want me to tell the team?
+RACHEL: I just want to make sure nothing is being missed. She's not herself today.
+LEARNER: That makes sense, and I'm sorry, it must be hard to see her like this. I'll make sure Dr. Whitlock knows about the overnight change and that she hasn't been drinking. We'll come back and talk with you about the plan.
+RACHEL: Okay. Thank you for taking it seriously.`,
+a3:`DR. WHITLOCK: Hi, I'm Dr. Whitlock. Thanks for pre-rounding on Mrs. Kaplan and talking with her daughter this morning. Ready to talk about her?
+LEARNER: Yes. Mrs. Kaplan is an 87-year-old woman with dementia and hypertension on hospital day 4 for right lower lobe pneumonia, on ceftriaxone and azithromycin, whose pneumonia is improving but who became more confused overnight and now has a sodium of 151, up from 138, with a BUN of 38 and creatinine of 1.4, up from 21 and 0.9. Her intake over 24 hours was 300 mL by mouth and 1000 IV with 850 out. She's afebrile, BP 108/62 this morning compared with the 130s to 140s, heart rate 92 to 110, on 1 liter. Her daughter says she was herself yesterday morning and is much foggier today, and she's barely eating or drinking. On exam her mucous membranes are dry, skin turgor is reduced, lungs had right basilar crackles, and she was tachycardic. She was oriented to the hospital.
+DR. WHITLOCK: Here's how this will go: I'll ask you about what you found and how you're thinking about Mrs. Kaplan, and you can stop me any time to ask questions. Given that overnight change and the data you just walked through, what do you think is going on with her?
+LEARNER: I think she's dehydrated with hypernatremia, from not drinking enough while she's been sick, and that has caused a prerenal AKI. I think the hypernatremia is making her dementia worse.
+DR. WHITLOCK: You're onto the water problem and the kidney injury. Tell me how you're separating her baseline dementia from what changed overnight.
+LEARNER: Her daughter said that at home she knows where she is and who's with her and can follow a conversation, and that she was like that yesterday morning. Today she's foggier. So it's a sudden change on top of the dementia.
+DR. WHITLOCK: Exactly. When I hear an abrupt change from a dementia baseline, I make myself call that delirium until I can explain it. Walk me through what in the bedside exam or collateral history supports delirium here.
+LEARNER: The acute onset from the daughter. On my exam she knew she was in the hospital, so honestly she seemed okay to me. I didn't do a formal test.
+DR. WHITLOCK: The sudden change matters a lot. When the picture is subtle, I lean on attention because a confused patient's own impression can sound reassuring. Do you know how she did on an attention task this morning?
+LEARNER: No, I didn't do one. What kind of attention task would you use?
+DR. WHITLOCK: I usually use something quick like spelling WORLD backward or serial counting, because attention is often where delirium shows itself first. Given that you didn't test it, what else from Rachel's history still pushes you toward delirium rather than just worse dementia?
+LEARNER: It happened overnight instead of gradually, she's not eating or drinking or getting up to the bathroom like she normally does, and dementia shouldn't change that fast.
+DR. WHITLOCK: Yes, and that time course is the key distinction. What other diagnoses did you consider for this change?
+LEARNER: The pneumonia getting worse or a new infection, like a UTI, but she's afebrile, her white count came down and the CXR is improving. And medications, maybe the azithromycin or famotidine could cause confusion in older patients.
+DR. WHITLOCK: That's a thoughtful differential. What sudden, time-sensitive cause would you not want to miss in an 87-year-old with hypertension whose mental status changed overnight?
+LEARNER: A stroke. I didn't do a neuro exam though, I only looked at her mouth, skin, heart and lungs.
+DR. WHITLOCK: Right. In any sudden change like this, I make myself do a focused neuro exam even when a metabolic cause seems likely. Do you want the neurological findings from this morning?
+LEARNER: Yes please.
+DR. WHITLOCK: Her pupils were equal and reactive, her face was symmetric, and she moved all four limbs symmetrically. What does that do to your thinking about stroke here?
+LEARNER: It makes a big stroke less likely, though a non-focal exam doesn't completely rule out a small one. With the sodium and the dehydration explaining it, I'd hold off on imaging unless she doesn't improve when we correct the sodium, or if a focal deficit shows up.
+DR. WHITLOCK: That's a good read. How is she responding to treatment for the pneumonia?
+LEARNER: Well. She's been afebrile since day 2, her white count went from 12.4 to 9.1, she was weaned from 2 liters to 1, and today's x-ray shows the infiltrate improving with nothing new. The crackles are still there at the right base but that's expected.
+DR. WHITLOCK: Agreed. So the admitting problem is improving, and the new problem is the water deficit. What do you want to do about her fluids this morning?
+LEARNER: She needs free water. I'd change her IV fluid to D5W, aim to bring the sodium down no more than about 10 in 24 hours, and check her sodium every 4 to 6 hours. I'd hold the lisinopril while her kidneys recover and her pressure is lower, and get the nurses and her daughter helping her drink.
+DR. WHITLOCK: That's the right direction. I wouldn't push the checks more often than we need to; every 6 to 8 hours is the plan here. What would make it hard for her to stay well once she leaves the hospital?
+LEARNER: With dementia she might not recognize thirst or remember to drink, so she depends on someone prompting her. I'm not sure who she lives with though, I didn't ask Rachel about that.
+DR. WHITLOCK: That's the right issue. How would you find out whether home is going to work safely for her after this delirium?
+LEARNER: I'd ask Rachel who's with her day to day and how she was managing before, get PT and OT to see her before discharge, and involve case management about home help.
+DR. WHITLOCK: That's how to approach it. How will you know she's ready to go home?
+LEARNER: When her sodium and creatinine are back near normal, she's back to her baseline mental status by her daughter's report, she's drinking enough on her own with help, she's on oral antibiotics, and off oxygen or on her home baseline.
+DR. WHITLOCK: That makes sense. How do you think your conversations with Mrs. Kaplan and her daughter went?
+LEARNER: Pretty efficient. I got the baseline and the timeline from Rachel. With Mrs. Kaplan I was too quick, and I took her knowing she was in the hospital as reassurance when I should have tested attention.
+DR. WHITLOCK: That sounds honest. Getting the baseline and the overnight timeline from Rachel was exactly the useful move here. One habit worth keeping is that in a patient with possible delirium, a quick attention test usually tells you more than a reassuring answer to "how are you feeling." What did you learn today?
+LEARNER: To call an acute change on top of dementia delirium until proven otherwise, and to test attention and do a quick neuro exam every time, even when the labs already explain it.
+DR. WHITLOCK: Yes. What do you want to work on as you start clerkships?
+LEARNER: Doing a more complete bedside exam that matches the problem, instead of a routine one, and slowing down with families.
+DR. WHITLOCK: That's a strong goal. Make it concrete by asking your resident or attending to watch one bedside assessment a week and tell you whether your exam matched the question you were trying to answer. So we'll switch her to free water, bring the sodium down slowly with checks through the day, hold the lisinopril, keep Rachel close, and watch her mental status. Before we try a couple of practice scenarios, what questions do you have about Mrs. Kaplan?
+LEARNER: Why did her sodium go up if she's been getting a liter of IV fluid a day?
+DR. WHITLOCK: Because the problem is free water, not just volume on paper. She only took about 300 milliliters by mouth, and the fluid she was getting was D5 half-normal saline, which gives some water but also sodium, so it did not keep up with how little she was drinking. Okay. Now let's change the situation a little. In the case we've been discussing, her exam was non-focal. Let me change the story. Suppose that at 11 this morning the nurse calls and says Mrs. Kaplan's right arm has gone weak and the right side of her face is drooping. It started about 20 minutes ago. She was seen moving both arms normally at 10:30. How does that change what you're worried about?
+LEARNER: Now I'm worried about an acute stroke. I'd call a stroke code right away, check her glucose, and get an emergent head CT. She's within the window, so she might be a candidate for treatment.
+DR. WHITLOCK: Yes. What else do you want to do right away while that is moving?
+LEARNER: Go to the bedside and examine her myself, make her NPO in case she can't swallow safely, and call her daughter.
+DR. WHITLOCK: Good. A new focal deficit changes the whole frame, and the clock starts from when she was last seen normal. Let's do a separate scenario. Imagine it's 2 in the morning tonight. Rachel has gone home. Mrs. Kaplan is trying to climb out of bed and pulling at her IV, and the nurse pages you asking for lorazepam. How are you thinking about that page?
+LEARNER: I'd want to avoid lorazepam because benzos make delirium worse in older patients. I'd go see her, check for anything new like pain, a full bladder, or low oxygen, try reorienting her and see if Rachel can come or call. If she's really unsafe I might use a low dose of haloperidol.
+DR. WHITLOCK: That's a sensible approach. What in her real chart would you look at first at 2 in the morning?
+LEARNER: Her latest sodium, to make sure it's coming down and not too fast, her vitals and oxygen, and her medication list for anything sedating.
+DR. WHITLOCK: And her urine output too. You're doing well, so I'll make the next one a little harder. Say we switch her to free water, and by tomorrow morning her sodium is 143 but she still isn't back to how Rachel describes her. What are you thinking?
+LEARNER: Delirium can lag behind fixing the cause, sometimes for days in older patients, so I wouldn't expect her to be back right away. But I'd reexamine her, do the neuro exam again, and look for anything else, like a new infection or medications, and think about head imaging if she's not improving.
+DR. WHITLOCK: Exactly. The sodium can correct faster than the brain clears, and the plateau is when you widen the search again. Your edge here was matching the exam to the question in front of you, and you found that yourself. The two habits I'd keep close are to treat any acute change from a dementia baseline as delirium until proved otherwise, and to remember that a high sodium is a water problem even when the intake and output sheet looks superficially okay.
+LEARNER: Thank you Dr. Whitlock, that was really helpful.
+DR. WHITLOCK: Can I help with anything else?`},
+  exam:{rows:[['Lung auscultation','Crackles at the right base, improved from admission. No wheezing. Normal work of breathing.'],['Heart auscultation','Tachycardic with a regular rhythm; no murmurs, rubs, or gallops.'],['Skin turgor, pressure areas, extremities','Reduced skin turgor; no new rash or pressure injury; no peripheral edema, no calf tenderness, distal pulses 2+.'],['Oral cavity and oropharynx','Dry mucous membranes; dry, furrowed tongue. No erythema, exudate, or lesions; oropharynx clear.']],
+   ai:'Physical exam checklist (AI): case-specific 1 of 5 (lungs). Missed: hydration status, JVP, focused neurologic exam, orientation and attention. Harmful maneuvers avoided.'},
+  res:{
+   c1:['Yes','Name and role before the history.','I\'m Priya, a medical student','a1'],
+   c2:['Yes','Acknowledged that seeing her mother like this must be hard.','it must be hard to see her like this','a2'],
+   c3:['Yes','Neither Ethel nor Rachel signaled difficulty with a term.','',''],
+   c4:['Yes','Asked what her mother is normally like at home.','What is she normally like at home','a2'],
+   c5:['Yes','After an open timing question: overnight; herself yesterday morning.','When did that start','a2'],
+   c6:['Yes','Asked Rachel.','Has she been drinking much water','a2'],
+   c7:['Yes','Asked Rachel.','And has she been eating','a2'],
+   c8:['Yes','Asked whether she was going to the bathroom normally.','going to the bathroom normally','a2'],
+   c9:['No','Not asked or volunteered in either interview.','',''],
+   c10:['No','No concrete observation of the change surfaced.','',''],
+   c11:['Yes','Asked about Rachel\'s worries.','Is there anything you\'re worried about','a2'],
+   c12:['Yes','Asked Ethel where she was.','Do you know where you are','a1'],
+   c13:['No','Orientation only; no attention task.','',''],
+   p1:['Done','Lung auscultation selected.','Lung auscultation','exam'],
+   p2:['Not done','The platform item credits a separate hydration maneuver.','Skin turgor, pressure areas, extremities','exam','The learner did examine the mouth (dry mucous membranes) and skin turgor (reduced). The platform item did not credit them as hydration status. Faculty may judge this Done.'],
+   p3:['Not done','No JVP selected.','',''],
+   p4:['Not done','No neurologic exam selected.','',''],
+   d1:['Met','Age, dementia, improving day-4 pneumonia and new overnight confusion.','87-year-old woman with dementia','a3'],
+   d2:['Partially met','Dehydration and hypernatremia, but delirium not named unprompted.','I think she\'s dehydrated with hypernatremia','a3'],
+   d3:['Met','Hypernatremia and prerenal AKI from insufficient drinking.','prerenal AKI','a3'],
+   d4:['Met','Sudden overnight change and reduced intake from collateral.','Her daughter said that at home','a3'],
+   d5:['Met','Worsening pneumonia less likely on objective grounds; medications as a cause.','The pneumonia getting worse or a new infection','a3'],
+   d6:['Met','Improving pneumonia separated from the new problem.','afebrile since day 2','a3'],
+   d7:['Partially met','Need for prompting identified; home situation not asked.','I\'m not sure who she lives with','a3'],
+   d8:['Met','D5W and repeat sodium checks for gradual correction.','I\'d change her IV fluid to D5W','a3'],
+   d9:['Partially met','Baseline mental status and sodium; no home plan Rachel can carry out.','When her sodium and creatinine are back near normal','a3'],
+   d10:['Met','Strength: baseline and timeline done well. Change: test attention next time.','Pretty efficient','a3'],
+   d11:['Met','Acute change over dementia is delirium; assess attention and neuro.','To call an acute change on top of dementia','a3'],
+   d12:['Met','Match the bedside exam to the clinical problem.','Doing a more complete bedside exam','a3'],
+   s1:['Occasional input','Overnight change from an open timing question; intake screened; no specific example or bedside alternative screen.','When did that start','a2'],
+   s2:['Frequent input','Orientation asked; "no other key maneuvers" recorded.','','', 'On this run the grader could not see the exam panel (lungs, heart, mouth and skin turgor), so this level is not reliable. The newer rubric reads the exam actions directly. Judge from the Exam actions table in the transcript pane.'],
+   s3:['Continuous input','Did not name delirium before the attending taught it; later named alternatives and stroke.','I think she\'s dehydrated with hypernatremia','a3','This row was flagged for calibration: Continuous is the lowest level, and the learner did name alternatives and stroke. The row wording was changed after this run.'],
+   s4:['Occasional input','All three major readings interpreted without coaching; did not read the IV fluid as insufficient free water.','prerenal AKI','a3'],
+   s5:['Frequent input','Linked findings to an alternative unprompted; delirium only after teaching; gave an imaging threshold for stroke after a probe.','It happened overnight instead of gradually','a3']}
+ },{id:'strong15',label:'Strong learner, 15 Nov (Priya, session 11917)',
+  profile:'Simulated strong learner (Priya): concise, picks up cues, open questions first, then closes. Planned as an Occasional or Minimal input style. Scored on the current v2 rubrics. Dr. Whitlock and Rachel on the published case (v13).',
+  door:{a1:'Pre-rounding on an 87-year-old woman with dementia on hospital day 4 of right lower lobe pneumonia. The chart summary shows BP 108/62 this morning, HR 92 to 110, Na 151 (138 on admission), BUN 38, Cr 1.4, intake 300 mL by mouth and 1000 mL IV, urine 850 mL.',a2:'Talk with Ethel\'s daughter Rachel to see how she thinks her mother is doing (5 to 10 minutes).',a3:'Dr. Whitlock, the inpatient medicine attending, did not hear your conversations; her chart is available. Up to 30 minutes, run here in text.'},
+  tr:{
+a1:`ETHEL: Oh… hello dear… are you here to see me?
+LEARNER: Hello Mrs. Kaplan, my name is Priya and I'm a medical student on your team. Is it all right if I sit with you for a few minutes? How are you feeling this morning?
+ETHEL: Of course, dear, please sit. I'm alright this morning, I think… a little tired, perhaps.
+LEARNER: I'm glad to hear it. You said you are a little tired. Can you tell me more about that?
+ETHEL: I wish I could tell you more, dear… I just feel a little worn out, that's all.
+LEARNER: Are you thirsty at all? How has your mouth felt?
+ETHEL: I suppose I am a little thirsty, dear. My mouth feels dry, I think… though I'm not quite sure.
+LEARNER: Thank you for telling me. How is your breathing today, and are you coughing at all?
+ETHEL: I think my breathing is alright, dear… and perhaps there's a little cough. I couldn't really say for certain.
+LEARNER: Do you have any pain anywhere, in your chest or belly or anywhere else?
+ETHEL: No, dear, I don't think I have any pain. Maybe just a little discomfort somewhere… I'm not sure where.
+LEARNER: Can you tell me where we are right now, and what day it might be? There is no wrong answer.
+ETHEL: We're right here in the hospital, dear… as for the day, it's the regular day, isn't it?
+LEARNER: How have you been eating and drinking here? Have you had enough to drink?
+ETHEL: I believe I ate already, dear. I'm not sure about the drinking… perhaps I could have some water.
+LEARNER: Let's get you some water in a moment. Is it all right if I listen to your lungs and take a quick look at you now?
+ETHEL: Alright, dear… you may do that. Thank you for asking.
+LEARNER: Thank you, Mrs. Kaplan. You did very well. I'll ask the nurse to bring you some water, and I'll let the doctor know how you are doing.
+ETHEL: Alright, dear… thank you. You've been very kind.`,
+a2:`RACHEL: Hi. I'm Rachel, I'm her daughter. Thank you for coming in, really. I'm worried about her.
+LEARNER: Hello Rachel, I'm Priya, a medical student on your mother's team. I can hear how worried you are, and I'm glad you are here. What have you noticed about how she has been the last day or two?
+RACHEL: Something changed overnight. Yesterday morning Ma was herself, and today she's much more foggy. That's what's been bothering me.
+LEARNER: That sounds frightening, and it is good you told us. Can you describe what foggy looks like for her, compared with how she usually is at home?
+RACHEL: At home, Ma knows where she is and who's with her. This morning I offered her tea, and she just looked at it like it meant nothing to her.
+LEARNER: Thank you. How has she been eating and drinking, here and in the days before she came in?
+RACHEL: She's barely drinking anything. This morning I tried with water and tea, and she wouldn't take either.
+LEARNER: That is important to know. Before this admission, how was her memory and thinking day to day, and was she doing things like managing her pills or cooking on her own?
+RACHEL: They told us it's early Alzheimer's, so yes, she'll repeat herself sometimes. But day to day she follows a conversation and answers you back.
+LEARNER: Thank you. Has she been sleepier or more restless than usual, and has anything new been given to her, like sleeping pills or pain medicine?
+RACHEL: I wasn't here overnight, so I can't tell you how she slept. About anything new they gave her here, I'm not sure.
+LEARNER: Thank you, that helps a lot. Is there anything else you have noticed, or anything you are worried about, that you want me to pass on to the team?
+RACHEL: I just want to make sure nothing's being missed. She's not herself today.
+LEARNER: I will tell the team what you shared: she is more confused than her usual, is barely drinking, and her thinking changed overnight. We will look for causes we can treat, and I will make sure someone updates you. Thank you for being here.
+RACHEL: Okay. Thank you for listening to me.`,
+a3:`DR. WHITLOCK: Hi, I'm Dr. Whitlock. Thanks for pre-rounding on Mrs. Kaplan and talking with her daughter this morning. Ready to talk about her?
+LEARNER: Mrs. Kaplan is an 87-year-old woman with early Alzheimer's, hospital day 4 for right lower lobe pneumonia on ceftriaxone and azithromycin, who has developed a new acute change in mental status overnight. Her daughter says she was herself yesterday and is foggy today. My leading diagnosis is delirium, most likely from dehydration with hypernatremia and a prerenal AKI, layered on her dementia. Her sodium rose from 138 to 151, creatinine from 0.9 to 1.4, BUN is 38, and her intake is far below her losses. On exam she has dry mucous membranes, a furrowed tongue, sunken eyes, reduced skin turgor and a flat JVP, her lungs are better with only right base crackles, and she was disoriented to place and day, with attention impaired. She is barely drinking, according to Rachel.
+DR. WHITLOCK: Here's how this will go: I'll ask you about what you found and how you're thinking about Mrs. Kaplan, and you can stop me any time to ask questions. You're already tying the overnight change to the sodium, kidney trend, and bedside volume findings, so walk me through what makes you call this delirium rather than just progression of her dementia.
+LEARNER: Three things separate delirium from progression of her dementia. The onset is acute, overnight, with Rachel confirming she was herself yesterday, whereas dementia progresses over months. Her attention is impaired and she fluctuates, and dementia alone usually spares attention early on. And there is a clear precipitant: hypernatremia, AKI and infection. Dementia is the vulnerability, and the dehydration is the trigger.
+DR. WHITLOCK: Yes, and that distinction matters. What other diagnoses did you consider?
+LEARNER: Other contributors I considered: worsening pneumonia or sepsis, though she is on 1 L, her lungs are better and her WBC trend is what I would recheck; hypoxia; medication effect, so I would review the list for sedatives and anticholinergics; urinary retention or constipation; pain; and a stroke or new focal deficit, which I would check for on neuro exam. Heart failure fits poorly, since her JVP is flat and she is dry rather than overloaded.
+DR. WHITLOCK: That's a thoughtful differential. Which of those would change your plan the most if it were true?
+LEARNER: A new focal neurologic deficit or stroke would change the plan the most, since it needs urgent imaging and stroke pathway. Worsening sepsis would be next, since it would mean cultures, broader antibiotics and escalation. For the leading diagnosis, I would recommend careful fluid repletion with free water, enterally if she can drink or IV D5W, correcting the sodium slowly, no faster than about 10 to 12 mEq per day, rechecking the sodium and creatinine every 4 to 6 hours, holding nephrotoxins, and non-drug delirium measures like reorientation, glasses, sleep and family presence.
+DR. WHITLOCK: Agreed. How is she responding to treatment for the pneumonia?
+LEARNER: She seems to be responding. She is on hospital day 4 of ceftriaxone and azithromycin, her oxygen need is 1 L, her lung exam is improved with crackles only at the right base, and she has no cough or chest pain complaints beyond a mild cough. I would still confirm with a repeat temperature curve, WBC and oxygen saturation today. I think the mental status change is from the dehydration and not a pneumonia failure.
+DR. WHITLOCK: That fits. What would make it hard for her to stay well once she leaves the hospital?
+LEARNER: Her dementia is the main barrier, because she does not reliably recognize thirst and may not drink on her own, so hydration depends on someone prompting her. Rachel is involved, so I would ask whether she can be there at meals, or whether a home aide is needed. I would also ask who manages her medications, whether she lives alone, what her baseline function is, and whether a physical therapy and home safety evaluation is needed. At discharge I would give Rachel clear fluid targets and return precautions for new confusion, poor intake or fever, and arrange early follow-up with labs to recheck sodium and creatinine.
+DR. WHITLOCK: That's the key issue. How will you know she's ready to go home?
+LEARNER: I would want her back at her cognitive baseline per Rachel, sodium trending to normal and creatinine back near 0.9, drinking enough by mouth for at least 24 hours without IV fluids, off oxygen with stable saturation, afebrile, and a safe plan in place for hydration support at home. In reflection, the thing I would do differently is check orthostatics and a more formal attention test like the CAM at the bedside, and I should have asked Rachel about the home medication list.
+DR. WHITLOCK: So we'll switch her to free water, bring the sodium down slowly with checks through the day, hold the lisinopril, keep Rachel close, and watch her mental status. Before we try a couple of practice scenarios, what questions do you have about Mrs. Kaplan?
+LEARNER: One question: is her lisinopril the home dose, and would you want me to check her orthostatic vitals and a CAM before we start the free water?
+DR. WHITLOCK: Her lisinopril is 10 milligrams daily. Yes, if you can get them safely, checking orthostatics and doing a CAM at the bedside would be useful. Okay. Now let's change the situation a little. In the case we've been discussing, her exam was non-focal. Let me change the story. Suppose that at 11 this morning the nurse calls and says Mrs. Kaplan's right arm has gone weak and the right side of her face is drooping. It started about 20 minutes ago. She was seen moving both arms normally at 10:30. How does that change what you're worried about?
+LEARNER: That changes everything: new right arm weakness and facial droop with a known onset about 20 minutes ago is an acute stroke until proven otherwise, and I would activate the stroke code right away. I would note the last known well time as 10:30, check a fingerstick glucose, get a stat non-contrast head CT and a neurology evaluation, and keep her NPO until a swallow screen. Delirium and dehydration no longer explain the picture, though hypernatremia and dehydration still need treating, and her AF status and anticoagulation would matter for thrombolysis decisions.
+DR. WHITLOCK: Exactly. Delirium never explains a one-sided deficit. Let's do a separate scenario. Imagine it's 2 in the morning tonight. Rachel has gone home. Mrs. Kaplan is trying to climb out of bed and pulling at her IV, and the nurse pages you asking for lorazepam. How are you thinking about that page?
+LEARNER: I would not give lorazepam. Benzodiazepines usually worsen delirium in older adults with dementia, and agitation here is a symptom of the underlying cause. I would ask the nurse to go to the bedside and I would come too: check vitals and oxygen saturation, glucose, pain, a full bladder, and whether the IV and lines are bothering her, and look for a new cause like hypoxia or a missed stroke sign. First line is non-drug: calm reorientation, a sitter, lights and glasses, and calling Rachel to come in. If she is truly a danger to herself and nothing else works, I would use a low dose of an antipsychotic like haloperidol 0.25 to 0.5 mg after checking her QTc and discussing with you.
+DR. WHITLOCK: You're doing well, so I'll make the next one a little harder. Say we switch her to free water, and by tomorrow morning her sodium is 143 but she still isn't back to how Rachel describes her. What are you thinking?
+LEARNER: A sodium of 143 is a good correction, so I would not expect the sodium to be the only reason she is still off. Delirium often lags the labs by days, so some of this is expected, but I would broaden the search rather than wait. I would repeat the neuro exam and CAM, recheck creatinine, glucose, calcium, and a CBC, review the medication list for deliriogenic drugs, look for urinary retention, constipation and pain, check oxygen and the pneumonia trend, and consider a UA or head imaging if anything is focal. I would also keep the delirium measures going and ask Rachel how today compares with her baseline.
+DR. WHITLOCK: That's the right frame. The sodium can normalize before the brain catches up, and the plateau is the moment to widen the search without assuming the whole story is over. Let's step back from the case for a minute. How do you think your conversations with Mrs. Kaplan and her daughter went?
+LEARNER: With Mrs. Kaplan, I think I was clear and simple, but I could have checked her attention more formally and asked about pain and sleep, since her answers were vague. With Rachel, I think it went well: I acknowledged her worry, asked open questions first, and got the baseline and the drinking history. I missed the home medication list and who manages her pills. Next time I would ask those and orthostatics earlier.
+DR. WHITLOCK: That sounds accurate. When I hear a patient's answers are unreliable, I make myself lean quickly on the caregiver for baseline and on a brief attention task rather than trying to squeeze certainty out of the patient's own report. What did you learn today?
+LEARNER: I learned that in an older patient with dementia, a new mental status change is delirium until proven otherwise, and that the caregiver's baseline is the most reliable data I have. I also learned that a sodium and creatinine rise can explain a lot, but a one-sided deficit or a failure to recover means I keep looking.
+DR. WHITLOCK: That's a strong takeaway. What do you want to work on as you start clerkships?
+LEARNER: I want to work on checking a bedside attention test and orthostatics routinely, and on asking about the home medication list early. I would also like to practice giving a shorter, tighter one-liner.
+DR. WHITLOCK: That's a good set of goals. Make it concrete by asking your resident to watch one bedside mental status exam this week and give you feedback on how you test attention and present the one-liner. Two things to keep with you: when cognition changes overnight in someone with dementia, treat it as delirium until proven otherwise, and when the sodium is high, remember that a positive fluid balance on paper can still hide a free-water problem.`
+  },
+  exam:{rows:[['Lung auscultation','Crackles at the right base, improved from admission. No wheezing.'],['Hydration status','Dry mucous membranes, furrowed tongue, sunken eyes, reduced skin turgor.'],['Jugular venous pressure','Flat (HEENT action).'],['Mental status and orientation','Returned "Alert and oriented x3".']],
+   ai:'Physical exam checklist (platform, current rubric): focused 3 of 4 (hydration, JVP, lungs); missed focused neurologic exam. General 1 of 5 (orientation); missed general appearance and vitals, heart, abdomen, extremities. No harmful maneuvers.'},
+  res:{
+   c1:['Yes','Gave name and role before the history.','my name is Priya and I\'m a medical student','a1'],
+   c2:['Yes','Acknowledged Rachel\'s worry before moving on.','That sounds frightening','a2'],
+   c3:['Yes','Plain language in both interviews.','',''],
+   c4:['Yes','Asked Rachel what her mother is like at home, and about memory and daily function.','compared with how she usually is at home','a2'],
+   c5:['Yes','After an open question, Rachel said the change came overnight and she was herself yesterday.','Something changed overnight','a2'],
+   c6:['Yes','Asked both Ethel and Rachel about drinking.','How has she been eating and drinking','a2'],
+   c7:['Yes','Asked both Ethel and Rachel about eating.','How have you been eating and drinking here','a1'],
+   c8:['No','Neither interview covered urine or the bathroom.','',''],
+   c9:['No','No question about weakness, facial droop, speech or a fall.','',''],
+   c10:['Yes','After an open request, Rachel described Ethel staring at the tea.','looked at it like it meant nothing','a2'],
+   c11:['Yes','Asked Rachel what else she was worried about.','anything you are worried about','a2'],
+   c12:['Yes','Asked Ethel where she was and what day it was.','where we are right now, and what day','a1'],
+   c13:['No','Orientation only; no attention task.','',''],
+   p1:['Done','Lung auscultation selected.','Lung auscultation','exam'],
+   p2:['Done','Hydration status selected.','Hydration status','exam'],
+   p3:['Done','JVP selected. The platform credited the HEENT version of the action.','Jugular venous pressure','exam','Case configuration finding: the exam list carries a HEENT JVP action. Here the platform credited it for the JVP item, so the duplicate-action concern is about wording, not credit.'],
+   p4:['Not done','No neurologic exam selected.','',''],
+   d1:['Met','Age, early Alzheimer\'s, day 4 pneumonia and the new overnight mental status change.','87-year-old woman with early Alzheimer\'s','a3'],
+   d2:['Met','Delirium from dehydration with hypernatremia as the leading diagnosis, stated unprompted.','My leading diagnosis is delirium','a3'],
+   d3:['Met','Hypernatremia and prerenal AKI tied to intake far below losses.','prerenal AKI','a3','The platform credits this item although the learner called the sodium "hypernatremia" without saying free-water deficit. Summary Skills row 4 for the same moment is Frequent input. Faculty may judge which is right.'],
+   d4:['Met','Acute onset from Rachel plus impaired attention and the precipitants.','The onset is acute, overnight','a3'],
+   d5:['Met','Alternatives with reasons, including stroke.','Heart failure fits poorly','a3'],
+   d6:['Met','Separated the improving pneumonia from the new water problem.','not a pneumonia failure','a3'],
+   d7:['Met','Dementia and thirst, who prompts her to drink, discharge supports.','hydration depends on someone prompting her','a3'],
+   d8:['Met','Free water, slow sodium correction and repeat checks.','correcting the sodium slowly','a3'],
+   d9:['Met','Baseline, sodium, oral intake without IV fluids, home plan.','drinking enough by mouth for at least 24 hours','a3'],
+   d10:['Met','Strengths and specific changes named.','I could have checked her attention more formally','a3'],
+   d11:['Met','Delirium until proven otherwise; caregiver baseline.','a new mental status change is delirium','a3'],
+   d12:['Met','Attention test, orthostatics and medication list.','checking a bedside attention test and orthostatics','a3'],
+   s1:['Minimal input','Open questions brought out the overnight change and an example; drinking and new medications screened.','What have you noticed','a2'],
+   s2:['Occasional input','Hydration, JVP and lungs chosen; no focused neurologic maneuver. Orientation does not count.','','exam'],
+   s3:['Minimal input','Leading diagnosis, an alternative and the can\'t-miss named unprompted.','A new focal neurologic deficit or stroke','a3'],
+   s4:['Frequent input','Prerenal AKI read; the sodium was called hypernatremia but not explicitly a free-water deficit, and no coaching was given.','prerenal AKI','a3','Compare with dialogue item d3 (Met) for the same reading.'],
+   s5:['Minimal input','Findings tied to the leading diagnosis, an alternative and the can\'t-miss without prompting.','Dementia is the vulnerability','a3']}
+ },{id:'weak15',label:'Weak learner, 15 Nov (Priya, session 11918)',
+  profile:'Simulated weak learner (Priya): tentative, closed questions, hedges ("I\'m not sure"), needs prompts from the attending, thin reflection. Planned as a Frequent input style. Scored on the current v2 rubrics. Dr. Whitlock and Rachel on the published case (v13).',
+  door:{a1:'Pre-rounding on an 87-year-old woman with dementia on hospital day 4 of right lower lobe pneumonia. The chart summary shows BP 108/62 this morning, HR 92 to 110, Na 151 (138 on admission), BUN 38, Cr 1.4, intake 300 mL by mouth and 1000 mL IV, urine 850 mL.',a2:'Talk with Ethel\'s daughter Rachel to see how she thinks her mother is doing (5 to 10 minutes).',a3:'Dr. Whitlock, the inpatient medicine attending, did not hear your conversations; her chart is available. Up to 30 minutes, run here in text.'},
+  tr:{
+a1:`ETHEL: Oh… hello dear… are you here to see me?
+LEARNER: Hi, um, I'm Priya, a student. How are you feeling today?
+ETHEL: Oh, I'm alright, I think… a little tired, perhaps. Thank you for asking, dear.
+LEARNER: Okay. Do you have any pain or trouble breathing?
+ETHEL: I don't think I have any pain, dear… and my breathing is alright, I believe.
+LEARNER: Are you coughing at all?
+ETHEL: Oh... I'm not sure, dear. Maybe a little, or perhaps not. I couldn't really say.
+LEARNER: Okay, thank you Mrs. Kaplan. I think that's all I have, I'll let the team know.
+ETHEL: Alright, dear… thank you. You've been very kind to me.`,
+a2:`RACHEL: Hi. I'm Rachel, I'm her daughter. Thank you for coming in, really. I'm worried about her.
+LEARNER: Hi Rachel. Um, is your mom's memory okay normally?
+RACHEL: She has some memory trouble, yes — they told us it's early Alzheimer's. But usually she follows a conversation and answers you back.
+LEARNER: Is she eating okay?
+RACHEL: Barely. Yesterday she had a few bites of something, and today she wouldn't touch anything.
+LEARNER: Okay. Does she seem more confused than usual?
+RACHEL: Yes. Something changed since yesterday — today she's just not tracking things the way she normally does.
+LEARNER: Okay, thanks. I think that's everything. I'll tell the doctor.
+RACHEL: I just want to make sure nothing's being missed. She's not herself today.`,
+a3:`DR. WHITLOCK: Hi, I'm Dr. Whitlock. Thanks for pre-rounding on Mrs. Kaplan and talking with her daughter this morning. Ready to talk about her?
+LEARNER: Um, yes. So she's an older lady with pneumonia and her family says she's more confused today. I think maybe her dementia is getting worse? Or maybe the pneumonia.
+DR. WHITLOCK: Here's how this will go: I'll ask you about what you found and how you're thinking about Mrs. Kaplan, and you can stop me any time to ask questions. Tell me how you're thinking about the change since yesterday.
+LEARNER: Well, she was fine yesterday according to Rachel, and now she's foggy. I'm not sure what to say about the labs, I didn't look at them closely. Maybe the pneumonia isn't getting better?
+DR. WHITLOCK: That overnight change matters. Walk me through this morning's data. What stood out to you?
+LEARNER: Um, I think the sodium was a bit high? And the kidney numbers maybe went up. I'm not sure what that means exactly.
+DR. WHITLOCK: Say more about what the sodium and the kidney numbers might be telling you.
+LEARNER: Maybe she's dehydrated? Like if the sodium is high she might not be drinking enough. And maybe the kidneys are stressed from that.
+DR. WHITLOCK: That sounds reasonable. What has that done to her this morning?
+LEARNER: I think it made her confused, like delirium maybe? She's not thinking clearly. I guess that's different from her dementia because it came on fast.
+DR. WHITLOCK: Yes, that acute change on top of dementia is what I'd call delirium. How did you come to that conclusion from your history, exam, and the data?
+LEARNER: From Rachel it came on overnight, and she wasn't drinking. I listened to her lungs and they sounded a bit better, I think. I didn't check much else on exam.
+DR. WHITLOCK: Rachel's history helps a lot. What did you notice about Mrs. Kaplan's attention when you were talking with her?
+LEARNER: She seemed a bit drifty, like she wasn't fully following. I didn't do a real attention test though. She did get the place right, I think.
+DR. WHITLOCK: Okay. What other diagnoses did you consider?
+LEARNER: Um, the pneumonia getting worse, I guess. Maybe an infection somewhere else, like urine? I'm not sure what else.
+DR. WHITLOCK: Those are worth considering. What would Rachel have told you if this were just her dementia?
+LEARNER: Oh, I guess if it were just dementia it would have been slow, over months, not overnight. She would have been confused already yesterday.
+DR. WHITLOCK: Exactly. What else would you want to rule out?
+LEARNER: Maybe low oxygen, or a medication that could make her confused? I'm not sure what else.
+DR. WHITLOCK: She's 87 with high blood pressure and her mental status changed overnight. What sudden, time-sensitive cause would you not want to miss?
+LEARNER: Oh, a stroke. Right. I didn't check her arms or face though. I'd probably get a head CT if she had weakness.
+DR. WHITLOCK: Right. What makes a stroke less likely in her?
+LEARNER: Um, I guess she has dehydration which could explain it, and Rachel didn't mention any weakness. But I didn't really check, so I can't be sure.
+DR. WHITLOCK: Fair. How is she responding to treatment for the pneumonia?
+LEARNER: I think it's getting better? Her lungs sounded better and she's still on the antibiotics. I'm not sure about the oxygen or her white count.
+DR. WHITLOCK: That bedside trend fits improvement. What has gone in the wrong direction since she came in?
+LEARNER: The sodium went up, I think from normal to high. And the creatinine too. So she's drier than when she came in. I'd give her fluids, probably through the IV, but I'm not sure which kind.
+DR. WHITLOCK: That's the key turn. What fluid do you want her to get this morning?
+LEARNER: Normal saline? Or, wait, with the sodium high maybe she needs water instead. Like free water, maybe D5? I'd go slowly.
+DR. WHITLOCK: Yes. A high sodium is a water problem, so I make myself think about giving water, not just volume. What would make it hard for her to stay well once she leaves the hospital?
+LEARNER: She has dementia so she might forget to drink. I guess someone would need to help her. I'm not sure who, maybe Rachel?
+DR. WHITLOCK: That's the issue. Which part would you want set up before she leaves?
+LEARNER: Maybe someone to remind her to drink, like Rachel at meals, or a home aide. And a plan to check her sodium again after she goes home.
+DR. WHITLOCK: Good. How will you know she's ready to go home?
+LEARNER: When she's back to normal and drinking by herself, I think? And the sodium is better.
+DR. WHITLOCK: That's enough to know the direction. So we'll switch her to free water, bring the sodium down slowly with checks through the day, hold the lisinopril, keep Rachel close, and watch her mental status. Before we try a couple of practice scenarios, what questions do you have about Mrs. Kaplan?
+LEARNER: No, I don't think so. I think I'm okay.
+DR. WHITLOCK: Okay. Now let's change the situation a little. In the case we've been discussing, her exam was non-focal. Let me change the story. Suppose that at 11 this morning the nurse calls and says Mrs. Kaplan's right arm has gone weak and the right side of her face is drooping, and it started about 20 minutes ago. How does that change what you're worried about?
+LEARNER: That sounds like a stroke. I'd call a code or something, and get a CT. I'm not totally sure about the order or the timing.
+DR. WHITLOCK: Yes. What's the next piece of timing you want right away?
+LEARNER: When it started, the last time she was normal? That was 10:30, so about 20 minutes ago, for the window for treatment.
+DR. WHITLOCK: Exactly. What else do you want to do right away besides imaging?
+LEARNER: Check her blood sugar? And not let her eat or drink until someone checks her swallowing.
+DR. WHITLOCK: That's the right instinct. Let's do a separate scenario. Imagine it's 2 in the morning tonight. Rachel has gone home. Mrs. Kaplan is trying to climb out of bed and pulling at her IV, and the nurse pages you asking for lorazepam. How are you thinking about that page?
+LEARNER: Um, I'd probably give the lorazepam so she calms down and doesn't hurt herself? I'm not sure if that's okay for her.
+DR. WHITLOCK: I wouldn't give lorazepam here. In delirium it can worsen the confusion and raise her fall risk, so I'd look for a trigger, use reorientation and a sitter rather than sedating her first. What would you check at the bedside?
+LEARNER: Okay. Her vital signs, and maybe if she's in pain or needs the bathroom. I'm not sure what else.
+DR. WHITLOCK: Yes. What in her real chart would you look at first at 2 in the morning?
+LEARNER: Her medications, I guess, to see if anything could make her confused. And her oxygen and sodium.
+DR. WHITLOCK: Those are the right places to look. Let's step back from the case for a minute. How do you think your conversations with Mrs. Kaplan and her daughter went?
+LEARNER: I think they went okay? I was nervous. I probably should have asked more questions and not rushed.
+DR. WHITLOCK: That makes sense. Noticing that you rushed is useful, and with a patient like this I make myself slow down enough to ask the caregiver what normal looks like, because that often tells me fastest whether I'm seeing delirium. What did you learn today?
+LEARNER: That confusion can come on fast from dehydration, and not just from dementia. I didn't really know that before.
+DR. WHITLOCK: Yes, and that's an important distinction to carry forward. What do you want to work on as you start clerkships?
+LEARNER: I want to get better at presenting, I guess. And remembering to check more things.
+DR. WHITLOCK: Make that concrete for yourself: on your next few patients, aim to ask one caregiver-baseline question and do one brief attention check when the mental status seems off, then ask your resident to listen to your one-liner and tell you whether the change over time was clear. You picked up the big shift in Mrs. Kaplan, and you let yourself revise your thinking once the sodium and timing came into focus. The two things I'd keep from today are that an acute change from a dementia baseline is delirium until proven otherwise, and that a high sodium is a water problem, so the question becomes how to give water safely.`
+  },
+  exam:{rows:[['Lung auscultation','Crackles at the right base, improved from admission. No wheezing. Normal work of breathing.'],['Heart auscultation','Tachycardic with a regular rhythm; no murmurs, rubs, or gallops.']],
+   ai:'Physical exam checklist (platform, current rubric): focused 1 of 4 (lungs); missed hydration, JVP, focused neurologic exam. General 1 (heart); missed general appearance and vitals, abdomen, extremities. The orientation item did not appear in this list; it showed only on the strong run. No harmful maneuvers.'},
+  res:{
+   c1:['Yes','Gave name and role before asking about her symptoms.','I\'m Priya, a student','a1'],
+   c2:['No','Moved to a memory question without acknowledging Rachel\'s worry; did not answer her closing concern.','',''],
+   c3:['Yes','Plain language in both interviews.','',''],
+   c4:['Yes','Asked about Ethel\'s usual memory.','is your mom\'s memory okay normally','a2'],
+   c5:['No','Rachel reported the change only after a closed question about confusion.','Does she seem more confused than usual','a2'],
+   c6:['No','Drinking never asked. Eating alone does not count.','',''],
+   c7:['Yes','Asked Rachel about eating.','Is she eating okay','a2'],
+   c8:['No','Neither interview covered urine or the bathroom.','',''],
+   c9:['No','No question about weakness, facial droop, speech or a fall.','',''],
+   c10:['No','Closed question only; no open request for an example.','',''],
+   c11:['Yes','Rachel volunteered her worry, and the grader credited the anchor.','I just want to make sure nothing\'s being missed','a2','The item reads "the learner asks". The learner did not ask. The grader credited it because Rachel volunteered the worry. Law 3 (13 Nov) credits learner words only for communication items, so faculty may judge this No.'],
+   c12:['No','Did not ask Ethel where she was or the day.','',''],
+   c13:['No','No attention task.','',''],
+   p1:['Done','Lung auscultation selected.','Lung auscultation','exam'],
+   p2:['Not done','No hydration maneuver selected.','',''],
+   p3:['Not done','No JVP selected.','',''],
+   p4:['Not done','No neurologic exam selected.','',''],
+   d1:['Partially met','Older patient, pneumonia, new confusion; no early Alzheimer\'s and no improving pneumonia.','an older lady with pneumonia','a3'],
+   d2:['Met','Dehydration and delirium named, after the attending\'s "say more".','like delirium maybe','a3'],
+   d3:['Met','Connected the high sodium to inadequate drinking and the kidney changes to dehydration.','if the sodium is high she might not be drinking enough','a3','Flag: the learner first said "I\'m not sure what that means exactly" and reached the reading only after the attending asked "say more". The Summary Skills row 4 for this moment is Frequent input.'],
+   d4:['Met','Rachel\'s overnight change and poor drinking.','From Rachel it came on overnight','a3'],
+   d5:['Met','Dementia progression and worsening pneumonia weighed; stroke offered only after a cue.','it would have been slow, over months','a3','Stroke was named only after the attending asked for a time-sensitive cause. Faculty may judge Partially met.'],
+   d6:['Met','Improving lungs separated from the new water deficit.','Her lungs sounded better','a3'],
+   d7:['Met','Forgetting to drink, with Rachel or a home aide to remind her.','someone to remind her to drink','a3'],
+   d8:['Partially met','Free water given slowly, but no repeat sodium checks planned.','I\'d go slowly','a3'],
+   d9:['Met','Back to normal, drinking, sodium better, home support.','drinking by herself','a3'],
+   d10:['Partially met','General self-assessment; no specific thing done well.','I probably should have asked more questions','a3'],
+   d11:['Met','Dehydration can cause fast confusion apart from dementia.','confusion can come on fast from dehydration','a3'],
+   d12:['Partially met','Goals are vague; the concrete plan came from the attending.','get better at presenting','a3'],
+   s1:['Continuous input','No open question, so sudden onset and example do not count; alternatives screen not met; intake surfaced.','Does she seem more confused than usual','a2'],
+   s2:['Frequent input','Lung auscultation only. Heart does not change the level.','','exam'],
+   s3:['Frequent input','Pneumonia as an alternative; delirium and stroke only after prompting.','Maybe low oxygen','a3'],
+   s4:['Frequent input','Sodium and kidney changes tied to dehydration after the first probe; no volume signals read.','Maybe she\'s dehydrated','a3'],
+   s5:['Occasional input','Linked dehydration to delirium and speed of onset before the standard question; the stroke link needed a cue.','it would have been slow, over months','a3']}
+ },{id:'avg15',label:'Average learner, 15 Nov v2 rubric (session 11909)',
+  profile:'Simulated average MS2 on a first pre-round: polite and organized but mostly closed questions; takes orientation as the mental status check and never tests attention; picks a reasonable but incomplete exam. Scored on Summary Skills v2 (rubric 1220), which reads the exam actions directly. Dr. Whitlock on SP v1.4 and KB v1.5, published case v11. Learner lines were scripted in pairs, so twice an answer does not follow the question just asked.',
+  door:{a1:'Pre-rounding on an 87-year-old woman with dementia on hospital day 4 of right lower lobe pneumonia. The chart summary shows BP 108/62 this morning, HR 92 to 110, Na 151 (138 on admission), BUN 38, Cr 1.4, intake 300 mL by mouth and 1000 mL IV, urine 850 mL.',a2:'Talk with Ethel\'s daughter Rachel to see how she thinks her mother is doing (5 to 10 minutes).',a3:'Dr. Whitlock, the inpatient medicine attending, did not hear your conversations; her chart is available. Up to 30 minutes, run here in text.'},
+tr:{
+a1:`ETHEL: Oh… hello dear… are you here to see me?
+LEARNER: Hi Mrs. Kaplan, I'm a medical student working with your team. How are you feeling this morning?
+ETHEL: Oh, I’m alright, I think… a little tired, perhaps. You’re very kind to ask, dear.
+LEARNER: Are you having any pain anywhere?
+ETHEL: No… I don’t think I have any pain, dear. Maybe I’m just a little uncomfortable, but I couldn’t say where.
+LEARNER: How is your breathing today? Any cough?
+ETHEL: I think my breathing is alright, dear… the cough, I’m not sure about. Maybe a little, or perhaps not. I couldn’t really say.
+LEARNER: Can you tell me where you are right now, and what day it is?
+ETHEL: I’m right here, dear… in the hospital, I believe. The day is… the regular day, isn’t it? I can’t quite keep track.
+LEARNER: Have you been drinking much water?
+ETHEL: Oh, I believe I have, dear… enough, I think. I had some earlier, though I can’t remember how much.
+LEARNER: Any burning when you urinate?
+ETHEL: I don’t think so, dear… no burning that I can recall.
+LEARNER: Okay, I'm going to examine you now if that's alright.
+ETHEL: Alright, dear… that’s fine. Please go gently.
+LEARNER: Thank you, Mrs. Kaplan. I'll let you rest now.
+ETHEL: Alright, dear… thank you. You’ve been very kind to me.`,
+a2:`RACHEL: Hi. I'm Rachel, I'm her daughter. Thank you for coming in, really. I'm worried about her.
+LEARNER: Hi Rachel, I'm a medical student on the team. What are you worried about?
+RACHEL: Something changed overnight. Ma is much more foggy than she usually is. Yesterday morning she was herself, and today she just isn't.
+LEARNER: When did you notice she was different?
+RACHEL: Since this morning, really. I came in early and she was already like this.
+LEARNER: Has she been eating and drinking okay?
+RACHEL: No, not really. This morning I brought soup and fruit, and she wouldn't touch either one.
+LEARNER: What is she usually like at home?
+RACHEL: At home she knows where she is and who's with her. She follows a conversation and answers you back, even with her memory trouble.
+LEARNER: Any new medications that you know of ?
+RACHEL: No, nothing new at home. She's been on the same pills for a while.
+LEARNER: Thanks, Rachel. We'll talk with the team and come back with a plan.
+RACHEL: Okay. I just want to make sure nothing's being missed. She's not herself today.`,
+a3:`DR. WHITLOCK: Hi, I'm Dr. Whitlock. Thanks for pre-rounding on Mrs. Kaplan and talking with her daughter this morning. Ready to talk about her?
+LEARNER: Yes. Mrs. Kaplan is an 87-year-old woman with dementia on day 4 of treatment for pneumonia. Her daughter says she's more confused than usual since this morning, and she isn't eating or drinking much. Her sodium went up to 151. On exam her lungs had some crackles and her mouth looked dry.
+DR. WHITLOCK: Here's how this will go: I'll ask you about what you found and how you're thinking about Mrs. Kaplan, and you can stop me any time to ask questions. Tell me how you're thinking about what's going on this morning.
+LEARNER: I think her dementia might be getting worse because she's in the hospital, or it could be the pneumonia.
+DR. WHITLOCK: Walk me through what Rachel told you about how Mrs. Kaplan usually is at baseline.
+LEARNER: She said at home she knows where she is and can follow a conversation, and yesterday she was herself. So this is a sudden change.
+DR. WHITLOCK: So where does that leave you about the change you saw this morning?
+LEARNER: So maybe it's not just the dementia. Maybe it's delirium?
+DR. WHITLOCK: Say more about what's driving it.
+LEARNER: I think it could be the high sodium, since she isn't drinking much. Or maybe an infection, like a UTI.
+DR. WHITLOCK: Okay. Walk me through this morning's data. What stood out to you?
+LEARNER: Hmm, I'm not sure what else.
+DR. WHITLOCK: Start with the numbers you already mentioned. What do you make of the sodium rising to 151?
+LEARNER: It means she's dehydrated, she's not getting enough water.
+DR. WHITLOCK: And what has that done to her this morning?
+LEARNER: Her BUN and creatinine went up too, so maybe her kidneys are a little dry. Her white count is coming down.
+DR. WHITLOCK: You're on the right track. Which change in her mental status fits with that water problem?
+LEARNER: The sudden confusion overnight. The high sodium from not drinking could cause delirium.
+DR. WHITLOCK: Yes. When the change is overnight on top of a dementia baseline, I make myself call it delirium until proven otherwise and then look for the reversible cause. How did you get there from what you heard at the bedside and from Rachel?
+LEARNER: I'd give her more free water and recheck her sodium.
+DR. WHITLOCK: That sounds reasonable. What from Rachel or your bedside exam told you this was delirium from dehydration rather than just a lab problem?
+LEARNER: Rachel said she was herself yesterday and now she's foggy, and she isn't eating or drinking. And her mouth was dry on exam.
+DR. WHITLOCK: That's the key move. In delirium, I trust the caregiver's baseline and a bedside attention check more than the patient's own report, especially when the patient says everything is fine. What other diagnoses did you consider?
+LEARNER: I didn't really think about anything else. Maybe the pneumonia getting worse, but she seems to be improving.
+DR. WHITLOCK: Fair. She's 87 with high blood pressure and her mental status changed overnight. What sudden, time-sensitive cause would you not want to miss?
+LEARNER: Oh, a stroke.
+DR. WHITLOCK: Right. What makes that less likely in her?
+LEARNER: Her strength was normal in all four limbs, so it doesn't seem focal.
+DR. WHITLOCK: Exactly. I make myself do a focused neuro exam any time the change is sudden, because delirium doesn't protect someone from also having something focal. How is she responding to treatment for the pneumonia?
+LEARNER: She's improving. No fever, the white count is coming down, and she needs less oxygen.
+DR. WHITLOCK: Agreed. So where does that leave you about what you want to do with her fluids this morning?
+LEARNER: I'd keep the antibiotics going.
+DR. WHITLOCK: Keep going with that thought. What do you want to do about the fluid she's getting this morning?
+LEARNER: I guess she's on D5 half normal saline? Maybe switch to something with more free water, like D5W, and recheck the sodium in a few hours so it doesn't drop too fast.
+DR. WHITLOCK: Yes. A high sodium is a water problem, so I want the fluid choice to match the problem, and I don't let a positive balance on paper reassure me if the sodium is still rising. What would make it hard for her to stay well once she leaves the hospital?
+LEARNER: I'm not sure, could you tell me more?
+DR. WHITLOCK: Think about what has to happen at home for her to keep drinking enough once this delirium starts to clear. What specifically might be hard for this family?
+LEARNER: She might forget to drink, and Rachel might not be there all day. Maybe someone needs to remind her or help with fluids.
+DR. WHITLOCK: That's the issue. For a patient with dementia, I make myself ask whether the plan works for the caregiver's actual day, not just for the patient on paper. How will you know she's ready to go home?
+LEARNER: I think that's everything from me. Thank you.
+DR. WHITLOCK: Glad it helped.`
+  },
+  exam:{rows:[['Lung auscultation','Crackles at the right base, improved from admission. No wheezing. Normal work of breathing.'],['Heart auscultation','Tachycardic with a regular rhythm; no murmurs, rubs, or gallops.'],['Inspect oral cavity and oropharynx','Dry mucous membranes; dry, furrowed tongue. No erythema, exudate, or lesions; oropharynx clear.'],['Motor strength','5/5 throughout, no drift.']],
+   ai:'Physical exam checklist (platform): case-specific 1 of 5 (lungs). The mouth inspection and motor strength were counted as general items, so hydration and the focused neurologic exam show as missed. Not done: JVP, pupils and face, an attention test, skin turgor, orthostatic vitals.'},
+  res:{
+   c1:['No','Stated her role but not her name.','I\'m a medical student working with your team','a1'],
+   c2:['No','Rachel expressed worry twice; the learner moved on to questions both times.','What is she usually like at home?','a2'],
+   c3:['Yes','No unexplained clinical terms in either interview.','',''],
+   c4:['Yes','Asked Rachel what Ethel is usually like at home.','What is she usually like at home?','a2'],
+   c5:['Yes','After "What are you worried about?", Rachel described the overnight change.','What are you worried about?','a2'],
+   c6:['Yes','Asked Ethel whether she had been drinking water.','Have you been drinking much water?','a1'],
+   c7:['Yes','Asked Rachel; she said Ethel refused food.','Has she been eating and drinking okay?','a2'],
+   c8:['No','Asked about burning only.','Any burning when you urinate?','a1'],
+   c9:['No','Not asked in either interview.','',''],
+   c10:['No','No concrete observation of the change surfaced.','',''],
+   c11:['Yes','Asked Rachel what she was worried about.','What are you worried about?','a2','Law 3: Rachel volunteered her closing worry ("nothing\'s being missed"), and the learner never answered it. The credit rests on the learner\'s own opening question, which is the stricter reading.'],
+   c12:['Yes','Asked Ethel where she was and what day it was.','where you are right now, and what day it is','a1'],
+   c13:['No','Orientation only; no attention task.','',''],
+   p1:['Done','Lung auscultation selected.','Lung auscultation','exam'],
+   p2:['Not done','The mouth inspection was counted as a general item, so hydration status shows as missed.','Inspect oral cavity and oropharynx','exam','Two exam instruments disagree: the PE checklist missed hydration here, while Summary Skills v2 credited the same oral inspection. Mapping the oral inspection to the hydration item would make them agree.'],
+   p3:['Not done','Jugular venous pressure not selected.','',''],
+   p4:['Not done','Motor strength was counted as a general item, so the focused neurologic exam shows as missed.','Motor strength','exam','Same mapping issue as hydration: motor strength is credited by Summary Skills v2 but not by this checklist.'],
+   d1:['Met','Age, dementia, day 4 of pneumonia treatment and the new confusion.','87-year-old woman with dementia on day 4 of treatment for pneumonia','a3'],
+   d2:['Met','Delirium linked to the high sodium from poor water intake.','The high sodium from not drinking could cause delirium','a3'],
+   d3:['Met','Sodium as a water deficit; BUN and creatinine as prerenal; poor intake.','Her BUN and creatinine went up too','a3'],
+   d4:['Met','Sudden change from Rachel and dry mouth on exam.','Rachel said she was herself yesterday','a3'],
+   d5:['Met','Worsening pneumonia less likely (improving); stroke less likely (normal strength).','Her strength was normal in all four limbs','a3'],
+   d6:['Met','Separated the improving pneumonia from the new water deficit.','She\'s improving. No fever','a3'],
+   d7:['Met','Forgetting to drink when Rachel is away; reminders or help at home.','She might forget to drink','a3'],
+   d8:['Met','D5W for free water and a repeat sodium to avoid rapid correction.','switch to something with more free water, like D5W','a3'],
+   d9:['Not met','The learner ended when asked how they would know she was ready to go home.','I think that\'s everything from me','a3'],
+   d10:['Not met','No self-assessment offered.','',''],
+   d11:['Not met','No learning point stated.','',''],
+   d12:['Not met','No goal stated.','',''],
+   s1:['Occasional input','Sudden overnight onset surfaced after an open question and the intake and alternatives screens were met, but no specific example of the change surfaced.','What are you worried about?','a2'],
+   s2:['Frequent input','Selected oral hydration, lung auscultation and motor strength and asked orientation aloud. JVP and an attention test were missing.','Can you tell me where you are right now','a1'],
+   s3:['Frequent input','Opened with worse dementia or pneumonia; reached delirium from the high sodium only after probing.','Maybe it\'s delirium?','a3'],
+   s4:['Frequent input','Read the sodium as a water deficit after the first probe and the BUN and creatinine as prerenal; the volume signals were not interpreted.','It means she\'s dehydrated','a3'],
+   s5:['Continuous input','Linked low intake and high sodium to delirium after prompting, but the grader wrote that the gap was not closed after a cue; stroke link only after prompting.','The high sodium from not drinking could cause delirium','a3','Grader consistency: by the written rule a learner who supplies the missing links after a probe or cue is Frequent input, and Continuous is for a gap still open after a cue. Here the learner answered both cues (sudden change and dry mouth for delirium; normal strength against stroke). Worth watching across runs before changing the anchor.']}
+ }]},
+{key:'janet',name:'Janet Caldwell',caseNo:676,
+ blurb:'58-year-old woman with membranous nephropathy, hospital day 3 of IV diuresis for nephrotic edema, now lightheaded on standing with a rising creatinine. Two activities: pre-round with Janet, then talk the case through with Dr. Whitlock (attending).',
+ acts:[{id:'a1',title:'1. Pre-round with Janet'},{id:'a2',title:'2. Talk with Dr. Whitlock'}],
+ stages:[{id:'s1',title:'1. Pre-round and exam',acts:['a1','exam'],ins:['chk','pe'],note:'Read the pre-round with Janet and the exam actions. Complete the pre-rounding checklist and the physical exam checklist.'},{id:'s2',title:'2. Attending reasoning',acts:['a2'],ins:['dlg'],note:'Read the conversation with Dr. Whitlock only. Complete the reasoning dialogue assessment.'},{id:'s3',title:'3. Whole case',acts:['a1','exam','a2'],ins:['sum'],all:true,note:'Rate the Summary Skills rows using everything, then compare all of the assessments side by side.'}],
+ instruments:[
+ {id:'chk',title:'Pre-rounding checklist (history and communication)',source:'Read from the conversation with Janet.',scale:['Met','Not met'],crit:[
+  {id:'c1',label:'Introduce themselves',as:'Gives name and role before the history.'},
+  {id:'c2',label:'Empathic statement',as:'Acknowledges Janet\'s worry (dialysis, follow-up, work) before moving on.'},
+  {id:'c3',label:'Plain language',as:'No unexplained clinical terms.'},
+  {id:'c4',label:'Chest pain',as:'Asks about the chest by name.'},
+  {id:'c5',label:'Lightheadedness on standing (open question)',as:'An open question about how she is or how her night was brings out the lightheadedness. A closed question naming the symptom does not earn it.'},
+  {id:'c6',label:'Short of breath',as:'Asks about breathing.'},
+  {id:'c7',label:'Short of breath with walking',as:'Breathlessness with walking surfaces.'},
+  {id:'c8',label:'Short of breath lying down',as:'Asks about lying flat or pillows.'},
+  {id:'c9',label:'Leg swelling',as:'Leg swelling surfaces.'},
+  {id:'c10',label:'Thirst or dry mouth (open question)',as:'An open question brings out thirst or dry mouth. A closed question naming the symptom does not earn it.'},
+  {id:'c11',label:'Questions or concerns',as:'Asks what worries her or what she hopes for.'}]},
+ {id:'pe',title:'Physical exam checklist',source:'Read from the maneuvers the learner selected in the exam panel. Technique is not assessed.',scale:['Done','Not done'],crit:[
+  {id:'p1',label:'Jugular venous pressure',as:'Estimates the neck veins to judge whether the vessels are full or dry.'},
+  {id:'p2',label:'Hepatojugular reflux',as:'Tests the reflux as part of the volume assessment.'},
+  {id:'p3',label:'Heart auscultation',as:'Listens to the heart.'},
+  {id:'p4',label:'Lung auscultation',as:'Listens to the lungs.'},
+  {id:'p5',label:'Peripheral edema',as:'Examines the legs for pitting edema.'}]},
+ {id:'dlg',title:'TTC structured clinical reasoning dialogue (Dr. Whitlock)',source:'Read from the conversation with Dr. Whitlock. Only the learner\'s own words earn credit; what the attending states does not.',scale:['Met','Partially met','Not met'],crit:[
+  {id:'d1',label:'One-liner',as:'Age, membranous nephropathy, nephrotic relapse, and what is new today.'},
+  {id:'d2',label:'Most likely diagnosis',as:'Names volume depletion from over-diuresis (prerenal injury) as the leading explanation.'},
+  {id:'d3',label:'Reading the results',as:'Reads the creatinine rise as injury, the orthostatics as positive, and edema versus vessel volume when albumin is low.'},
+  {id:'d4',label:'Support for the conclusion',as:'Ties at least two findings to the diagnosis, one from the bedside.'},
+  {id:'d5',label:'Other diagnoses',as:'Two or more plausible alternatives with reasons, one being a clot.'},
+  {id:'d6',label:'Response to treatment',as:'Sees the edema has improved while treatment has overshot.'},
+  {id:'d7',label:'Structural barriers',as:'Names her barrier (night shifts, no car) and a way around it.'},
+  {id:'d8',label:'Management plan (optional A)',as:'Hold IV furosemide and recheck creatinine or orthostatic vitals.'},
+  {id:'d9',label:'Discharge readiness (optional B)',as:'Creatinine improving, orthostatics resolved, stable oral regimen, workable follow-up.'},
+  {id:'d10',label:'Self-assessment',as:'One specific strength and one specific change.'},
+  {id:'d11',label:'What they learned',as:'One specific learning point.'},
+  {id:'d12',label:'Goal for clerkships',as:'One specific, actionable goal.'}]},
+ {id:'sum',title:'Summary Skills (whole case)',source:'Five rows from the Summary Skills TTC OSCE tool. Row 1 reads the Janet interview, Row 2 the exam actions, Rows 3 to 5 the attending conversation.',scale:LV4,
+  help:'Levels describe how much input the learner needed from the attending. Minimal input is the least. Frequent input is the expected level for a second-year student before clerkships.',crit:[
+  {id:'s1',label:'Focused history',as:'Did the history surface the new problem (lightheadedness, thirst), screen for overload or rhythm, and screen for a clot?'},
+  {id:'s2',label:'Focused physical (selection only)',as:'Did the learner choose the five maneuvers that tell whether her vessels are full or dry (heart, JVP, hepatojugular reflux, lungs, edema) without an unfocused exam? Technique is not assessed.'},
+  {id:'s3',label:'Differential diagnosis',as:'Most likely explanation for the lightheadedness and creatinine rise and at least one alternative, and how much prompting that took.'},
+  {id:'s4',label:'Interpret investigations',as:'Reads the chart results that matter this morning and says what each means.'},
+  {id:'s5',label:'Clinical reasoning',as:'Ties specific findings to the leading diagnosis, an alternative and the diuretic decision.'}]}],
+ runs:[{id:'avg14',label:'Average learner, 14 Nov (session 11877)',
+  profile:'Simulated second-year student: strong at the bedside, weaker at putting the data together. Dr. Whitlock on SP v1.3 and KB v2.2.',
+  door:{a1:'Inpatient medicine, 6:45 am, hospital day 3 of admission for swelling from nephrotic syndrome. Vitals BP 104/64, HR 96, SpO2 98% on room air, RR 16, T 36.8, weight 88.7 kg. Focused visit, then talk the case through with Dr. Whitlock.',a2:'Dr. Whitlock, the general medicine attending, has not seen Janet. Up to 12 minutes, run here in text.'},
+  tr:{
+a1:`JANET: Oh, morning. Come on in.
+LEARNER: Good morning, Ms. Caldwell. I'm Sam, one of the medical students working with Dr. Whitlock's team. Is now an okay time to talk for a few minutes? How did you do overnight?
+JANET: Morning. Yeah, that's fine. My legs are a lot less swollen than when I came in. I got pretty woozy getting up to use the bathroom in the night. Slept in bits, and I'd really like to get back on my feet here.
+LEARNER: I'm glad the swelling is better. That sounds scary getting woozy in the night. Can you tell me more about what happened when you got up?
+JANET: Soon as I stood up, my head went light and I felt like I needed to sit right then. It eased off once I sat down, maybe a minute.
+LEARNER: Did you fall or hit anything? Any chest pain, heart racing, or trouble breathing with it?
+JANET: No, I didn't fall.
+LEARNER: Okay, good. How has your breathing been? Are you able to lie flat at night?
+JANET: Breathing's been fine. I slept flat on one pillow last night.
+LEARNER: How have you been with eating and drinking since you came in?
+JANET: Eating's been okay. The low-salt food tastes like nothing.
+LEARNER: And how much are you peeing compared with when you first got here?
+JANET: Still a lot. I was up about three times last night.
+LEARNER: Any pain anywhere, like in your legs or calves?
+JANET: No.
+LEARNER: What's on your mind most about being here this morning? Anything you're worried about?
+JANET: I keep thinking this dizziness means my kidneys are getting worse. And I'm scared of ending up on dialysis, with work and all that...
+LEARNER: That makes sense. Is there anything you were hoping would happen today?
+JANET: I'm worried about getting back here after I leave, for the blood test and the clinic visit. Last time they wanted that pretty quick too.
+LEARNER: Dialysis is a really understandable worry, and I'll make sure Dr. Whitlock hears that you're scared about it. We'll also make sure the follow-up plan is something you can actually get to. Is it okay if I examine you now?
+JANET: Okay. Yeah, that's fine.
+LEARNER: Thank you, Ms. Caldwell. Your lungs sound clear and the swelling in your legs is better than when you came in. I'm going to go over everything with Dr. Whitlock, and we'll come back to talk about the plan, including the dizziness. In the meantime, please call the nurse before you get up so you don't fall. Any questions for me?
+JANET: Are you thinking I'm going home today?
+LEARNER: I don't think I can promise today. We want to understand the dizziness first and make sure your kidneys are okay. I'll bring it up with the team and we'll let you know as soon as we have a plan.
+JANET: Okay. Thanks.`,
+a2:`DR. WHITLOCK: Hi, I'm Dr. Whitlock. Thanks for pre-rounding on Ms. Caldwell this morning. Ready to talk about her?
+LEARNER: Yes. Ms. Caldwell is a 58-year-old woman with membranous nephropathy, hospital day 3, admitted with swelling from a nephrotic relapse. She's on IV furosemide 80 twice a day. Overnight she got lightheaded getting up to the bathroom but didn't fall. Her breathing is fine, she's lying flat, and she's still peeing a lot. Her weight is down from 95.4 to 88.7 kilos. Her creatinine went up from 0.9 to 1.5. On exam her lungs are clear, her heart is normal, she still has 2+ edema at the ankles, and her JVP was low, under 6, with a negative HJR.
+DR. WHITLOCK: Here's how this will go: I'll ask you about what you found and how you're thinking about Ms. Caldwell, and you can stop me any time to ask questions. To start, what do you think is going on with her?
+LEARNER: I think the diuresis is working since her weight is coming down, but she still has edema so she's probably still a bit overloaded. I'm a little worried the creatinine going up means her membranous nephropathy is getting worse.
+DR. WHITLOCK: Say more about what's pulling you toward overload this morning.
+LEARNER: Mostly the 2+ pitting edema at her ankles. And she's still above where she probably started, so I'd keep the furosemide going today.
+DR. WHITLOCK: I wouldn't keep the IV furosemide going just because her legs are still swollen. When a patient on diuresis gets lightheaded and the volume status may have changed, I make myself ask whether the vessels are dry even if the tissues are still edematous. What happened when she stood up this morning?
+LEARNER: I didn't stand her up myself. Looking back at the flowsheet, the nurse did orthostatics at 6:15: lying 106/66 with a heart rate of 92, and after a minute standing 86/56 with a heart rate of 124, and she was lightheaded and sat back down.
+DR. WHITLOCK: Okay. Walk me through those numbers. What do they tell you?
+LEARNER: Her blood pressure drops 20 and her heart rate goes up more than 30 when she stands, and she has symptoms. So she's orthostatic. And with the low JVP, I guess that means she's actually dry in her vessels even though her legs are swollen.
+DR. WHITLOCK: That's the key turn. How do you connect that to the creatinine rise?
+LEARNER: I'm not totally sure. Maybe the kidneys aren't getting enough blood flow, so it's prerenal? But I don't know how to tell that apart from her kidney disease getting worse.
+DR. WHITLOCK: You're on the right track. What in this case makes you lean toward low perfusion from the diuresis rather than progression of her membranous nephropathy?
+LEARNER: The timing, I guess. It went up right as we were diuresing her hard, and at the same time she became orthostatic. If it were her disease I wouldn't expect it to track with the diuresis like that.
+DR. WHITLOCK: Exactly. I make myself line the creatinine up with the bedside story, not read it alone. Here the rise travels with brisk diuresis and new orthostasis, so prerenal injury from intravascular depletion fits better than worsening kidney disease. What other diagnoses did you consider?
+LEARNER: I thought about heart failure because of the swelling, but her lungs are clear and the JVP is low, so I don't think so. And the kidney disease progressing, which we talked about. I think that's it.
+DR. WHITLOCK: There's one complication of nephrotic syndrome I wouldn't want to miss here. What else would you want to rule out?
+LEARNER: Infection? I know nephrotic patients lose antibodies. She doesn't have a fever though.
+DR. WHITLOCK: She has a nephrotic syndrome. What complication of that state would you not want to miss?
+LEARNER: Oh, blood clots. They're hypercoagulable. So a renal vein thrombosis could make the creatinine go up, or a DVT or PE.
+DR. WHITLOCK: Right. What makes that less likely in her?
+LEARNER: She said no pain in her legs, and her breathing is fine and her oxygen is 98%. The edema was symmetric. I didn't ask about flank pain or blood in the urine, though, or check her calves specifically.
+DR. WHITLOCK: That lowers it some. I make myself think about clot in nephrotic patients, especially with membranous disease, and then ask about chest pain, one-sided leg swelling, and flank pain, and check the legs and oxygen rather than assuming the edema explains everything. How is she responding overall to the diuresis, and what do you want to do with her eight o'clock IV furosemide?
+LEARNER: I'd hold the 8 o'clock dose of IV furosemide and recheck her labs tomorrow morning. And keep her on fall precautions.
+DR. WHITLOCK: I agree with holding it. What would you want to see before you felt comfortable starting diuresis again or moving toward discharge?
+LEARNER: Her creatinine coming back down, no more orthostatic symptoms when she stands, and her weight getting close to her normal dry weight. I'm not sure what her dry weight is though.
+DR. WHITLOCK: That's a solid start. What else would need to be in place before she could go home safely?
+LEARNER: She'd need to be on an oral diuretic dose that works, and a follow-up lab check and nephrology visit soon. She told me she's worried about getting back for the blood test and the clinic visit, so we'd have to figure out how she gets there. She also told me she's scared this means dialysis.
+DR. WHITLOCK: Yes. How would you navigate those follow-up barriers for her?
+LEARNER: Honestly I didn't ask her what makes it hard. I'd go back and ask, and I'd probably get social work or case management involved for transportation, and maybe see if the lab draw can be closer to home.
+DR. WHITLOCK: That's the right move. Let's say she tells you she works nights, has no car, and missed her blood test last time. What would you set up before she leaves?
+LEARNER: I'd schedule the lab and nephrology visit for a time that works with her night shifts, like right after she gets off in the morning, arrange transportation through case management, and send her home with a scale and clear instructions on when to call if her weight or swelling changes.
+DR. WHITLOCK: Good. How do you think the interview and exam went?
+LEARNER: I think I built good rapport and she told me what she was worried about. But I didn't check orthostatics myself even though she told me she got woozy, and I missed asking about clot symptoms.
+DR. WHITLOCK: That sounds accurate. You picked up her concerns, and the next step is to let a symptom like new wooziness change your exam in real time; when I hear that on rounds, I make myself check the standing vitals and look at the neck veins before I decide what the edema means. What did you do well, and what would you do differently next time?
+LEARNER: I think I just said that? Well, I did well asking her concerns. Next time I'd look at the whole flowsheet before going in and act on the dizziness right away.
+DR. WHITLOCK: Fair enough. What did you learn today?
+LEARNER: That edema doesn't tell you what's in the vessels when the albumin is low, so you have to look at the orthostatics and the neck veins. And to think about clots in nephrotic syndrome.
+DR. WHITLOCK: That's a useful pair of lessons. What do you want to work on as you start clerkships?
+LEARNER: Putting the labs and the bedside together before I commit to a plan, instead of looking at one thing like the swelling. And presenting more clearly, I felt like my opening was kind of a list.
+DR. WHITLOCK: That's a good goal. Make it concrete for yourself: before you settle on a plan, pause and ask what the bedside says the vessels are doing, and ask your resident to listen for whether your one-liner gives the problem up front. So we'll hold her diuretic this morning, recheck her kidney function and her standing vitals, keep her on clot prophylaxis, and work on a follow-up plan she can actually get to. Before we try a couple of practice scenarios, what questions do you have about Ms. Caldwell?
+LEARNER: How do you figure out what her dry weight should be? I wasn't sure what weight to aim for.
+DR. WHITLOCK: The case does not give us enough to answer that reliably, and it's worth looking up. In this case I would not anchor on a target weight alone anyway; I'd read it alongside her standing symptoms, neck veins, kidney function, and whether she's stable on an oral regimen. Okay. Now let's change the situation a little.
+LEARNER: Okay, sure.
+DR. WHITLOCK: Ms. Caldwell has been dry but stable in the case we've been discussing. Let me change the story. Suppose that when the nurse stood her up this morning she fainted, was caught before she fell, and her lying blood pressure is now 88/52 with a pulse of 118. How does that change what you're worried about?
+LEARNER: Now she's hypotensive even lying down, so I'd be worried she's really volume depleted, maybe close to shock. I'd give her a fluid bolus and hold all the diuretics.
+DR. WHITLOCK: Yes. What else moves up your list in a nephrotic patient who is tachycardic and faints?
+LEARNER: A PE, because of the clotting risk. I'd check her oxygen and get a CT angiogram if she's stable enough. Also an EKG, and I'd hold the lisinopril.
+DR. WHITLOCK: That's the key concern. With the volume piece, how would you give fluid?
+LEARNER: A 500 mL bolus of normal saline and then reassess her blood pressure and lungs, since she's still swollen I wouldn't want to give a huge amount at once.
+DR. WHITLOCK: That's a measured plan. Let's do a separate scenario. Imagine her creatinine is the same, 1.5, and her legs look the same, but when you examine her the neck veins are up at 12 centimeters, the hepatojugular reflux is positive, she has crackles at both bases, and she is not orthostatic. How are you thinking about that change?
+LEARNER: Then she really is overloaded in her vessels, so the creatinine rise is more likely congestion or her kidney disease, not dryness. I'd keep diuresing her, maybe even increase it, and watch her kidney function.
+DR. WHITLOCK: That's the right pivot. What made the same creatinine and the same legs mean something different in the real Ms. Caldwell?
+LEARNER: In the real case her JVP was low, HJR negative, lungs clear, and she was orthostatic. So the intravascular signs said dry, even though the legs looked the same.
+DR. WHITLOCK: You handled this well, so I'll make the last one a little harder. If the team holds her lisinopril and empagliflozin today, what would make you restart them, and why does it matter for her kidneys?
+LEARNER: I'd restart them once her blood pressure and creatinine are back to baseline, because they help reduce the protein in her urine and protect the kidneys long term. I'm not sure exactly how fast to restart them.
+DR. WHITLOCK: That's the idea. When I pause a drug for a short-term problem, I try to decide what will tell me it's time to restart it, because the long-term benefit hasn't gone away. You got to a deeper level of the case once you stopped letting the edema drive the whole story, and that's an important shift early in clerkships.
+LEARNER: Thank you, this was really helpful.
+DR. WHITLOCK: Glad it helped. Can I help with anything else?
+LEARNER: No, that's everything. Thanks!
+DR. WHITLOCK: Take care.`},
+  exam:{rows:[['Jugular venous pressure','Not visible above the clavicle at 45 degrees; seen just above the clavicle only when lying nearly flat (JVP estimated less than 6 cm H2O).'],['Hepatojugular reflux','Negative. No sustained rise in the neck veins.'],['Heart auscultation','Regular rhythm, rate about 95; normal S1 and S2 in all four areas; no S3, S4, murmur or rub.'],['Abdominal inspection, bowel sounds and palpation','Soft, non-tender, non-distended, normal bowel sounds; low transverse scar (C-section).'],['Peripheral edema, both legs','2+ pitting edema at both ankles and 1+ to mid-shin, symmetric; trace sacral edema.'],['Lung auscultation','Clear in all six posterior fields; no crackles, no wheeze, no pleural rub.']],
+   ai:'Physical exam checklist (AI): focused 5 of 5 (JVP, HJR, heart, lungs, edema); general 1 of 21; key differentiators 3 of 4; harmful maneuvers avoided. Not done: orthostatic vitals at the bedside, calves, axillae, mucosa, costovertebral angle.'},
+  res:{
+   c1:['Met','Gives name and role before asking about the overnight history.','I\'m Sam, one of the medical students','a1'],
+   c2:['Met','Acknowledges her fear of dialysis and her concern about getting to follow-up before moving on.','Dialysis is a really understandable worry','a1'],
+   c3:['Met','Plain language throughout; she did not signal confusion.','',''],
+   c4:['Met','Janet denied pain anywhere in response to the learner\'s question.','Any chest pain, heart racing','a1','The chest pain question was bundled with others and Janet answered only the fall part. The grader took her later "No" to leg or calf pain as the answer. Faculty may judge this too generous.'],
+   c5:['Met','After an open question about her night, she reported feeling woozy getting up.','pretty woozy','a1'],
+   c6:['Met','Reported her breathing was fine.','How has your breathing been','a1'],
+   c7:['Not met','Breathing described generally and lying flat; walking did not surface.','',''],
+   c8:['Met','Breathing fine; slept flat on one pillow.','lie flat at night','a1'],
+   c9:['Met','Volunteered that the swelling had improved.','legs are a lot less swollen','a1'],
+   c10:['Not met','Did not surface, including after the eating and drinking question.','How have you been with eating and drinking','a1'],
+   c11:['Met','Asked about her worries and what she hoped would happen.','What\'s on your mind most','a1'],
+   p1:['Done','Jugular venous pressure selected.','Jugular venous pressure','exam'],
+   p2:['Done','Hepatojugular reflux selected.','Hepatojugular reflux','exam'],
+   p3:['Done','Heart auscultation selected.','Heart auscultation','exam'],
+   p4:['Done','Lung auscultation selected.','Lung auscultation','exam'],
+   p5:['Done','Peripheral edema selected.','Peripheral edema, both legs','exam'],
+   d1:['Met','Age, membranous nephropathy, nephrotic relapse, weight loss on diuresis, new standing lightheadedness and rising creatinine.','58-year-old woman with membranous nephropathy','a2'],
+   d2:['Partially met','Orthostasis and intravascular dryness, but only after Dr. Whitlock introduced dry vessels.','actually dry in her vessels','a2'],
+   d3:['Partially met','Positive orthostatics and edema versus intravascular volume when albumin is low; did not explain why weight above clinic weight does not mean overload.','So she\'s orthostatic','a2','The grader cites "weight above clinic weight", a number Dr. Whitlock told this learner the case does not contain. That is a known case issue being fixed.'],
+   d4:['Met','Orthostatic findings and low JVP linked to intravascular depletion.','The timing, I guess','a2'],
+   d5:['Met','Ongoing overload and a cardiac cause, with clear lungs and low JVP against heart failure.','I thought about heart failure','a2'],
+   d6:['Partially met','Saw improvement but first read residual edema as overload and favored continuing furosemide.','the diuresis is working since her weight is coming down','a2'],
+   d7:['Partially met','Did not elicit the specific barrier; reasonable general plan. Night-shift details came from Dr. Whitlock.','Honestly I didn\'t ask her what makes it hard','a2'],
+   d8:['Met','Hold IV furosemide, recheck labs, follow creatinine.','I\'d hold the 8 o\'clock dose','a2'],
+   d9:['Partially met','Creatinine, standing symptoms, accessible follow-up, oral diuretic; no anticoagulation decision.','Her creatinine coming back down','a2'],
+   d10:['Met','Strength: asking concerns. Change: check orthostatics when the patient reports dizziness.','I didn\'t check orthostatics myself','a2'],
+   d11:['Met','Edema can coexist with intravascular depletion; orthostatics and neck veins assess volume.','edema doesn\'t tell you what\'s in the vessels','a2'],
+   d12:['Met','Integrate lab and bedside findings before committing to a plan.','Putting the labs and the bedside together','a2'],
+   s1:['Occasional input','Lightheadedness surfaced after an open question; overload, rhythm and clot symptoms screened; thirst did not surface.','pretty woozy','a1'],
+   s2:['Continuous input','"The patient interview contains no documented maneuver selections."','','','On this run the grader could not see the exam panel, so this level is not valid. The learner selected all five key maneuvers (see the Exam actions table). The newer rubric reads the exam actions directly and scored the same kind of run Minimal input.'],
+   s3:['Frequent input','Favored overload and nephropathy progression first; depletion after the cue; clot after further prompting.','I\'m a little worried the creatinine','a2'],
+   s4:['Continuous input','None of the three major readings interpreted unprompted; orthostatics after a cue; did not call the diuresis large and rapid.','Looking back at the flowsheet','a2'],
+   s5:['Frequent input','No unprompted link to depletion; after the cue linked orthostasis and low JVP; clear lungs and low JVP against an alternative.','The timing, I guess','a2']}
+ },{id:'strong15',label:'Strong learner, 15 Nov (Sam, session 11913)',
+  profile:'Simulated strong learner (Sam): concise, picks up cues, open questions first, uses the exam to answer a specific question. Planned as a Minimal or Occasional input style. Scored on the Janet v2 Summary Skills row set. The platform scored the PE on an earlier PE rubric; the PE rating below is derived on the current rubric (see the note).',
+  door:{a1:'Inpatient medicine, 6:45 am, hospital day 3 of admission for swelling from nephrotic syndrome. Vitals BP 104/64, HR 96, SpO2 98% on room air, RR 16, T 36.8, weight 88.7 kg. Focused visit, then talk the case through with Dr. Whitlock.',a2:'Dr. Whitlock, the general medicine attending, has not seen Janet. Up to 12 minutes, run here in text.'},
+  tr:{
+a1:`JANET: Oh, morning. Come on in.
+LEARNER: Good morning, Ms. Caldwell, I'm Sam, a medical student working with Dr. Whitlock's team. Is it okay if I sit with you for a few minutes? How has your night been?
+JANET: Yeah, that's fine.
+JANET: Bits and pieces, honestly. The swelling's a lot better than when I came in Monday. I got woozy getting up for the bathroom in the night, and I'm pretty wiped out... I'd really like to get back on my feet here.
+LEARNER: That sounds frightening. Can you walk me through what happened when you stood up?
+JANET: My head went light when I stood up, like I needed to sit right then. It came on within a few seconds, and once I sat back down it eased off after maybe a minute.
+LEARNER: Thank you. Did you fall? And was there anything else that came with it, or anything else that has been bothering you?
+JANET: Nothing else that's been bothering me — I'm thirsty all the time, and my mouth feels like cotton.
+LEARNER: That is helpful to know, thank you. Have you had any chest pain, or felt your heart racing or pounding?
+JANET: No chest pain. When I stand up, my heart pounds for a few seconds, then it settles once I sit.
+LEARNER: How is your breathing, when you walk and when you lie flat?
+JANET: No, I haven't been short of breath lying flat.
+LEARNER: And when you walk, say to the bathroom or down the hall?
+JANET: To the bathroom's been fine. I haven't gotten winded.
+LEARNER: Have you had any pain or tenderness in your calves, or in your sides or back?
+JANET: No.
+LEARNER: How much are you passing urine compared with when you first came in?
+JANET: Still peeing a lot. Up about three times last night.
+LEARNER: What has been on your mind the most about being here? Is there anything you are worried about?
+JANET: I keep thinking this dizziness means my kidneys are getting worse. And I'm scared of ending up on dialysis and what that means for working.
+LEARNER: That is a really understandable fear, and I will make sure Dr. Whitlock hears it. Is there anything you were hoping would happen today, or that would make this easier for you?
+JANET: What I'm worried about is getting back here after I go home for the blood test and the clinic visit. Last time they wanted that pretty quick too.
+LEARNER: Thank you for telling me. I will make sure the follow-up plan is something you can actually get to. Is it okay if I examine you now?
+JANET: Yeah, okay.
+LEARNER: Thank you, Janet. Your exam is reassuring about your heart and lungs. I will share your worry about dialysis and the follow-up trip with Dr. Whitlock so we can plan around it.
+JANET: Okay, thanks.`,
+a2:`DR. WHITLOCK: Hi, I'm Dr. Whitlock. Thanks for pre-rounding on Ms. Caldwell this morning. Ready to talk about her?
+LEARNER: Yes. Ms. Caldwell is a 58-year-old woman with relapsed membranous nephropathy on hospital day 3 of IV diuresis, with new orthostatic lightheadedness, thirst and ongoing high urine output, but persistent ankle edema. My leading concern is that she is intravascularly dry from over-diuresis with a prerenal kidney injury, while still edematous because of the nephrotic state.
+DR. WHITLOCK: Here's how this will go: I'll ask about what you found and how you're thinking about Ms. Caldwell, and you can stop me any time to ask questions. Walk me through this morning's data. What stood out to you?
+LEARNER: From the history, she got light-headed within seconds of standing overnight, eased after a minute, with a pounding heart on standing, constant thirst, dry mouth, and she is still urinating about three times a night. She denies chest pain, orthopnea, or calf pain. On exam her JVP is normal, hepatojugular reflux is negative, heart is regular with no gallop, lungs are clear, and she has 2+ pitting edema at both ankles to mid-shin. So she is volume depleted centrally but still edematous peripherally.
+DR. WHITLOCK: That fits. Which numbers this morning changed your thinking most?
+LEARNER: Three trends. Creatinine went 0.9 to 1.1 to 1.5 and BUN 16 to 22 to 38 over three days, bicarbonate rose from 24 to 31 with chloride down to 95, and weight is down 6.7 kg from 95.4 to 88.7. Her BP dropped from 158/94 on admission to 104/64 this morning, with 98/60 and HR 110 when she got woozy overnight. That pattern fits over-diuresis with a contraction alkalosis and prerenal AKI, with the ACE inhibitor and empagliflozin adding to it.
+DR. WHITLOCK: You're reading the trend well. Tell me how you reached that conclusion from the bedside, not just the chart.
+LEARNER: At the bedside the symptoms were positional: light-headed within seconds of standing and relieved by sitting, with a pounding heart and constant thirst. Her JVP was normal and hepatojugular reflux negative, so her neck veins do not show a full central volume, even though she still has 2+ pitting edema. Clear lungs and no orthopnea argue against heart failure. The edema is from low albumin, so it can persist while her central volume is low.
+DR. WHITLOCK: Exactly, and the lying numbers can look okay, which is why the standing change matters. What other diagnoses did you consider?
+LEARNER: The one I most want to exclude is pulmonary embolism, because nephrotic membranous disease is hypercoagulable and she has had tachycardia. Against it, she has no chest pain, no dyspnea, SpO2 is 98% on room air, her tachycardia is positional, and she has been on heparin prophylaxis. Renal vein thrombosis is the other clot concern, but she has no flank pain or hematuria. I also considered arrhythmia, which the ECG and telemetry do not support, and sepsis, which fits poorly with no fever and normal respiratory rate. Her medications, the ACE inhibitor and empagliflozin, are contributors rather than a separate diagnosis.
+DR. WHITLOCK: Good. Which alternative would change your plan the most if it were true?
+LEARNER: Pulmonary embolism would change the plan the most: I would stop diuresing, check oxygenation and get CT angiography, and start therapeutic anticoagulation. What would change my mind toward it is new hypoxia, pleuritic pain, or tachycardia and hypotension that persist when she is lying flat after fluid. Meanwhile I would hold the furosemide dose due at 8, hold the ACE inhibitor and empagliflozin, get orthostatic vitals, repeat the BMP this afternoon, and discuss a careful fluid or albumin approach and the anticoagulation question with nephrology.
+DR. WHITLOCK: I'd be careful there. The case does not give us enough to say she should get therapeutic anticoagulation now, and nephrology is still weighing that decision. How is she responding to the diuresis overall?
+LEARNER: That is fair, I should have framed anticoagulation as a question for nephrology, not a plan. On diuresis: she responded very well on volume, with the weight down 6.7 kg and the swelling much improved, but she has now overshot, with a rising creatinine, a falling blood pressure and symptoms on standing. So I would pause the diuretic and recheck her this afternoon before restarting at a lower dose or an oral regimen.
+DR. WHITLOCK: Yes. What would you want to happen with her eight o'clock dose of IV furosemide?
+LEARNER: I would hold it. I would also hold the lisinopril and empagliflozin this morning, order orthostatic vitals now and a repeat BMP this afternoon, and keep potassium replacement under review since hers is 3.8 and she has alkalosis. If her vitals and creatinine improve I would restart a lower diuretic dose. If she gets worse, or develops hypoxia or chest pain, I would call you right away.
+DR. WHITLOCK: Agreed. How would you navigate any barriers she has to getting follow-up care?
+LEARNER: She told me she is worried about getting back for the blood test and clinic visit, and she lives alone in the Bronx with no car and works nights. I would ask social work to help with transportation, try to schedule the labs and visit around her shift and combine them into one trip, and make sure she leaves with a written plan and a number to call. I would also tell her plainly that we heard her fear about dialysis and explain that this looks like a fluid shift we can correct.
+DR. WHITLOCK: That's the right direction. Which one would you make sure is set up before she leaves?
+LEARNER: The transportation and a single scheduled lab and clinic visit, since missing that follow-up is the most likely way this goes wrong after discharge. I would confirm the appointment date and a ride with her before she leaves, and have her repeat the plan back to me.
+DR. WHITLOCK: And how will you know she's ready to go home?
+LEARNER: Her orthostatic symptoms and vitals have resolved, her creatinine is back to or near 1.1 and falling, she is stable on an oral diuretic dose with a steady weight and no new edema or dyspnea, and she can walk and take fluids and medicines without symptoms. I would also want the nephrology plan on rituximab and anticoagulation settled, and her follow-up booked with a ride.
+DR. WHITLOCK: So we'll hold her diuretic this morning, recheck her kidney function and her standing vitals, keep her on clot prophylaxis, and work on a follow-up plan she can actually get to. Before we try a couple of practice scenarios, what questions do you have about Ms. Caldwell?
+LEARNER: One question: should we get a urine sodium to confirm a prerenal picture, given she has been on a loop diuretic? Otherwise I am ready for the scenarios.
+DR. WHITLOCK: The case does not give us enough to answer that reliably, and it's worth looking up. Okay. Now let's change the situation a little. Ms. Caldwell has been dry but stable in the case we've been discussing. Let me change the story. How does it change what you're worried about if she faints when the nurse stands her up, is caught before she falls, and her lying blood pressure is now 88/52 with a pulse of 118?
+LEARNER: That shifts me from volume depletion toward something that could kill her, so I would move pulmonary embolism, bleeding and sepsis up the list and treat her as unstable. If she is hypotensive and tachycardic even lying down, I would call a rapid response, lay her flat, check oxygen saturation and a full set of vitals, get a bedside ECG and a point-of-care ultrasound, and send a stat lactate, blood count and troponin. If PE is likely I would want CT angiography or a bedside echo, and I would involve the ICU and nephrology early. I would hold the diuretic and give a cautious fluid bolus while I looked for the cause.
+DR. WHITLOCK: That's a good escalation. In that scenario, what is the immediate problem you have to treat even before you sort out the cause?
+LEARNER: Shock, meaning inadequate perfusion of her organs. I would secure access, give oxygen if needed, lay her flat with legs raised, start a fluid bolus if her lungs are clear, and monitor continuously, while the cause is worked up in parallel.
+DR. WHITLOCK: Right. When depletion causes symptoms lying down, I make myself replace volume in measured steps and recheck the pressure, the neck veins, and the lungs after each one. Let's do a separate scenario. Imagine her creatinine is the same, 1.5, and her legs look the same, but when you examine her the neck veins are up at 12 centimeters, the hepatojugular reflux is positive, she has crackles at both bases, and she is not orthostatic. How are you thinking about that change?
+LEARNER: That would reverse my picture. A JVP of 12 cm, positive hepatojugular reflux and bibasilar crackles point to volume overload or a cardiac or renal cause, so the same creatinine of 1.5 would be a congestive or cardiorenal injury instead of a prerenal one. I would continue or increase diuresis, not hold it, look for heart failure with an echo and BNP, and reconsider the kidney injury, including renal vein thrombosis. This is why I trust the bedside findings alongside the labs.
+DR. WHITLOCK: Exactly. The same creatinine means something different once the vessels look full. You're doing well, so I'll make the next one a little harder. If the team holds her lisinopril and empagliflozin today, what would make you restart them, and why does it matter for her kidneys?
+LEARNER: I would restart them once she is euvolemic with stable orthostatics, her creatinine back near baseline and her potassium safe, restarting one at a time. It matters because the ACE inhibitor lowers pressure inside the glomerulus, which reduces her protein leak and protects her kidneys long term, and empagliflozin adds kidney protection. Both also lower filtration when she is volume depleted, which is why they are held for now, not stopped for good.
+DR. WHITLOCK: That's the key distinction. Let's step back from the case for a minute. How do you think the interview and exam went?
+LEARNER: I think the interview went well. I got the story of the positional symptoms and her fear about dialysis and follow-up, and the five exam findings I chose answered the question of her volume status. What I would do differently is ask earlier about home diuretic use, salt and fluid intake, and her medicines, and check her orthostatic vitals myself rather than relying on the nursing note.
+DR. WHITLOCK: That sounds thoughtful. I like that you used the bedside exam to answer a specific clinical question, and I think the general habit to keep is to let one early open question surface what is new before you narrow. What did you learn today?
+LEARNER: That the same creatinine can mean opposite things depending on the neck veins and lungs, and that a patient can be edematous and intravascularly dry at the same time. I will also open with one early open question and hold off narrowing until I have heard what is new.
+DR. WHITLOCK: Yes. What do you want to work on as you start clerkships?
+LEARNER: Two things: presenting a tighter one-liner that commits to a leading diagnosis with the alternatives named, and being more confident about stating what would change my mind. Thank you, this was helpful.
+DR. WHITLOCK: Those are good goals, and they're specific enough that your residents can give you useful feedback on them. Keep the habit you named: read the creatinine against the vessels, not the legs, and ask early what will get in the way after discharge.`
+  },
+  exam:{rows:[['Jugular venous pressure','Normal, no JVD (HEENT action).'],['Hepatojugular reflux','Negative.'],['Heart auscultation','Regular rhythm, rate about 95; normal S1 and S2; no S3, S4, murmur or rub.'],['Lung auscultation','Clear in six fields.'],['Peripheral edema','2+ pitting at the ankles, 1+ to mid-shin, trace sacral.']],
+   ai:'Physical exam (platform, earlier PE rubric): focused 4 of 5 (JVP missed because the action mapped to a separate HEENT item), general 1 of 22, key differentiators 2 of 4, no harmful maneuvers. DERIVED on the current rubric, not platform output: focused 5 of 5 if the HEENT "Assess JVP" action counts for the JVP item (it did on Ethel\'s run), general 0 of 5, harmful avoided. Key differentiators cannot be derived.'},
+  res:{
+   c1:['Met','Gave name and role before asking about her night.','I\'m Sam, a medical student','a1'],
+   c2:['Met','Acknowledged her fear of dialysis and her follow-up worry before moving on.','That is a really understandable fear','a1'],
+   c3:['Met','Plain language throughout.','',''],
+   c4:['Met','Asked about chest pain and the heart racing by name.','Have you had any chest pain','a1'],
+   c5:['Met','An open question about her night brought out the lightheadedness on standing.','How has your night been','a1'],
+   c6:['Met','Asked about her breathing.','How is your breathing','a1'],
+   c7:['Met','Asked about walking to the bathroom or down the hall.','And when you walk','a1'],
+   c8:['Met','Asked about lying flat.','when you lie flat','a1'],
+   c9:['Not met','She volunteered that the swelling was better; the learner did not ask where it is or how much.','',''],
+   c10:['Met','An open "anything else" brought out thirst and dry mouth.','anything else that has been bothering you','a1'],
+   c11:['Met','Asked what is on her mind and what she hoped for.','Is there anything you are worried about','a1'],
+   p1:['Done','JVP selected (HEENT action).','Jugular venous pressure','exam','The platform scored this on the earlier PE rubric, where the HEENT JVP action was a separate item and the JVP item stayed Missed. Derived here on the current rubric from the actions performed; faculty should treat it as derived, not graded.'],
+   p2:['Done','Hepatojugular reflux selected.','Hepatojugular reflux','exam'],
+   p3:['Done','Heart auscultation selected.','Heart auscultation','exam'],
+   p4:['Done','Lung auscultation selected.','Lung auscultation','exam'],
+   p5:['Done','Peripheral edema selected.','Peripheral edema','exam'],
+   d1:['Partially met','Age, nephropathy, over-diuresis and persistent edema; no mention that the swelling improved with diuresis.','a 58-year-old woman with relapsed membranous nephropathy','a2'],
+   d2:['Met','Intravascular depletion with prerenal injury from over-diuresis, stated unprompted.','intravascularly dry from over-diuresis','a2'],
+   d3:['Partially met','Read the trends, but did not interpret the orthostatics as positive or explain why weight above clinic weight is not overload.','Three trends','a2'],
+   d4:['Met','Tied the positional symptoms, JVP and clear lungs to the diagnosis.','The edema is from low albumin','a2'],
+   d5:['Partially met','Clot, arrhythmia and sepsis considered; overload and nephropathy progression only raised by Dr. Whitlock.','The one I most want to exclude is pulmonary embolism','a2'],
+   d6:['Met','Separated the good diuretic response from the new overshoot.','she has now overshot','a2'],
+   d7:['Met','Transport, night work and social work for follow-up.','I would ask social work to help with transportation','a2'],
+   d8:['Met','Hold the 8 o\'clock furosemide, recheck labs, restart lower.','I would hold it','a2'],
+   d9:['Met','Orthostatic symptoms, creatinine, stable oral diuretic, follow-up booked with a ride.','Her orthostatic symptoms and vitals have resolved','a2'],
+   d10:['Met','Strength: exam answered a specific question. Change: check orthostatics himself.','check her orthostatic vitals myself','a2'],
+   d11:['Met','The same creatinine can mean opposite things.','the same creatinine can mean opposite things','a2'],
+   d12:['Met','A tighter one-liner and stating what would change his mind.','a tighter one-liner','a2'],
+   s1:['Minimal input','Open question brought out lightheadedness and thirst; overload, rhythm and clot screened.','How has your night been','a1'],
+   s2:['Minimal input','All five key maneuvers selected, none harmful.','','exam'],
+   s3:['Minimal input','Arrhythmia and pulmonary embolism named unprompted.','The one I most want to exclude','a2'],
+   s4:['Frequent input','Did not interpret the charted orthostatic vitals; the attending did not cue.','Three trends','a2'],
+   s5:['Minimal input','Findings tied to the diagnosis, an alternative and the diuretic decision.','The edema is from low albumin','a2']}
+ },{id:'weak15',label:'Weak learner, 15 Nov (Sam, session 11915)',
+  profile:'Simulated weak learner (Sam): tentative, closed questions, needs prompts, did not read the chart or examine the neck. Planned as a Frequent input style. Scored on the Janet v2 Summary Skills row set and the current PE rubric.',
+  door:{a1:'Inpatient medicine, 6:45 am, hospital day 3 of admission for swelling from nephrotic syndrome. Vitals BP 104/64, HR 96, SpO2 98% on room air, RR 16, T 36.8, weight 88.7 kg. Focused visit, then talk the case through with Dr. Whitlock.',a2:'Dr. Whitlock, the general medicine attending, has not seen Janet. Up to 12 minutes, run here in text.'},
+  tr:{
+a1:`JANET: Oh, morning. Come on in.
+LEARNER: Um, hi. I'm one of the students. How are you feeling today?
+JANET: Pretty wrung out. The swelling's gone down a lot since I came in Monday. But I got woozy getting up to the bathroom in the night.
+LEARNER: Oh okay. Are you in any pain?
+JANET: No.
+LEARNER: Okay good. Are you short of breath?
+JANET: No.
+LEARNER: And how is your appetite and sleep?
+JANET: I slept in pieces. Hard to get back on my feet in here.
+LEARNER: Okay. Can I listen to your heart and lungs?
+JANET: Yeah, that's fine.
+LEARNER: Okay, thanks. I think that is all from me. I'll go tell the doctor.
+JANET: Alright then, thanks.`,
+a2:`DR. WHITLOCK: Hi, I'm Dr. Whitlock. Thanks for pre-rounding on Ms. Caldwell this morning. Ready to talk about her?
+LEARNER: Um, yes I think so. So Ms. Caldwell is a 58 year old woman who is in for swelling and kidney stuff. She said the swelling is better but she felt woozy last night, and she slept badly. I listened to her heart and lungs and they were normal. I think maybe she is okay?
+DR. WHITLOCK: Here's how this will go: I'll ask you about what you found and how you're thinking about Ms. Caldwell, and you can stop me any time to ask questions. Tell me how you're thinking about the wooziness this morning.
+LEARNER: Um, I'm not totally sure. Maybe she is dehydrated? Or maybe her blood pressure is low from being in bed. I did not really look at the numbers.
+DR. WHITLOCK: Maybe dehydrated is a reasonable start. What happened when she stood up this morning?
+LEARNER: She said she felt woozy when she got up to the bathroom in the night. Sorry, I did not ask much more than that. She said no pain and no shortness of breath.
+DR. WHITLOCK: Okay. At the bedside, what did you find when you looked at her neck?
+LEARNER: I did not look at her neck. I only listened to her heart and lungs. Should I have?
+DR. WHITLOCK: I do make myself look at the neck when someone on diuresis gets newly lightheaded, because the legs can stay swollen even when the vessels are dry. Do you know what her standing vital signs were this morning?
+LEARNER: I don't know the standing numbers. I think the nurse wrote down something about her pressure being low last night but I did not check the chart.
+DR. WHITLOCK: Her lying blood pressure was 106/66 with pulse 92, and standing at one minute it was 86/56 with pulse 124, and she was lightheaded. What do you make of that?
+LEARNER: Oh. So her pressure drops a lot when she stands and her heart goes faster. I guess that means she is dehydrated from the water pill? But she still has swelling, so I am confused.
+DR. WHITLOCK: That gets to the key tension here. Which of her labs tells you where the fluid is sitting?
+LEARNER: Um, maybe her albumin? I think it was low, around 2. And I am not sure about the kidney numbers, I think the creatinine went up a little.
+DR. WHITLOCK: Yes. With an albumin of 2.0, fluid can stay out in the tissues, so the legs can still look swollen even when the vessels are dry. Walk me through the creatinine trend you saw.
+LEARNER: I think it went from around 1 to 1.5 over the last few days? I don't remember the exact days. That might mean her kidneys are a little stressed, probably from the water pill.
+DR. WHITLOCK: That's the right read. How did you reach that conclusion from the bedside and the chart together?
+LEARNER: Honestly I mostly followed what you said. From the bedside I only know her heart and lungs were normal and that she felt woozy. The rest is from the numbers you gave me.
+DR. WHITLOCK: Fair enough. I make myself put the bedside and the chart together, because the chart tells me what changed and the bedside helps me decide why. Given what you know now, what do you want to happen with her eight o'clock dose of IV furosemide?
+LEARNER: Maybe hold it for now? Since she seems dry. I would probably wait and ask you what to do after that, I am not sure about the other medicines.
+DR. WHITLOCK: Hold it is the important part. How is she responding to the diuresis overall?
+LEARNER: Her swelling is a lot better, she said so, and I think her weight is down. So the water pill is working but maybe a little too much.
+DR. WHITLOCK: That's the idea. Do you know what she weighed before this hospitalization?
+LEARNER: No, I did not look that up, sorry. I think she was much heavier when she came in because of the swelling, but I do not know the number.
+DR. WHITLOCK: Her nephrology clinic weight in August was 84.0 kilograms. So she is still above that, which is why the scale alone doesn't tell you to stop, but the standing vitals do. What other diagnoses did you consider for the dizziness and creatinine rise?
+LEARNER: Um, maybe an infection? Or her heart? I did not really think about other things. I mostly thought it was the water pill.
+DR. WHITLOCK: The water pill effect is still the leading idea. What else would you want to rule out in a patient with nephrotic syndrome?
+LEARNER: Oh, blood clots? I think nephrotic patients can clot more. I did not ask about chest pain or leg pain though, only about pain in general.
+DR. WHITLOCK: Yes. What makes a clot less likely in her?
+LEARNER: She said no shortness of breath, and her oxygen level was fine I think. And she is getting the heparin shots. I do not know what else.
+DR. WHITLOCK: That helps. Let's stay with the practical side now. How would you navigate any barriers she has to getting follow-up care?
+LEARNER: I did not talk to her about that, sorry. Maybe we could give her a clinic appointment and a printout? I do not know if she can get here easily.
+DR. WHITLOCK: If you haven't asked yet, that's the first step. Let's say she tells you she works nights, has no car, and missed her blood test last time. What would you set up?
+LEARNER: Maybe I would ask social work to help with a ride, and try to book the blood test for a time she can come?
+DR. WHITLOCK: Yes, that's the right direction. How will you know she's ready to go home?
+LEARNER: When she is not dizzy anymore and her blood pressure is better, I think. And her kidney test is okay.
+DR. WHITLOCK: And she also needs a follow-up plan she can actually get to. So we'll hold her diuretic this morning, recheck her kidney function and her standing vitals, keep her on clot prophylaxis, and work on a follow-up plan she can actually get to. Before we try a couple of practice scenarios, what questions do you have about Ms. Caldwell?
+LEARNER: No, not really. I think I am okay to try a practice scenario.
+DR. WHITLOCK: Okay. Now let's change the situation a little. Ms. Caldwell has been dry but stable in the case we've been discussing. Let me change the story. Suppose that when the nurse stood her up this morning she fainted, was caught before she fell, and her lying blood pressure is now 88/52 with a pulse of 118. How does that change what you're worried about?
+LEARNER: That sounds more serious. I would worry she is even more dry, or maybe bleeding? I would probably tell the nurse to give her fluids and call you right away.
+DR. WHITLOCK: With an albumin of 2.0, much of that fluid will leak into the tissues and worsen the swelling without holding the pressure, so we replace in measured steps and recheck the pressure and neck veins after each. What else would you want to rule out in this scenario?
+LEARNER: Um, maybe a heart problem, or a clot in the lungs? I am not sure how I would check for those.
+DR. WHITLOCK: A clot in the lungs is the one I would actively keep in mind here. Let's do a separate scenario. Imagine her creatinine is the same, 1.5, and her legs look the same, but when you examine her the neck veins are up at 12 centimeters, the hepatojugular reflux is positive, she has crackles at both bases, and she is not orthostatic. How are you thinking about that change?
+LEARNER: That sounds like she has too much fluid instead, maybe from her heart. So I guess I would not give fluids, and maybe give the water pill. It is confusing because it is the opposite of before.
+DR. WHITLOCK: Exactly, and that confusion is worth getting comfortable with early. I make myself read the creatinine against the vessels, not the legs, because the same number can mean opposite things depending on the neck veins and orthostatics. Let's step back from the case for a minute. How do you think the interview and exam went?
+LEARNER: I think it was okay but I could have asked more questions. I only asked pretty simple ones and I forgot to look at her neck and legs.
+DR. WHITLOCK: That sounds honest, and it's a useful place to start clerkships from. One habit that helps is to ask early what feels new to the patient, then make yourself check the bedside finding that answers the main volume question. What did you learn today?
+LEARNER: I learned that swelling and being dry can happen together, which I did not know. I want to get better at asking follow-up questions.
+DR. WHITLOCK: Yes, that's a good one. What do you want to work on as you start clerkships?
+LEARNER: Asking more follow-up questions, and reading the chart and doing the neck exam before I come to present. Thank you.
+DR. WHITLOCK: That's a strong, specific goal, and it will pay off quickly. Keep those two ideas with you: read the creatinine against the volume in the vessels, and ask what will get in the way before discharge. Glad it helped.`
+  },
+  exam:{rows:[['Heart auscultation','Regular rhythm, rate about 95; normal S1 and S2; no S3, S4, murmur or rub.'],['Lung auscultation','Clear in six fields.']],
+   ai:'Physical exam (platform): focused 2 of 5 (heart and lungs; JVP, hepatojugular reflux and peripheral edema missed), general 0 of 5, key differentiators 1 of 3, no harmful maneuvers.'},
+  res:{
+   c1:['Not met','Gave a role but no name.','I\'m one of the students','a1'],
+   c2:['Not met','Moved on from "wrung out" without acknowledging it.','Oh okay. Are you in any pain?','a1'],
+   c3:['Met','Plain language throughout.','',''],
+   c4:['Not met','Asked about pain in general, not chest pain or palpitations.','Are you in any pain?','a1'],
+   c5:['Met','Lightheadedness surfaced from her answer to an open question.','I got woozy getting up to the bathroom','a1'],
+   c6:['Met','Asked about shortness of breath.','Are you short of breath?','a1'],
+   c7:['Not met','Did not ask about breathing on walking.','',''],
+   c8:['Not met','Did not ask about breathing lying flat.','',''],
+   c9:['Not met','She volunteered the swelling was better; the learner did not ask about it.','',''],
+   c10:['Not met','Did not ask about thirst or dry mouth.','',''],
+   c11:['Not met','Did not ask about worries or what she hoped for.','',''],
+   p1:['Not done','Jugular venous pressure not selected.','',''],
+   p2:['Not done','Hepatojugular reflux not selected.','',''],
+   p3:['Done','Heart auscultation selected.','Heart auscultation','exam'],
+   p4:['Done','Lung auscultation selected.','Lung auscultation','exam'],
+   p5:['Not done','Peripheral edema not selected.','',''],
+   d1:['Not met','No nephrotic syndrome and no link to the diuresis.','Ms. Caldwell is a 58 year old woman who is in for swelling and kidney stuff','a2'],
+   d2:['Met','Landed on over-diuresis ("maybe she is dehydrated", then "from the water pill").','probably from the water pill','a2'],
+   d3:['Partially met','Needed the orthostatic numbers and the albumin from the attending; recalled the creatinine only roughly.','I think it went from around 1 to 1.5','a2'],
+   d4:['Partially met','Could not tie a bedside finding to the diagnosis; "I mostly followed what you said".','I mostly followed what you said','a2'],
+   d5:['Partially met','Clot given with a reason; infection and heart named without reasons.','blood clots? I think nephrotic patients can clot more','a2'],
+   d6:['Partially met','Saw the swelling improved but the attending supplied the depletion-versus-edema distinction.','the water pill is working but maybe a little too much','a2'],
+   d7:['Partially met','The attending supplied night shift, no car and missed lab; the learner offered a ride and a booked blood test.','ask social work to help with a ride','a2'],
+   d8:['Partially met','Held the furosemide, but no recheck of creatinine or orthostatics until the attending named them.','Maybe hold it for now','a2'],
+   d9:['Partially met','Dizziness, blood pressure and kidney test; no follow-up access or stability criteria.','When she is not dizzy anymore','a2'],
+   d10:['Partially met','Honest and specific about the gaps (neck and legs), but without a strength.','I forgot to look at her neck and legs','a2'],
+   d11:['Met','Edema and intravascular dryness can coexist.','swelling and being dry can happen together','a2'],
+   d12:['Met','Follow-up questions, chart reading and the neck exam before presenting.','reading the chart and doing the neck exam','a2'],
+   s1:['Occasional input','Open question surfaced lightheadedness only; chest pain, leg swelling, thirst and concerns were not reached.','How are you feeling today?','a1'],
+   s2:['Frequent input','Heart and lungs only; neck and legs not examined until the attending asked.','Can I listen to your heart and lungs?','a1'],
+   s3:['Frequent input','Infection, heart and clot named only with prompting.','Oh, blood clots?','a2'],
+   s4:['Frequent input','Needed the standing vitals, albumin and clinic weight from the attending.','So her pressure drops a lot when she stands','a2'],
+   s5:['Frequent input','Held the diuretic, but the plan and the bedside-chart link came from the attending.','Maybe hold it for now','a2']}
+ }]}
+];
+</script>
+<script>
+/* ============ REFERENCE MATERIAL (chart, attending teaching, handout) ============ */
+const tbl=(h,rows)=>`<table class="reft"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table>`;
+const REF={
+ethel:{
+ handout:'handouts/ethel_kaplan_post_case_handout.pdf',
+ chart:`<h5>Case summary</h5><p>Ethel Kaplan is 87, a retired schoolteacher with early Alzheimer's dementia, admitted with right lower lobe pneumonia and now on hospital day 4. The pneumonia is improving, but overnight she became newly confused.</p><p><b>For reviewers (the learner is not told):</b> the intended diagnosis is delirium from hypernatremic dehydration, a free-water deficit, on top of early dementia. The can't-miss diagnosis is acute stroke.</p><p><b>How the characters behave.</b> Mrs. Kaplan is gentle, agreeable and vague. She says she is fine, drank plenty and has no pain, and these answers are unreliable today, so the problem shows up only when the learner tests orientation and attention and examines her. Her daughter Rachel, the caregiver and health care proxy, was not there overnight. She leads with "something changed overnight," gives her mother's usual baseline when asked, and ends worried that something is being missed. Dr. Whitlock has not seen either of them. She asks short questions one at a time and teaches only after the learner has had a chance to reason.</p><p class="refnote">The results the learner can look up for Mrs. Kaplan, taken from the results block of Dr. Whitlock's knowledge bank (v1.5). Examination findings are left out because the learner earns those at the bedside.</p>
+ <h5>Vital signs, hospital day 4</h5>${tbl(['','This morning','Past 24 hours','Admission'],[['Blood pressure','108/62','134 to 144 over 74 to 84','—'],['Pulse','96','92 to 110','72 to 80'],['Respiratory rate','18','18 to 22','—'],['Temperature','36.8 C (98.2 F)','98.2 to 98.7 F','38.9 C in the ED'],['Oxygen','95% on 1 L','—','2 L in the ED']])}
+ <p class="refnote">Orthostatic vital signs are not in the chart. A learner who checks them at the bedside finds a drop, and that is correct.</p>
+ <h5>Intake and output, past 24 hours</h5><p>IV fluid 1,000 mL of D5 half-normal saline at 75 mL an hour; by mouth about 300 mL; total about 1,300 mL. Urine 850 mL, down from 1,400 mL the day before. Net about 450 mL positive.</p>
+ <h5>Laboratory</h5>${tbl(['','Admission','Today'],[['Sodium','138','151'],['BUN','21','38'],['Creatinine','0.9','1.4'],['Potassium','4.0','3.8'],['Glucose','102','102'],['White count','12.4','9.1'],['Hemoglobin','12.1','11.6']])}
+ <h5>Imaging</h5><p>Chest film day 1: right lower lobe airspace opacity, no effusion, normal heart size. Day 4: right lower lobe infiltrate improved, no new infiltrate, no effusion.</p>
+ <h5>Medications and allergy</h5><p>Ceftriaxone 1 g IV daily; azithromycin 500 mg by mouth daily; acetaminophen 650 mg every 6 hours as needed; donepezil 10 mg daily (home); lisinopril 10 mg daily (home); famotidine 20 mg daily (home); D5 half-normal saline at 75 mL an hour. Penicillin allergy (childhood rash); tolerates cephalosporins.</p>
+ <h5>Not available this morning</h5><p>Urinalysis and urine culture result, urine sodium or osmolality, head imaging.</p>
+ <h5>Overnight nursing note, if the learner asks</h5><p>At about 2 am new confusion: calling for her mother, who has died, not recognizing the room, pulling at her IV, unable to state the day or month. Urine output fell overnight.</p>`,
+ teach:`<p class="refnote">What Dr. Whitlock (knowledge bank v1.5, shared base v1.4) is built to teach, in the order she covers it. She asks before she teaches: an open question, one content-free probe, then a cue; the teaching point comes only after the learner reaches their edge.</p>
+ <h5>Priorities, in order</h5><ol><li>One-line summary.</li><li>Most likely diagnosis: delirium from hypernatremic dehydration (a free-water deficit) on early Alzheimer dementia, with the pneumonia resolving.</li><li>Reading this morning's data: sodium as a water deficit, BUN and creatinine as prerenal, intake against output.</li><li>How the learner got there from the history, exam and chart.</li><li>Other diagnoses with reasons: dementia progression, worse pneumonia or sepsis, urinary infection, medication effect (famotidine, lisinopril), low oxygen, low glucose, and the can't-miss, acute stroke.</li><li>Response of the pneumonia, and what to do about fluids this morning.</li><li>Structural barriers: going home with dementia after a delirium.</li><li>Discharge readiness.</li><li>Learner questions, two practice scenarios, an optional stretch question, then reflection.</li></ol>
+ <h5>Approved teaching points (said only after the learner has had a chance)</h5><ul><li>An overnight change from a dementia baseline is delirium until proven otherwise. In an older patient drinking little in hospital, a rising sodium is one of the commonest reversible causes.</li><li>A high sodium means too little water for the salt in the body. Half-normal saline carries sodium as well as water, so with almost nothing by mouth it does not keep up, and a positive balance on paper can sit beside a rising sodium.</li><li>In delirium the patient's own report is the least reliable data in the room. The caregiver's baseline and a test of attention make the diagnosis.</li><li>Onset and attention separate delirium from dementia.</li><li>A patient can improve on the problem she came in with and develop a new one in hospital. The fluid has to be reconsidered every day.</li><li>For a patient with dementia, the plan has to work for the caregiver too.</li><li>Discharge readiness is the reverse of what brought her trouble, plus a plan the family can carry out. A resolving pneumonia alone does not make her ready.</li></ul>
+ <h5>Danger framing</h5><p>The can't-miss is acute stroke: sudden change, age 87, hypertension. It is lowered, not excluded, by a non-focal exam. If the learner has not raised it, the attending cues it one rung at a time. The falsely reassuring figure is the net positive fluid balance.</p>
+ <h5>Practice scenarios (not scored on the dialogue rubric)</h5><ul><li><b>New one-sided weakness at 11 am</b> (right arm weak, face droop, last seen normal 10:30, sodium still 151). Target: stroke team now, last known well, fingerstick glucose, urgent head imaging, neuro exam, nothing by mouth until swallow is checked. Delirium never explains a one-sided deficit.</li><li><b>Agitated at 2 am with a request for lorazepam.</b> Target: a benzodiazepine will worsen delirium; look for a reversible trigger and non-drug measures first. If non-drug measures fail and she is at risk of harm, a brief low-dose antipsychotic is the cautious option. Doses are not quizzed.</li></ul>
+ <h5>Take-home pool (at most two, chosen from the learner's gaps)</h5><p>Acute change from a dementia baseline is delirium until proven otherwise; ask the caregiver what normal looks like; test attention rather than asking a confused patient how she feels; a high sodium is a water problem, so give water and bring it down slowly; a positive fluid balance on paper does not mean enough free water; a new focal sign changes everything.</p>
+ <h5>Items flagged for faculty confirmation</h5><ul><li>The correction ceiling of about 10 mEq/L a day is carried from an earlier attending's KB and is not yet verified against a guideline.</li><li>Both practice scenarios are authored.</li><li>The structural-barriers beat is adapted to caregiving and supervision.</li></ul>`},
+janet:{
+ handout:'handouts/janet_caldwell_post_case_handout.pdf',
+ chart:`<h5>Case summary</h5><p>Janet Caldwell is 58, with relapsed primary membranous nephropathy, admitted Monday with swelling (anasarca) from a nephrotic relapse and started on IV furosemide. It is hospital day 3. The swelling is much better but not gone, and overnight she became lightheaded on standing, thirsty and dry-mouthed while still passing a lot of urine.</p><p><b>For reviewers (the learner is not told):</b> the intended diagnosis is intravascular volume depletion from over-diuresis, causing orthostatic hypotension and a prerenal kidney injury, with the edema persisting because her albumin is 2.0. The can't-miss diagnosis is a blood clot (pulmonary embolism or renal vein thrombosis), which the nephrotic state makes more likely.</p><p><b>How the characters behave.</b> Ms. Caldwell is tired, polite and eager to get back to work. She answers what she is asked and volunteers little beyond that the swelling is better and she felt woozy. The pounding heart on standing, the thirst and her worries come out only when the learner asks: she fears the dizziness means her kidneys are failing and that she will need dialysis, and she worries about getting back for follow-up because she works nights, has no car and lives over an hour away. Dr. Whitlock has not seen her. She asks short questions one at a time and teaches only after the learner has had a chance to reason.</p><p class="refnote">The results the learner can look up for Ms. Caldwell, taken from the results block of Dr. Whitlock's knowledge bank (v2.5). Examination findings are left out because the learner earns those at the bedside.</p>
+ <h5>Vital signs on the door note</h5><p>BP 104/64, HR 96, SpO2 98% on room air, RR 16, temperature 36.8 C, weight 88.7 kg.</p>
+ <h5>Weight and fluid balance</h5>${tbl(['','Weight (kg)'],[['August clinic weight','84.0'],['Admission (Monday)','95.4'],['Day 2','92.6'],['Today (day 3)','88.7']])}<p>Net fluid balance about 7.9 L negative since admission, 3.3 L negative in the last 24 hours. Fluid restriction 1.5 L a day.</p>
+ <h5>Laboratory trends</h5>${tbl(['','August','Admission','Day 2','Today'],[['Creatinine','0.8','0.9','1.1','1.5'],['BUN','—','16','22','38'],['Albumin','3.6','1.9','—','2.0'],['Hemoglobin','—','12.6','—','13.8']])}
+ <p>Today also: sodium 139, potassium 3.8, chloride 95, bicarbonate 31, glucose 101, magnesium 1.9.</p>
+ <h5>Admission studies</h5><ul><li>Urine protein to creatinine ratio 8.4 g/g (1.4 in August); anti-PLA2R antibody 186 (24 in August).</li><li>Total cholesterol 342, LDL 228; BNP 38; troponin normal; INR 1.0.</li><li>Urinalysis: protein 3+, no blood, oval fat bodies and a few fatty casts, no red cells or red cell casts.</li><li>Renal ultrasound: both kidneys normal size (right 11.2, left 11.0 cm), no hydronephrosis. Renal vein Doppler not done.</li><li>Chest film: normal heart size, small bilateral pleural effusions, no congestion.</li></ul>
+ <h5>Cardiac monitoring and oxygen</h5><p>ECG at 04:25 today: sinus tachycardia at 104, left ventricular hypertrophy by voltage, no acute ST or T changes, unchanged from admission except rate. Telemetry overnight: sinus rhythm 84 to 112, rate rising with activity, no pauses or runs. SpO2 98% on room air.</p>
+ <h5>Medications</h5><p>Furosemide 80 mg IV twice daily (next dose due 08:00); lisinopril 20 mg daily; empagliflozin 10 mg daily; atorvastatin; potassium chloride with the diuretic; heparin 5,000 units subcutaneously every 8 hours for prophylaxis. Nephrology is following, planning rituximab re-treatment, with the decision on full anticoagulation pending.</p>
+ <h5>Not sent</h5><p>Repeat urinalysis, urine sodium, D-dimer, leg Doppler, CT angiogram.</p>`,
+ teach:`<p class="refnote">What Dr. Whitlock (knowledge bank v2.5, teaching points v2) is built to teach. She asks before she teaches: an open question, one content-free probe, then a cue; the teaching point comes only after the learner reaches their edge. Frequency ranking is the author's expectation and has not been checked against transcripts.</p>
+ <h5>Priorities, in order</h5><ol><li>One-line summary.</li><li>Most likely diagnosis: intravascular volume depletion from over-diuresis, causing orthostatic hypotension and a prerenal kidney injury, with edema that persists because the albumin is 2.0.</li><li>Reading this morning's data.</li><li>How the learner got there from the history, exam and chart.</li><li>Other diagnoses with reasons, including a blood clot.</li><li>Response to the diuresis, and what to do about the 8 am furosemide.</li><li>Structural barriers to follow-up.</li><li>Discharge readiness.</li><li>Learner questions, two practice scenarios, an optional stretch question, then reflection.</li></ol>
+ <h5>Approved teaching points</h5>${tbl(['','Point'],[['T1','A creatinine rise during diuresis means opposite things depending on the volume in the vessels. Read it beside the neck veins and the standing vitals, never alone.'],['T2','With a low albumin, edema is fluid held in the tissues and does not mean the vessels are full.'],['T3','In a nephrotic patient, think about a blood clot: ask about chest pain, one-sided leg swelling and flank pain, and check the legs and oxygen.'],['T4','Improvement and over-correction can sit in the same patient on the same morning. Re-ask each day whether the treatment is still indicated.'],['T5','A big postural pulse rise or dizziness that stops someone standing carries weight. Skin turgor and capillary refill do not, and lying-down vitals can look fine.'],['T6','A plan the patient cannot get to is not a plan. Ask what will get in the way before discharge.'],['T7 (stretch)','When stopping a drug for a short-term problem, plan when it restarts, because its long-term benefit still matters (ACE inhibitor for proteinuria).']])}
+ <h5>Danger framing</h5><p>Cannot-miss concepts: continuing IV diuresis in a patient already dry in the vessels worsens the kidney injury and the orthostatic hypotension, and she is at risk of a fall; and a blood clot, which the nephrotic state makes more likely, most of all in membranous nephropathy. The falsely reassuring findings are her lying-down vitals (104/64) and, in the other direction, her still-swollen legs. The standing numbers and the neck veins tell the story. Escalation: syncope, a fall, a creatinine that keeps climbing after the diuretic is held, or new chest pain, breathlessness, one-sided leg swelling or flank pain.</p>
+ <h5>Alternatives and why each is less likely</h5>${tbl(['Alternative','Against it in this patient'],[['Ongoing fluid overload','Flat neck veins, negative HJR, clear lungs, positive orthostatics, BUN and bicarbonate up'],['Progression of membranous nephropathy','Rise tracks the brisk diuresis and the orthostatic drop; BUN rising faster than creatinine; bland sediment'],['Renal vein thrombosis (can\'t-miss)','No flank pain or hematuria, kidneys equal in size; not fully excluded without imaging'],['Pulmonary embolism (can\'t-miss)','No chest pain or dyspnea, SpO2 98% on room air, RR 16, tachycardia only on standing, symmetric legs'],['Intrinsic kidney injury','No contrast, NSAID or new antibiotic; BUN rising faster than creatinine'],['Cardiac cause of edema','BNP 38, normal echo 2024, no S3, flat neck veins'],['Arrhythmia','Sinus on ECG and telemetry; symptoms only on standing'],['Electrolyte disturbance','K 3.8, Mg 1.9 on replacement; no cramps or weakness']])}
+ <h5>Practice scenarios (not scored on the dialogue rubric)</h5><ul><li><b>She faints on standing,</b> lying BP 88/52, pulse 118. Target: treat as unstable, rapid response, look for a cause (clot, bleeding, sepsis), replace volume in measured steps and recheck pressure, neck veins and lungs.</li><li><b>Same creatinine, neck veins at 12 cm,</b> positive HJR, crackles at both bases, not orthostatic. Target: the same number now means congestion or a cardiorenal injury; do not hold the diuretic.</li></ul>
+ <h5>Deliberately withheld pending faculty</h5><ul><li>An albumin threshold for prophylactic anticoagulation (not verified against KDIGO 2021). The attending does not give one.</li><li>Rituximab dosing and re-treatment criteria (nephrology territory).</li></ul>`}
+};
+</script>
+<script>
+/* ============ LOGIC ============ */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S={mode:'review',case:CASES[0].key,stage:'s1',run:{},act:null,hl:null,flagOpen:null,name:'',reviews:{},save:'local'};
+let DB=null,UID=null,CANWRITE=null,writing=false,dirty=false,timer=null;
+const RORD={strong15:0,avg15:1,weak15:2};
+CASES.forEach(c=>{c.runs=c.runs.filter(r=>r.id!=='avg14').sort((a,b)=>(RORD[a.id]??9)-(RORD[b.id]??9))});
+const curCase=()=>CASES.find(c=>c.key===S.case);
+const curStage=()=>{const c=curCase();return c.stages.find(s=>s.id===S.stage)||c.stages[0]};
+const curRun=()=>{const c=curCase();const id=S.mode==='review'?c.runs[0].id:(S.run[c.key]||c.runs[0].id);return c.runs.find(r=>r.id===id)||c.runs[0]};
+const rkey=()=>S.case+'|'+curRun().id;
+function rv(){const k=rkey();if(!S.reviews[k])S.reviews[k]={rate:{},agree:{},cmt:{},revealed:{},flags:[],inote:{},skip:false};return S.reviews[k]}
+function parseT(t){return t.split('\n').map(l=>{const m=l.match(/^(ETHEL|LEARNER|DR\. WHITLOCK|JANET|RACHEL): (.*)$/);return m?{w:m[1],t:m[2]}:null}).filter(Boolean)}
+
+/* ---- persistence ---- */
+function persist(){
+  try{localStorage.setItem('ttcreview_v1',JSON.stringify({name:S.name,reviews:S.reviews}))}catch(e){}
+  dirty=true;clearTimeout(timer);timer=setTimeout(flush,900);
+}
+async function flush(){
+  if(!DB||!UID||CANWRITE===false){return}
+  if(!S.name.trim()){renderStatus();return}
+  if(writing){timer=setTimeout(flush,900);return}
+  if(!dirty)return;
+  writing=true;dirty=false;
+  try{await DB.doc('reviews/'+UID).set({name:S.name,updated:new Date().toISOString(),reviews:S.reviews});S.save='saved';}
+  catch(e){S.save='local';CANWRITE=false}
+  writing=false;renderStatus();
+}
+
+async function initDb(){renderBar();renderAssess()}
+function renderStatus(){const nn=$('needname');if(nn)nn.textContent=S.name.trim()?'':'Please enter your name.';const el=$('status');if(!el)return;if(!S.name.trim()){el.className='status';el.textContent='Enter your name so your responses can be saved.';return}
+  el.className='status';el.textContent='Your answers are kept in this browser until you submit the response form.'}
+
+/* ---- render ---- */
+function renderTabs(){
+  $('tabs').innerHTML=CASES.map(c=>`<button class="tab" role="tab" aria-selected="${c.key===S.case}" data-a="case" data-k="${c.key}">${esc(c.name)} <span style="font-weight:400">(case ${c.caseNo})</span></button>`).join('');
+}
+function renderSteps(){renderTask();
+  $('steps').innerHTML=[['review','Step 1. Case Review and Feedback','Read the case and decide whether it is ready for release.'],['cal','Step 2. Check and Help Calibrate the AI Rubric Feedback','Optional. About 30 minutes.']].map(x=>`<button class="step" role="tab" aria-selected="${S.mode===x[0]}" data-a="mode" data-k="${x[0]}"><b>${x[1]}</b><span>${x[2]}</span></button>`).join('');
+  document.body.className='mode-'+S.mode;
+}
+function renderTask(){
+  const st=CASES.map(c=>{const d=S.reviews['decision|'+c.key]||{};const sub=SUB[c.key]==='ok'?' (submitted)':d.choice?' (not yet submitted)':'';const t=(d.choice==='approved'?'Approved, with changes listed':d.choice==='notapproved'?'Not approved':'Not yet decided')+sub;return `<span class="st ${SUB[c.key]==='ok'?'done':''}">${esc(c.name)}: ${t}</span>`}).join('');
+  $('task').innerHTML=`<b class="big">Your main task: approve or do not approve each case.</b> Read as much or as little as you need, then record your decision for each case.<br>${st}<button data-a="godecide">Go to the decision box</button>`;
+}
+function renderIntro(){
+  const c=curCase();
+  if(S.mode==='review'){
+    $('intro').innerHTML=`<h2>Step 1. Review the case</h2><p>${esc(c.blurb)}</p>
+    <p>Goal: know what to expect when students use this case, and flag or correct any medical content that is wrong or missing.</p>
+    <ol><li>Open <b>Patient chart and labs</b> and <b>Dr. Whitlock: approved teaching and priorities</b> below.</li><li>Read the conversations and the exam. This is one simulated strong learner, so you see the case at its best. Use <b>Flag</b> on any turn with wrong or missing medical content.</li><li>Open the post-case handout, then record your decision at the bottom: approved for release with changes, or not approved. Reading one conversation is enough to decide.</li></ol>
+    <p>To work through the cases in full on your own, go to <a href="https://www.medsimai.com" target="_blank" rel="noopener">medsimai.com</a>.</p>`;
+  }else{
+    $('intro').innerHTML=`<h2>Step 2. Check and Help Calibrate the AI Rubric Feedback (optional)</h2>
+    <p>This helps make sure your learners get feedback on the right things, or that the right things are reinforced, and makes the cases more valuable. It takes about 30 minutes. Email <a href="mailto:mnh9003@med.cornell.edu">MacKenzi Preston</a> for more information or with any questions.</p>
+    <p>Ideally do all three stages; if you are short on time, one is useful.</p>
+    <ol><li>In each stage, read the transcript, rate each item yourself, then reveal the AI's score.</li><li>Mark <b>Agree</b>, <b>AI too strict</b>, <b>AI too lenient</b> or <b>Item unclear</b>, and add a comment if useful.</li><li>No time to grade? Tick the box at the top and read the AI's assessment instead.</li></ol>
+    <p class="note">Your ratings are kept in this browser while you work. When you finish, copy the text at the bottom of the page and paste it into the Calibration notes box of the response form. The runs are simulated learners, not real students.</p>`;
+  }
+}
+function renderBar(){
+  const c=curCase(),r=rv();
+  const runSel=(c.runs.length>1&&S.mode!=='review')?`<label>Run <select id="runsel" data-a="run">${c.runs.map(x=>`<option value="${x.id}" ${x.id===curRun().id?'selected':''}>${esc(x.label)}</option>`).join('')}</select></label>`:`<span><b>Run:</b> ${esc(curRun().label)}</span>`;
+  $('bar').innerHTML=`<label>Your name (required) <input type="text" id="rname" value="${esc(S.name)}" placeholder="Required" autocomplete="name" required></label><span class="need" id="needname"></span>${runSel}
+  <label class="skiplab"><input type="checkbox" id="skip" ${r.skip?'checked':''}> I do not have time to grade. Show me what the AI said.</label><span class="status" id="status"></span>`;
+  renderStatus();
+}
+function renderStages(){const c=curCase();$('stages').innerHTML=c.stages.map(s=>`<button class="stg" role="tab" aria-selected="${s.id===curStage().id}" data-a="stage" data-k="${s.id}">${esc(s.title)}</button>`).join('');$('stagenote').textContent=curStage().note}
+function actList(){const c=curCase(),st=curStage();if(S.mode==='cal')return st.acts;const first=c.stages[0].acts;return first.concat(c.acts.map(a=>a.id).filter(i=>!first.includes(i)))}
+function renderActs(){
+  const c=curCase(),ids=actList();if(!S.act||!ids.includes(S.act))S.act=ids[0];
+  $('acts').innerHTML=ids.map(id=>{const t=id==='exam'?'Exam actions':c.acts.find(a=>a.id===id).title;return `<button class="act" role="tab" aria-selected="${id===S.act}" data-a="act" data-k="${id}">${esc(t)}</button>`}).join('');
+}
+function renderTranscript(){
+  renderActs();const run=curRun(),r=rv(),box=$('tscroll');
+  if(S.act==='exam'){
+    box.innerHTML=`<div class="door">The exam panel is part of Activity 1. These are the maneuvers the learner selected and the findings returned. Technique is not assessed.</div><div class="exam"><table><tr><th>Maneuver chosen</th><th>Finding returned</th></tr>${run.exam.rows.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1])}</td></tr>`).join('')}</table></div>`;return;
+  }
+  const turns=parseT(run.tr[S.act]);
+  box.innerHTML=`<div class="door"><b>Learner saw first:</b> ${esc(run.door[S.act])}</div>`+turns.map((t,i)=>{
+    const f=r.flags.find(x=>x.act===S.act&&x.i===i),open=S.flagOpen===S.act+':'+i;
+    return `<div class="turn ${t.w==='LEARNER'?'learner':''} ${S.hl&&S.hl.act===S.act&&S.hl.i===i?'hl':''} ${f?'flagged':''}" id="t-${S.act}-${i}"><div class="who">${t.w==='LEARNER'?'Learner':esc(t.w)}</div><div>${esc(t.t)}</div><button class="flagbtn ${f?'on':''}" data-a="flag" data-i="${i}" aria-label="Flag this turn">${f?'Flagged':'Flag'}</button>${open&&f?`<div class="flagbox"><label for="fn-${i}">What is wrong, missing or notable here?</label><textarea id="fn-${i}" data-a="fnote" data-i="${i}">${esc(f.note)}</textarea><button class="link" data-a="unflag" data-i="${i}">Remove flag</button></div>`:''}</div>`}).join('');
+  if(S.hl&&S.hl.act===S.act){const el=document.getElementById('t-'+S.act+'-'+S.hl.i);if(el&&S.hl.scroll){el.scrollIntoView({block:'center'});S.hl.scroll=false}}
+}
+function critHtml(ins,cr,run,r){
+  const res=run.res[cr.id],own=r.rate[cr.id],shown=r.skip||r.revealed[ins.id];
+  const key=ins.id+'.'+cr.id;
+  let h=`<div class="crit" id="cr-${key}"><h4>${esc(cr.label)}</h4><p class="assess">${esc(cr.as)}</p>`;
+  if(!r.skip){h+=`<div class="rate" role="group" aria-label="Your rating">`+ins.scale.map(s=>`<button class="rbtn" aria-pressed="${own===s}" data-a="rate" data-i="${ins.id}" data-c="${cr.id}" data-v="${esc(s)}" ${r.revealed[ins.id]?'disabled':''}>${esc(s)}</button>`).join('')+`</div>`}
+  if(shown&&res){
+    const match=own&&own===res[0];
+    h+=`<div class="ai"><div><b>AI rating:</b> <span class="pill ${own?(match?'match':'diff'):''}">${esc(res[0])}</span>${own?` <span class="note">${match?'Matches your rating':'Your rating: '+esc(own)}</span>`:''}</div><p><b>AI justification:</b> ${esc(res[1])}</p>`;
+    if(res[2])h+=`<button class="link" data-a="ev" data-i="${ins.id}" data-c="${cr.id}">Show where in the transcript</button>`;
+    if(res[4])h+=`<div class="caveat">${esc(res[4])}</div>`;
+    h+=`<div class="fb" role="group" aria-label="Your view of the AI rating">`+[['agree','Agree'],['strict','AI too strict'],['lenient','AI too lenient'],['unclear','Item unclear']].map(a=>`<button class="rbtn" aria-pressed="${r.agree[key]===a[0]}" data-a="agree" data-key="${key}" data-v="${a[0]}">${a[1]}</button>`).join('')+`</div><textarea class="cmt" id="cm-${key}" data-a="cmt" data-key="${key}" placeholder="Optional comment" aria-label="Comment on ${esc(cr.label)}">${esc(r.cmt[key]||'')}</textarea></div>`;
+  }
+  return h+`</div>`;
+}
+function renderAssess(){
+  const c=curCase(),run=curRun(),r=rv();
+  $('assess').innerHTML=`<div class="instr"><div class="summaryline"><b>Learner profile for this run:</b> ${esc(run.profile)}</div></div>`+c.instruments.filter(x=>curStage().ins.includes(x.id)).map(ins=>{
+    const total=ins.crit.length,done=ins.crit.filter(x=>r.rate[x.id]).length,rev=r.revealed[ins.id];
+    let h=`<div class="instr"><h3>${esc(ins.title)}</h3><p class="meta">${esc(ins.source)}</p>`;
+    if(ins.help)h+=`<div class="scalehelp">${esc(ins.help)}</div>`;
+    h+=ins.crit.map(cr=>critHtml(ins,cr,run,r)).join('');
+    if(!r.skip){h+=`<div class="reveal"><button class="primary" data-a="reveal" data-i="${ins.id}" ${rev||done<total?'disabled':''}>${rev?'AI result shown':'Reveal AI result for this assessment'}</button><span class="note">${rev?'Your ratings are now locked.':done+' of '+total+' rated'+(done<total?'. Rate every item to reveal.':'')}</span></div>`}
+    h+=`<div style="margin-top:10px"><label class="note" for="in-${ins.id}">Overall comment on this assessment (optional)</label><textarea class="cmt" id="in-${ins.id}" data-a="inote" data-i="${ins.id}">${esc(r.inote[ins.id]||'')}</textarea></div></div>`;
+    return h}).join('')+(curStage().all?overview(c,run,r):'');
+}
+function overview(c,run,r){
+  const anyHidden=c.instruments.some(i=>!(r.skip||r.revealed[i.id]));
+  let h=`<div class="instr"><h3>All assessments together</h3><p class="meta">Your ratings and the AI ratings for every assessment in this case.</p>`;
+  if(anyHidden)h+=`<div class="reveal"><button class="secondary" data-a="revealall">Show all AI results (locks your ratings)</button></div>`;
+  c.instruments.forEach(ins=>{const show=r.skip||r.revealed[ins.id];h+=`<h4 style="margin:12px 0 2px">${esc(ins.title)}</h4><table class="cmp"><tr><th>Item</th><th>You</th><th>AI</th></tr>`+ins.crit.map(cr=>{const res=run.res[cr.id],own=r.rate[cr.id];return `<tr><td>${esc(cr.label)}</td><td>${esc(own||(r.skip?'(not graded)':'-'))}</td><td>${show&&res?esc(res[0]):'hidden'}</td></tr>`}).join('')+`</table>`});
+  return h+`</div>`;
+}
+
+function decKey(){return 'decision|'+S.case}
+function dec(){const k=decKey();if(!S.reviews[k])S.reviews[k]={choice:'',changes:''};return S.reviews[k]}
+const FORM_URL='https://tar-cook-eee.notion.site/d22ac303d4bf41638f82add02094b3c2?pvs=105';
+function caseLabel(c){return c.name+' ('+c.caseNo+')'}
+function decLabel(d){return d.choice==='approved'?'Approved for release with changes listed below':'Not approved'}
+function submitMsg(k){
+  const d=S.reviews['decision|'+k]||{};const c=CASES.find(x=>x.key===k);
+  if(SUB[k]==='ok'&&d.submittedAt){const t=new Date(d.submittedAt).toLocaleString();return `<span class="subok">You marked this case as submitted on ${esc(t)}. Thank you. If you change your answer, submit the form again.</span>`}
+  if(SUB[k]==='pending'&&c){const txt=d.changes&&d.changes.trim()?d.changes:'(no changes)';
+    return `<div class="subpend"><b>One more step: complete the response form.</b> It opened in a new tab (<a href="${FORM_URL}" target="_blank" rel="noopener">open it again</a>). Your changes text is already copied. In the form, enter:<ol><li><b>Reviewer name:</b> ${esc(S.name)}</li><li><b>Case:</b> ${esc(caseLabel(c))}</li><li><b>Decision:</b> ${esc(decLabel(d))}</li><li><b>Changes needed:</b> paste (or copy from the box below)</li></ol><textarea readonly rows="3" aria-label="Your changes text" style="width:100%">${esc(txt)}</textarea><p>Press Submit in the form, then come back and click this button.</p><button class="submitbtn" data-a="markdone">I submitted the form</button></div>`}
+  return '';
+}
+function submitDecision(){
+  const c=curCase(),d=dec(),m=$('submsg');
+  if(!S.name.trim()){m.innerHTML='<span class="subbad">Please enter your name at the top of the page first.</span>';const n=$('dname');if(n)n.focus({preventScroll:true});return}
+  if(!d.choice){m.innerHTML='<span class="subbad">Please choose Approved or Not approved first.</span>';return}
+  const txt=d.changes&&d.changes.trim()?d.changes:'(no changes)';
+  try{navigator.clipboard.writeText(txt)}catch(e){}
+  window.open(FORM_URL,'_blank','noopener');
+  SUB[c.key]='pending';persist();
+  renderTask();renderStatus();$('submsg').innerHTML=submitMsg(c.key);
+}
+function markDone(){const c=curCase(),d=dec();d.submittedAt=new Date().toISOString();SUB[c.key]='ok';persist();renderTask();$('submsg').innerHTML=submitMsg(c.key)}
+function renderDecideOld_(){}
+function renderDecide(){
+  const c=curCase(),d=dec();
+  $('decide').innerHTML=`<h2 style="margin:0 0 6px;font-size:18px">Your decision on ${esc(c.name)}</h2><p>Reading one conversation is enough to decide.</p>
+  <p><label><b>Your name (required)</b> <input type="text" id="dname" data-a="dname" value="${esc(S.name)}" placeholder="Required" autocomplete="name" style="padding:6px 8px;border:1px solid var(--rule);font:inherit;min-width:260px"></label></p>
+  <label class="opt"><input type="radio" name="dec" data-a="dchoice" value="approved" ${d.choice==='approved'?'checked':''}> <b>Case approved for release</b>, with the changes listed below (leave blank if none)</label>
+  <label class="opt"><input type="radio" name="dec" data-a="dchoice" value="notapproved" ${d.choice==='notapproved'?'checked':''}> <b>Not approved at all</b> (say why below)</label>
+  <label for="dchg" style="display:block;margin-top:8px"><b>Changes needed, medical content to correct, or reasons</b></label><textarea id="dchg" data-a="dchanges" placeholder="For example: the sodium correction limit, a finding that is wrong, something the attending should teach, an item the rubric should change.">${esc(d.changes)}</textarea><div class="submitrow"><button class="submitbtn" data-a="submit">Submit my decision for ${esc(c.name)}</button><div id="submsg" class="submsg" role="status" aria-live="polite">${submitMsg(c.key)}</div></div><div class="nextstep"><p>Finished? Optional next step: help us calibrate the AI's grading.</p><button data-a="mode" data-k="cal">Go to Step 2</button></div>`;
+}
+let REFOPEN=null,REFPIN=false;
+const SUB={};
+function refChips(){
+  const c=curCase(),R=REF[c.key];if(!R){$('refs').innerHTML='';return}
+  const chips=[['chart','Patient chart and labs'],...(S.mode==='review'||curStage().id!=='s1'?[['teach','Dr. Whitlock: approved teaching and priorities']]:[])];
+  $('refs').innerHTML='<b>Reference:</b>'+chips.map(x=>`<button class="chip" data-a="ref" data-k="${x[0]}" aria-expanded="${REFOPEN===x[0]}" aria-controls="refpanel">${x[1]}</button>`).join('')+`<a class="chip" href="${R.handout}" target="_blank" rel="noopener">Post-case handout (PDF)</a>`+(REFOPEN?`<button class="chip" data-a="refclose" style="color:#444;border-color:#999">Close</button>`:'');
+  const pn=$('refpanel');
+  if(REFOPEN&&R[REFOPEN]){pn.innerHTML=`<h4 style="margin:0 0 4px">${chips.find(x=>x[0]===REFOPEN)[1]}</h4>`+R[REFOPEN];pn.classList.add('on')}else{pn.classList.remove('on');pn.innerHTML=''}
+}
+function openRef(k,pin){REFOPEN=k;REFPIN=!!pin;refChips()}
+function closeRef(){REFOPEN=null;REFPIN=false;refChips()}
+function buildExport(){
+  const out={reviewer:S.name||'(not given)',exported:new Date().toISOString(),reviews:[]};
+  CASES.forEach(c=>c.runs.forEach(run=>{
+    const r=S.reviews[c.key+'|'+run.id];if(!r)return;
+    const items=[];c.instruments.forEach(ins=>ins.crit.forEach(cr=>{
+      const k=ins.id+'.'+cr.id,res=run.res[cr.id];
+      if(r.rate[cr.id]||r.agree[k]||r.cmt[k])items.push({assessment:ins.title,item:cr.label,myRating:r.rate[cr.id]||null,aiRating:res?res[0]:null,view:r.agree[k]||null,comment:r.cmt[k]||''});}));
+    const flags=r.flags.map(f=>({activity:f.act,turn:f.i+1,quote:f.q,note:f.note}));
+    const notes=Object.keys(r.inote).filter(k=>r.inote[k]).map(k=>({assessment:k,comment:r.inote[k]}));
+    if(items.length||flags.length||notes.length||r.skip)out.reviews.push({case:c.name,run:run.label,skippedGrading:!!r.skip,items,flags,assessmentComments:notes});
+  }));
+  out.decisions=CASES.map(c=>{const d=S.reviews['decision|'+c.key];return d&&(d.choice||d.changes)?{case:c.name,decision:d.choice==='approved'?'Approved for release with changes listed':d.choice==='notapproved'?'Not approved':'(not chosen)',changes:d.changes}:null}).filter(Boolean);
+  return JSON.stringify(out,null,1);
+}
+function renderExport(){
+  $('export').innerHTML=`<h2 style="margin:0 0 6px;font-size:18px">Send my calibration ratings (optional)</h2><p>If you did Step 2, copy the text below and paste it into the <b>Calibration notes</b> box of the response form (<a href="${FORM_URL}" target="_blank" rel="noopener">open the form</a>). It contains your ratings, comments and flags. Your approve or not approve decision is sent separately with the Submit button above.</p><textarea id="exptext" readonly aria-label="Your responses">${esc(buildExport())}</textarea><div class="reveal"><button class="secondary" data-a="copy">Copy my responses</button><span class="note" id="copied"></span></div>`;
+}
+
+/* ---- events ---- */
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,r=rv(),c=curCase(),run=curRun();
+  if(a==='submit'){submitDecision();return}
+  if(a==='markdone'){markDone();return}
+  if(a==='godecide'){if(S.mode!=='review'){S.mode='review';S.stage='s1';S.act=null;closeRef();renderAll()}const el=$('decide');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
+  if(a==='mode'){S.mode=b.dataset.k;S.stage='s1';S.act=null;S.hl=null;S.flagOpen=null;closeRef();renderAll();window.scrollTo(0,0);return}
+  if(a==='ref'){if(REFOPEN===b.dataset.k&&REFPIN){closeRef()}else{openRef(b.dataset.k,true)}return}
+  if(a==='refclose'){closeRef();return}
+  if(a==='stage'){S.stage=b.dataset.k;S.act=null;S.hl=null;S.flagOpen=null;closeRef();renderStages();renderTranscript();renderAssess();return}
+  if(a==='revealall'){c.instruments.forEach(i=>{r.revealed[i.id]=true});persist();renderAssess();return}
+  if(a==='case'){closeRef();S.case=b.dataset.k;S.stage='s1';S.act=null;S.hl=null;S.flagOpen=null;renderAll();return}
+  if(a==='act'){S.act=b.dataset.k;S.hl=null;renderTranscript();return}
+  if(a==='rate'){r.rate[b.dataset.c]=b.dataset.v;persist();renderAssess();renderExport();return}
+  if(a==='reveal'){r.revealed[b.dataset.i]=true;persist();renderAssess();return}
+  if(a==='agree'){r.agree[b.dataset.key]=r.agree[b.dataset.key]===b.dataset.v?null:b.dataset.v;persist();renderAssess();renderExport();return}
+  if(a==='ev'){const res=run.res[b.dataset.c];const turns=res[3]==='exam'?[]:parseT(run.tr[res[3]]);const q=res[2].toLowerCase();if(res[3]==='exam'){S.act='exam';S.hl=null;renderTranscript();return}const i=turns.findIndex(t=>t.t.toLowerCase().includes(q));S.act=res[3];S.hl={act:res[3],i:i,scroll:true};renderTranscript();const t=$('tscroll');if(window.innerWidth<=980&&i>=0){const el=document.getElementById('t-'+res[3]+'-'+i);if(el)el.scrollIntoView({block:'center'})}return}
+  if(a==='flag'){const i=+b.dataset.i,turns=parseT(run.tr[S.act]);let f=r.flags.find(x=>x.act===S.act&&x.i===i);if(!f){f={act:S.act,i:i,q:turns[i].t.slice(0,80),note:''};r.flags.push(f);S.flagOpen=S.act+':'+i}else{S.flagOpen=S.flagOpen===S.act+':'+i?null:S.act+':'+i}persist();renderTranscript();renderExport();return}
+  if(a==='unflag'){const i=+b.dataset.i;r.flags=r.flags.filter(x=>!(x.act===S.act&&x.i===i));S.flagOpen=null;persist();renderTranscript();renderExport();return}
+  if(a==='copy'){const ta=$('exptext');ta.select();let ok=false;try{await navigator.clipboard.writeText(ta.value);ok=true}catch(err){try{ok=document.execCommand('copy')}catch(e2){}}$('copied').textContent=ok?'Copied.':'Select the text above and copy it manually.';return}
+});
+document.addEventListener('input',e=>{
+  const t=e.target,a=t.dataset&&t.dataset.a,r=rv();
+  if(t.id==='rname'||t.id==='dname'){S.name=t.value;const o=$(t.id==='rname'?'dname':'rname');if(o)o.value=t.value;persist();renderStatus();renderExport();return}
+  if(a==='dchanges'){const d=dec();d.changes=t.value;if(d.submittedAt){d.submittedAt='';SUB[S.case]='';const m=$('submsg');if(m)m.innerHTML=''}persist();renderTask();return}
+  if(a==='cmt'){r.cmt[t.dataset.key]=t.value;persist();return}
+  if(a==='inote'){r.inote[t.dataset.i]=t.value;persist();return}
+  if(a==='fnote'){const f=r.flags.find(x=>x.act===S.act&&x.i===+t.dataset.i);if(f){f.note=t.value;persist()}return}
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.dataset&&t.dataset.a==='dchoice'){const d=dec();d.choice=t.value;if(d.submittedAt){d.submittedAt='';SUB[S.case]='';const m=$('submsg');if(m)m.innerHTML=''}persist();renderTask();renderExport();return}
+  if(t.id==='skip'){rv().skip=t.checked;persist();renderAssess();renderExport();return}
+  if(t.id==='runsel'){S.run[S.case]=t.value;S.act=null;S.hl=null;renderAll();return}
+});
+document.addEventListener('focusout',e=>{if(e.target.dataset&&e.target.dataset.a==='fnote'||e.target.id==='exptext'){renderExport()}});
+
+function renderAll(){renderSteps();renderDecide();refChips();renderStages();renderTabs();renderIntro();renderBar();renderTranscript();renderAssess();renderExport()}
+try{const d=JSON.parse(localStorage.getItem('ttcreview_v1')||'null');if(d){S.name=d.name||'';S.reviews=d.reviews||{};Object.keys(S.reviews).forEach(k=>{if(k.indexOf('decision|')===0&&S.reviews[k]&&S.reviews[k].submittedAt)SUB[k.slice(9)]='ok'})}}catch(e){}
+document.addEventListener('mouseover',e=>{const b=e.target.closest('[data-a="ref"]');if(b&&!REFPIN&&REFOPEN!==b.dataset.k)openRef(b.dataset.k,false)});
+document.addEventListener('mouseout',e=>{if(REFPIN||!REFOPEN)return;const to=e.relatedTarget;if(to&&to.closest&&(to.closest('#refpanel')||to.closest('[data-a="ref"]')))return;closeRef()});
+renderAll();initDb();
+</script>
+</body>
+</html>
