@@ -1176,7 +1176,7 @@ function renderIntro(){
     <p>This helps make sure your learners get feedback on the right things, or that the right things are reinforced, and makes the cases more valuable. It takes about 30 minutes. Email <a href="mailto:mnh9003@med.cornell.edu">MacKenzi Preston</a> for more information or with any questions.</p>
     <p>Ideally do all three stages; if you are short on time, one is useful.</p>
     <ol><li>In each stage, read the transcript, rate each item yourself, then reveal the AI's score.</li><li>Mark <b>Agree</b>, <b>AI too strict</b>, <b>AI too lenient</b> or <b>Item unclear</b>, and add a comment if useful.</li><li>No time to grade? Tick the box at the top and read the AI's assessment instead.</li></ol>
-    <p class="note">Your ratings are kept in this browser while you work. When you finish, press Send my calibration ratings at the bottom of the page. The runs are simulated learners, not real students.</p>`;
+    <p class="note">Rate every item first. When you press Submit my ratings and reveal the AI result, your ratings are sent and the AI result appears. The runs are simulated learners, not real students.</p>`;
   }
 }
 function renderBar(){
@@ -1219,19 +1219,19 @@ function critHtml(ins,cr,run,r){
 }
 function renderAssess(){
   const c=curCase(),run=curRun(),r=rv();
-  $('assess').innerHTML=`<div class="instr"><div class="summaryline"><b>Learner profile for this run:</b> ${esc(run.profile)}</div></div>`+c.instruments.filter(x=>curStage().ins.includes(x.id)).map(ins=>{
+  $('assess').innerHTML=`<div class="instr">${S.mode==='review'?'<div class="summaryline"><b>Learner profile for this run:</b> '+esc(run.profile)+'</div>':''}</div>`+c.instruments.filter(x=>curStage().ins.includes(x.id)).map(ins=>{
     const total=ins.crit.length,done=ins.crit.filter(x=>r.rate[x.id]).length,rev=r.revealed[ins.id];
     let h=`<div class="instr"><h3>${esc(ins.title)}</h3><p class="meta">${esc(ins.source)}</p>`;
     if(ins.help)h+=`<div class="scalehelp">${esc(ins.help)}</div>`;
     h+=ins.crit.map(cr=>critHtml(ins,cr,run,r)).join('');
-    if(!r.skip){h+=`<div class="reveal"><button class="primary" data-a="reveal" data-i="${ins.id}" ${rev||done<total?'disabled':''}>${rev?'AI result shown':'Reveal AI result for this assessment'}</button><span class="note">${rev?'Your ratings are now locked.':done+' of '+total+' rated'+(done<total?'. Rate every item to reveal.':'')}</span></div>`}
+    if(!r.skip){h+=`<div class="reveal"><button class="primary" data-a="reveal" data-i="${ins.id}" ${rev||done<total?'disabled':''}>${rev?'AI result shown':'Submit my ratings and reveal the AI result'}</button><span class="note">${rev?'Your ratings are now locked.':done+' of '+total+' rated'+(done<total?'. Rate every item to reveal.':'')}</span></div>`}
     h+=`<div style="margin-top:10px"><label class="note" for="in-${ins.id}">Overall comment on this assessment (optional)</label><textarea class="cmt" id="in-${ins.id}" data-a="inote" data-i="${ins.id}">${esc(r.inote[ins.id]||'')}</textarea></div></div>`;
     return h}).join('')+(curStage().all?overview(c,run,r):'');
 }
 function overview(c,run,r){
   const anyHidden=c.instruments.some(i=>!(r.skip||r.revealed[i.id]));
   let h=`<div class="instr"><h3>All assessments together</h3><p class="meta">Your ratings and the AI ratings for every assessment in this case.</p>`;
-  if(anyHidden)h+=`<div class="reveal"><button class="secondary" data-a="revealall">Show all AI results (locks your ratings)</button></div>`;
+  if(anyHidden)h+=`<div class="reveal"><button class="secondary" data-a="revealall">Submit my ratings and show all AI results</button></div>`;
   c.instruments.forEach(ins=>{const show=r.skip||r.revealed[ins.id];h+=`<h4 style="margin:12px 0 2px">${esc(ins.title)}</h4><table class="cmp"><tr><th>Item</th><th>You</th><th>AI</th></tr>`+ins.crit.map(cr=>{const res=run.res[cr.id],own=r.rate[cr.id];return `<tr><td>${esc(cr.label)}</td><td>${esc(own||(r.skip?'(not graded)':'-'))}</td><td>${show&&res?esc(res[0]):'hidden'}</td></tr>`}).join('')+`</table>`});
   return h+`</div>`;
 }
@@ -1309,21 +1309,32 @@ function buildRows(){
   }));
   return rows;
 }
-let CALMSG='';
-async function sendCal(){
-  if(!S.name.trim()){CALMSG='<span class="subbad">Please enter your name at the top of the page first.</span>';renderExport();const n=$('rname');if(n)n.focus({preventScroll:true});return}
-  if(!SHEET_URL){CALMSG='<span class="subbad">Sending is not set up yet. Please use the backup text below.</span>';renderExport();return}
-  const rows=buildRows();
-  if(!rows.length){CALMSG='<span class="subbad">There are no ratings to send yet.</span>';renderExport();return}
-  CALMSG='Sending...';renderExport();
-  try{
-    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({reviewer:S.name.trim(),rows:rows})});
-    CALMSG=`<span class="subok">Sent ${rows.length} rows on ${esc(new Date().toLocaleString())}. Thank you. If you rate more or change anything, press the button again and your earlier rows will be updated.</span>`;
-  }catch(err){CALMSG='<span class="subbad">Sending failed. Check your connection and try again, or use the backup text below.</span>'}
-  renderExport();
+let CALMSG='',SENDT=null;
+async function postRows(rows){
+  if(!SHEET_URL||!rows.length)return true;
+  try{await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({reviewer:S.name.trim(),rows:rows})});return true}catch(err){return false}
+}
+function needName(){
+  if(S.name.trim())return false;
+  CALMSG='<span class="subbad">Please enter your name at the top of the page first, so your ratings can be sent.</span>';renderExport();
+  const n=$('rname');if(n)n.focus({preventScroll:true});return true;
+}
+async function revealAndSend(ids){
+  if(needName())return false;
+  CALMSG='Submitting your ratings...';renderExport();
+  const ok=await postRows(buildRows());
+  if(!ok){CALMSG='<span class="subbad">Your ratings could not be sent, so the AI result is still hidden. Check your connection and press the button again.</span>';renderExport();return false}
+  const r=rv();ids.forEach(i=>{r.revealed[i]=true});persist();
+  CALMSG=`<span class="subok">Your ratings were submitted on ${esc(new Date().toLocaleString())}. The AI result is now shown. Your agree or disagree choices and comments are sent automatically.</span>`;
+  renderAssess();renderExport();return true;
+}
+function scheduleSend(){
+  if(!S.name.trim())return;
+  clearTimeout(SENDT);
+  SENDT=setTimeout(async()=>{const ok=await postRows(buildRows());CALMSG=ok?`<span class="subok">Your latest choices and comments were sent on ${esc(new Date().toLocaleTimeString())}.</span>`:'<span class="subbad">Your latest changes could not be sent. They will be sent with your next change.</span>';const el=$('calmsg');if(el)el.innerHTML=CALMSG},1800);
 }
 function renderExport(){
-  $('export').innerHTML=`<h2 style="margin:0 0 6px;font-size:18px">Send my calibration ratings (Step 2)</h2><p>If you did Step 2, press the button when you finish. It sends your ratings, the AI's ratings, your agree or disagree choices, and your comments to MacKenzi Preston. Your approve or not approve decision is sent separately with the Submit button above.</p><div class="submitrow"><button class="submitbtn" data-a="sendcal">Send my calibration ratings</button><div class="submsg" role="status" aria-live="polite">${CALMSG}</div></div><details style="margin-top:10px"><summary class="note">Backup: copy my ratings as text</summary><textarea id="exptext" readonly aria-label="Your responses">${esc(buildExport())}</textarea><div class="reveal"><button class="secondary" data-a="copy">Copy my responses</button><span class="note" id="copied"></span></div></details>`;
+  $('export').innerHTML=`<h2 style="margin:0 0 6px;font-size:18px">Your calibration ratings (Step 2)</h2><p>Your ratings are submitted to MacKenzi Preston when you press <b>Submit my ratings and reveal the AI result</b>, before you see what the AI scored. After that, your agree or disagree choices and comments are sent automatically. Nothing else is needed. Your approve or not approve decision is sent separately with the Submit button in Step 1.</p><div class="submsg" id="calmsg" role="status" aria-live="polite">${CALMSG}</div>`;
 }
 
 /* ---- events ---- */
@@ -1331,18 +1342,18 @@ document.addEventListener('click',async e=>{
   const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,r=rv(),c=curCase(),run=curRun();
   if(a==='submit'){submitDecision();return}
   if(a==='markdone'){markDone();return}
-  if(a==='sendcal'){sendCal();return}
+  
   if(a==='godecide'){if(S.mode!=='review'){S.mode='review';S.stage='s1';S.act=null;closeRef();renderAll()}const el=$('decide');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
   if(a==='mode'){S.mode=b.dataset.k;S.stage='s1';S.act=null;S.hl=null;S.flagOpen=null;closeRef();renderAll();window.scrollTo(0,0);return}
   if(a==='ref'){if(REFOPEN===b.dataset.k&&REFPIN){closeRef()}else{openRef(b.dataset.k,true)}return}
   if(a==='refclose'){closeRef();return}
   if(a==='stage'){S.stage=b.dataset.k;S.act=null;S.hl=null;S.flagOpen=null;closeRef();renderStages();renderTranscript();renderAssess();return}
-  if(a==='revealall'){c.instruments.forEach(i=>{r.revealed[i.id]=true});persist();renderAssess();return}
+  if(a==='revealall'){revealAndSend(c.instruments.map(i=>i.id));return}
   if(a==='case'){closeRef();S.case=b.dataset.k;S.stage='s1';S.act=null;S.hl=null;S.flagOpen=null;renderAll();return}
   if(a==='act'){S.act=b.dataset.k;S.hl=null;renderTranscript();return}
   if(a==='rate'){r.rate[b.dataset.c]=b.dataset.v;persist();renderAssess();renderExport();return}
-  if(a==='reveal'){r.revealed[b.dataset.i]=true;persist();renderAssess();return}
-  if(a==='agree'){r.agree[b.dataset.key]=r.agree[b.dataset.key]===b.dataset.v?null:b.dataset.v;persist();renderAssess();renderExport();return}
+  if(a==='reveal'){revealAndSend([b.dataset.i]);return}
+  if(a==='agree'){r.agree[b.dataset.key]=r.agree[b.dataset.key]===b.dataset.v?null:b.dataset.v;persist();renderAssess();scheduleSend();return}
   if(a==='ev'){const res=run.res[b.dataset.c];const turns=res[3]==='exam'?[]:parseT(run.tr[res[3]]);const q=res[2].toLowerCase();if(res[3]==='exam'){S.act='exam';S.hl=null;renderTranscript();return}const i=turns.findIndex(t=>t.t.toLowerCase().includes(q));S.act=res[3];S.hl={act:res[3],i:i,scroll:true};renderTranscript();const t=$('tscroll');if(window.innerWidth<=980&&i>=0){const el=document.getElementById('t-'+res[3]+'-'+i);if(el)el.scrollIntoView({block:'center'})}return}
   if(a==='flag'){const i=+b.dataset.i,turns=parseT(run.tr[S.act]);let f=r.flags.find(x=>x.act===S.act&&x.i===i);if(!f){f={act:S.act,i:i,q:turns[i].t.slice(0,80),note:''};r.flags.push(f);S.flagOpen=S.act+':'+i}else{S.flagOpen=S.flagOpen===S.act+':'+i?null:S.act+':'+i}persist();renderTranscript();renderExport();return}
   if(a==='unflag'){const i=+b.dataset.i;r.flags=r.flags.filter(x=>!(x.act===S.act&&x.i===i));S.flagOpen=null;persist();renderTranscript();renderExport();return}
@@ -1352,14 +1363,14 @@ document.addEventListener('input',e=>{
   const t=e.target,a=t.dataset&&t.dataset.a,r=rv();
   if(t.id==='rname'||t.id==='dname'){S.name=t.value;const o=$(t.id==='rname'?'dname':'rname');if(o)o.value=t.value;persist();renderStatus();renderExport();return}
   if(a==='dchanges'){const d=dec();d.changes=t.value;if(d.submittedAt){d.submittedAt='';SUB[S.case]='';const m=$('submsg');if(m)m.innerHTML=''}persist();renderTask();return}
-  if(a==='cmt'){r.cmt[t.dataset.key]=t.value;persist();return}
-  if(a==='inote'){r.inote[t.dataset.i]=t.value;persist();return}
+  if(a==='cmt'){r.cmt[t.dataset.key]=t.value;persist();scheduleSend();return}
+  if(a==='inote'){r.inote[t.dataset.i]=t.value;persist();scheduleSend();return}
   if(a==='fnote'){const f=r.flags.find(x=>x.act===S.act&&x.i===+t.dataset.i);if(f){f.note=t.value;persist()}return}
 });
 document.addEventListener('change',e=>{
   const t=e.target;
   if(t.dataset&&t.dataset.a==='dchoice'){const d=dec();d.choice=t.value;if(d.submittedAt){d.submittedAt='';SUB[S.case]='';const m=$('submsg');if(m)m.innerHTML=''}persist();renderTask();renderExport();return}
-  if(t.id==='skip'){rv().skip=t.checked;persist();renderAssess();renderExport();return}
+  if(t.id==='skip'){rv().skip=t.checked;persist();renderAssess();scheduleSend();return}
   if(t.id==='runsel'){S.run[S.case]=t.value;S.act=null;S.hl=null;renderAll();return}
 });
 document.addEventListener('focusout',e=>{if(e.target.dataset&&e.target.dataset.a==='fnote'||e.target.id==='exptext'){renderExport()}});
