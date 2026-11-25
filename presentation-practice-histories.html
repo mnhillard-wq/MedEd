@@ -64,6 +64,17 @@ a{color:var(--primary-deep);text-underline-offset:2px}
 .model summary{cursor:pointer;font-weight:600;color:var(--primary-deep)}
 .model p{margin:8px 0 0}
 @media print{.model{display:none}}
+.menu details.grpd{border-top:1px solid var(--line);padding-top:6px}
+.menu details.grpd:first-of-type{border-top:0;padding-top:0}
+.menu details.grpd>a{margin-top:8px}
+.menu summary.grp{list-style:none;cursor:pointer;display:block;position:relative;padding-right:22px;margin:4px 0 2px}
+.menu summary.grp::-webkit-details-marker{display:none}
+.menu summary.grp::after{content:"";position:absolute;right:4px;top:4px;width:7px;height:7px;border-right:2px solid var(--primary);border-bottom:2px solid var(--primary);transform:rotate(-45deg);transition:transform .15s}
+.menu details[open]>summary.grp::after{transform:rotate(45deg)}
+.menu summary.grp:hover{color:var(--ink)}
+.howline{margin:8px 0 0;font-size:15px}
+.tips{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.tips li::marker{color:var(--primary)}
 </style></head><body>
 <div class="bar" aria-hidden="true"></div>
 <div class="wrap">
@@ -76,70 +87,61 @@ a{color:var(--primary-deep);text-underline-offset:2px}
 <div class="pick">
 <nav class="menu" aria-label="Choose a practice patient">
   <div class="lbl">Choose a patient</div>
-  <div class="grp">Outpatient medicine<small>Dr. Cole &middot; MS1-2 complete history</small></div>
+  <details class="grpd"><summary class="grp">Outpatient medicine<small>Dr. Cole &middot; MS1-2 complete history</small></summary>
   <a href="#ashgrove" data-id="ashgrove"><span class="mn">Corinne Ashgrove</span><span class="mc">34-year-old woman &middot; burning with urination</span></a>
   <a href="#castellano" data-id="castellano"><span class="mn">Walter Castellano</span><span class="mc">61-year-old man &middot; painful big toe</span></a>
   <a href="#brandvold" data-id="brandvold"><span class="mn">Lyle Brandvold</span><span class="mc">27-year-old man &middot; low back pain</span></a>
-  <div class="grp">Psychiatry<small>Dr. Ashby &middot; MS3-4 clerkship</small></div>
+  </details>
+  <details class="grpd"><summary class="grp">Psychiatry<small>Dr. Ashby &middot; MS3-4 clerkship</small></summary>
   <a href="#renwick" data-id="renwick"><span class="mn">Tobias Renwick</span><span class="mc">22-year-old man &middot; hearing voices</span></a>
   <a href="#vandermeer" data-id="vandermeer"><span class="mn">Harold Vandermeer</span><span class="mc">68-year-old man &middot; depression after a loss</span></a>
   <a href="#arceneaux" data-id="arceneaux"><span class="mn">Delphine Arceneaux</span><span class="mc">34-year-old woman &middot; rounds, hospital day 3</span></a>
-  <div class="grp">Inpatient pediatrics<small>Dr. Alvarez &middot; MS3-4 clerkship</small></div>
+  </details>
+  <details class="grpd"><summary class="grp">Inpatient pediatrics<small>Dr. Alvarez &middot; MS3-4 clerkship</small></summary>
   <a href="#lopez" data-id="lopez"><span class="mn">Claudia Lopez</span><span class="mc">28-day-old girl &middot; fever</span></a>
   <a href="#lucas-reyes" data-id="lucas-reyes"><span class="mn">Lucas Reyes</span><span class="mc">6-week-old boy &middot; fussy, hard to calm</span></a>
   <a href="#macdonald" data-id="macdonald"><span class="mn">Leah MacDonald</span><span class="mc">16-year-old girl &middot; abdominal pain</span></a>
-  <div class="grp">Outpatient pediatrics<small>Dr. Alvarez &middot; MS3-4 clerkship</small></div>
+  </details>
+  <details class="grpd"><summary class="grp">Outpatient pediatrics<small>Dr. Alvarez &middot; MS3-4 clerkship</small></summary>
   <a href="#pierce" data-id="pierce"><span class="mn">Theodore Pierce</span><span class="mc">7-year-old boy &middot; eczema that changed</span></a>
   <a href="#kante" data-id="kante"><span class="mn">Amira Kante</span><span class="mc">9-year-old girl &middot; more tired</span></a>
   <a href="#tala-reyes" data-id="tala-reyes"><span class="mn">Tala Reyes</span><span class="mc">11-month-old girl &middot; fever and rash</span></a>
-  <div class="grp">Well-child visits<small>Dr. Alvarez &middot; MS3-4 clerkship</small></div>
+  </details>
+  <details class="grpd"><summary class="grp">Well-child visits<small>Dr. Alvarez &middot; MS3-4 clerkship</small></summary>
   <a href="#iyer" data-id="iyer"><span class="mn">Aanya Iyer</span><span class="mc">12-month-old girl &middot; one-year visit</span></a>
+  </details>
 </nav>
 <div class="side">
+<!-- Reminders drawn from the Notion database "Presentation Goals - Across Specialties" (rows: Outpatient Medicine / Primary Care, Internal Medicine, Psychiatry, Pediatrics) and checked against each coach module's CLEAR_MISSES. Edit there first. -->
 <section class="how" data-group="medicine">
-  <div class="lbl">How to use these &middot; Outpatient medicine</div>
-  <ol class="steps">
-    <li>Pick one patient and read the notes.</li>
-    <li>Reorder them into a presentation: opening statement, source, HPI, past medical and surgical history, medications, allergies, social and family history, review of systems, exam, assessment.</li>
-    <li>Build your assessment: a one-sentence problem representation, then a prioritized differential with your reasons. You do not need to be sure of the diagnosis.</li>
-    <li>Present to Dr. Cole, then say "done."</li>
-  </ol>
+  <div class="lbl">Presenting in outpatient medicine</div>
+  <p class="howline"><strong>How this works:</strong> Pick a patient, read the notes, present to Dr. Cole, then say "done."</p>
+  <ul class="tips"><li>Open with who the patient is and the chief concern, in one sentence.</li><li>Tell the HPI as a story from the last time the patient felt well, and save your interpretation for the assessment.</li><li>Keep each detail in its own section, in order: opening, source, HPI, past history, medications and allergies, social and family history, review of systems, assessment.</li><li>Commit to a working diagnosis and name the features from the history that support it.</li></ul>
 </section>
 <section class="how" data-group="psychiatry">
-  <div class="lbl">How to use these &middot; Psychiatry</div>
-  <ol class="steps">
-    <li>Pick one patient and read the notes. The first two are new evaluations; the third is a patient you are presenting on morning rounds.</li>
-    <li>Reorder them into a presentation: opening (how and why the patient came in, and legal status), HPI with a timeline, past psychiatric history, substance use, medical history, medications, allergies, social and family history, mental status exam, data, risk assessment, formulation, assessment, plan.</li>
-    <li>Build your own risk assessment with an overall level, a brief formulation, a working diagnosis with a differential, and a plan that starts with safety and level of care.</li>
-    <li>Present to Dr. Ashby, then say "done."</li>
-  </ol>
+  <div class="lbl">Presenting in psychiatry: new evaluations</div>
+  <p class="howline"><strong>How this works:</strong> Pick Tobias Renwick or Harold Vandermeer, read the notes, present to Dr. Ashby, then say "done."</p>
+  <ul class="tips"><li>Open with how and why the patient came to attention, legal status, and the chief concern in the patient's own words.</li><li>Make risk specific: ideation, plan, intent, means and past attempts, ending in an overall risk level. "Denies SI" alone is not a risk assessment.</li><li>Give the mental status exam in standard order as you observed it, then say what it adds up to.</li><li>Commit to a working diagnosis, and say why substance-induced and medical causes are more or less likely.</li><li>Start the plan with safety and level of care.</li></ul>
+</section>
+<section class="how" data-group="psychiatry-rounds">
+  <div class="lbl">Presenting in psychiatry: morning rounds</div>
+  <p class="howline"><strong>How this works:</strong> Read the notes for Delphine Arceneaux, present her to Dr. Ashby as you would on rounds, then say "done."</p>
+  <ul class="tips"><li>Open with a one-liner: who she is, why she is here, the hospital day and her legal status.</li><li>Give the interval history since yesterday, with its sources: sleep, intake, behavior on the unit, nursing and family reports.</li><li>Report today's mental status exam and risk today, not the risk on admission.</li><li>Say how she is doing overall today, and why.</li><li>Give a plan for today that starts with safety and level of care.</li></ul>
 </section>
 <section class="how" data-group="pediatrics-inpatient">
-  <div class="lbl">How to use these &middot; Inpatient pediatrics</div>
-  <ol class="steps">
-    <li>Pick one patient and read the notes, the ED course, the exam and the data.</li>
-    <li>Reorder them into an admission presentation: opening, HPI from the child's baseline ending with the ED course, birth and development, feeding, growth, immunizations, medications, allergies, social and family history, review of systems, exam, data, summary, assessment, plan by problem.</li>
-    <li>Build your own assessment: commit to a leading diagnosis with the findings that support it, say why each alternative is more or less likely, and give a safety net for anything you call less likely.</li>
-    <li>Present to Dr. Alvarez, then say "done." Afterward, open the model presentation and compare.</li>
-  </ol>
+  <div class="lbl">Presenting in inpatient pediatrics</div>
+  <p class="howline"><strong>How this works:</strong> Pick a patient, read the notes, the ED course, the exam and the data, present to Dr. Alvarez, then say "done." Afterward, open the model presentation and compare.</p>
+  <ul class="tips"><li>Open with the child's age, as precisely as the age calls for, and why the child was admitted.</li><li>Tell the story from the child's baseline in the caregiver's observations (feeding, wet diapers, activity), and end with the ED course.</li><li>State immunization status, even when it is unknown.</li><li>Commit to a leading diagnosis, and for anything you call less likely, say what would change your plan.</li><li>Give a plan by problem with specific tests, treatments and thresholds rather than "monitor."</li></ul>
 </section>
 <section class="how" data-group="pediatrics-outpatient">
-  <div class="lbl">How to use these &middot; Outpatient pediatrics</div>
-  <ol class="steps">
-    <li>Pick one patient and read the notes and the exam.</li>
-    <li>Reorder them into a clinic presentation: opening, HPI from the child's baseline, the history the child's age calls for (birth, development, feeding, growth, immunizations), medications, allergies, social and family history, review of systems, exam, assessment, plan.</li>
-    <li>Build your own assessment: commit to a leading diagnosis with the findings that support it, say why each alternative is more or less likely, and close with return precautions and a follow-up interval.</li>
-    <li>Present to Dr. Alvarez, then say "done." Afterward, open the model presentation and compare.</li>
-  </ol>
+  <div class="lbl">Presenting in outpatient pediatrics</div>
+  <p class="howline"><strong>How this works:</strong> Pick a patient, read the notes and the exam, present to Dr. Alvarez, then say "done." Afterward, open the model presentation and compare.</p>
+  <ul class="tips"><li>Open with the child's age and the reason for today's visit.</li><li>Tell the story from the child's baseline, and include what the caregiver is worried about.</li><li>Commit to a leading diagnosis, with a reason for or against each alternative you name.</li><li>Close the plan with return precautions a family could act on and a follow-up interval.</li></ul>
 </section>
 <section class="how" data-group="pediatrics-wellchild">
-  <div class="lbl">How to use these &middot; Well-child visits</div>
-  <ol class="steps">
-    <li>Read the notes, the exam, the screening results and what was given today.</li>
-    <li>Reorder them into a well-child presentation: opening, interval history, nutrition, sleep, elimination and behavior, social context and oral health, growth, exam, development, screening, immunizations.</li>
-    <li>Decide whether the child is on track, name the one or two things that need action and why, say what happens next with screens and vaccines, and choose two or three guidance topics for this child.</li>
-    <li>Present to Dr. Alvarez, then say "done." Afterward, open the model presentation and compare.</li>
-  </ol>
+  <div class="lbl">Presenting in well-child visits</div>
+  <p class="howline"><strong>How this works:</strong> Read the notes, the exam, the screening results and what was given today, present to Dr. Alvarez, then say "done." Afterward, open the model presentation and compare.</p>
+  <ul class="tips"><li>Open with the child's age, which well visit this is, any chronic condition, and whether the caregiver has concerns.</li><li>Give growth with percentiles and the direction since the last visit.</li><li>Make the assessment a statement of health, not a differential: is the child on track, and what one or two things need action.</li><li>Say which screens and immunizations were due today, and what was given or deferred.</li><li>Choose two or three guidance topics for this child, and say why you chose them.</li></ul>
 </section>
 <div class="cards">
 
@@ -258,7 +260,7 @@ a{color:var(--primary-deep);text-underline-offset:2px}
   <p class="task">Your turn: give a risk assessment with an overall level, a brief formulation, a working diagnosis with a differential that includes substance-induced and medical causes, and a plan that starts with safety and level of care.</p>
 </article>
 
-<article class="card" id="arceneaux" data-group="psychiatry">
+<article class="card" id="arceneaux" data-group="psychiatry" data-how="psychiatry-rounds">
   <div class="cardtop"><span class="chip">Psychiatry 3</span><span class="stage">Inpatient psychiatry &middot; morning rounds</span></div>
   <h3>Delphine Arceneaux</h3>
   <p class="cc">34-year-old woman, hospital day 3, "I feel great, I'm ready to go home"</p>
@@ -546,7 +548,7 @@ a{color:var(--primary-deep);text-underline-offset:2px}
 (function(){document.documentElement.classList.add('js');
 var links=[].slice.call(document.querySelectorAll('.menu a')),cards=[].slice.call(document.querySelectorAll('.pick .card')),hows=[].slice.call(document.querySelectorAll('.pick .how'));
 function resolve(id){if(document.getElementById(id)&&document.getElementById(id).classList.contains('card'))return id;var first=cards.filter(function(c){return c.dataset.group===id;})[0];return first?first.id:cards[0].id;}
-function show(id,scroll){id=resolve(id);var g=document.getElementById(id).dataset.group;cards.forEach(function(c){c.hidden=c.id!==id;});hows.forEach(function(h){h.hidden=h.dataset.group!==g;});links.forEach(function(a){a.setAttribute('aria-current',a.dataset.id===id?'true':'false');});if(scroll){var tgt=window.innerWidth<=760?document.querySelector('.side'):document.querySelector('.pick');var r=tgt.getBoundingClientRect();if(r.top<0||r.top>80)tgt.scrollIntoView({behavior:'smooth',block:'start'});}}
+function show(id,scroll){id=resolve(id);var g=document.getElementById(id).dataset.group;cards.forEach(function(c){c.hidden=c.id!==id;});var hw=document.getElementById(id).dataset.how||g;hows.forEach(function(h){h.hidden=h.dataset.group!==hw;});links.forEach(function(a){if(a.dataset.id===id){var d=a.closest('details');if(d)d.open=true;}});links.forEach(function(a){a.setAttribute('aria-current',a.dataset.id===id?'true':'false');});if(scroll){var tgt=window.innerWidth<=760?document.querySelector('.side'):document.querySelector('.pick');var r=tgt.getBoundingClientRect();if(r.top<0||r.top>80)tgt.scrollIntoView({behavior:'smooth',block:'start'});}}
 links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();history.replaceState(null,'','#'+a.dataset.id);show(a.dataset.id,true);});});
 show((location.hash||'').slice(1),false);})();
 </script>
